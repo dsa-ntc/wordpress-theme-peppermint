@@ -1,0 +1,224 @@
+/*
+ * Query, project-card, and pagination styles.
+ * Loaded when WordPress renders a core Query or Post Template block.
+ */
+
+.project-grid .wp-block-post-template {
+	min-inline-size: 0;
+	gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.project-grid .wp-block-post {
+	position: relative;
+	display: flex;
+	/* Size Card Title text relative to the card, not the viewport. */
+	container-type: inline-size;
+	min-inline-size: 0;
+	box-sizing: border-box;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+	padding-bottom: var(--wp--preset--spacing--50);
+}
+
+/* The editor's block order is also the visual and keyboard reading order. */
+.project-grid .wp-block-post > * {
+	min-inline-size: 0;
+	max-inline-size: 100%;
+	margin-block: 0;
+}
+
+.project-grid .wp-block-post::before {
+	display: block;
+	height: 0.75rem;
+	flex: 0 0 0.75rem;
+	background-image:
+		linear-gradient(
+			var(--wp--preset--color--dsa-red),
+			var(--wp--preset--color--dsa-red)
+		),
+		linear-gradient(
+			var(--wp--preset--color--contrast),
+			var(--wp--preset--color--contrast)
+		);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 0.75rem 0.75rem, 100% 2px;
+	content: "";
+}
+
+.project-grid .project-card__media,
+.project-grid .wp-block-post > .wp-block-post-featured-image {
+	width: 100%;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+	border: var(--ntc-soft-rule);
+	background-color: var(--wp--preset--color--base-2);
+}
+
+/* Keep image-only and empty slots at a fixed ratio; let other content grow. */
+.project-grid .project-card__media:not(:has(> *)),
+.project-grid .project-card__media:has(> .wp-block-post-featured-image:only-child),
+.project-grid .wp-block-post > .wp-block-post-featured-image {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.project-grid .project-card__media:not(:has(> *)) {
+	border-color: transparent;
+	background-image: linear-gradient(135deg, transparent 48.5%, var(--wp--preset--color--line) 49%, var(--wp--preset--color--line) 51%, transparent 51.5%);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 2.5rem 2.5rem;
+}
+
+.project-grid .project-card__media .wp-block-post-featured-image {
+	width: 100%;
+	margin: 0;
+	border: 0;
+}
+
+.project-grid .project-card__media > .wp-block-post-featured-image:only-child {
+	height: 100%;
+}
+
+/* The image clips to its slot; its keyboard focus indicator must not. */
+.project-grid .project-card__media:has(:focus-visible),
+.project-grid .wp-block-post > .wp-block-post-featured-image:has(:focus-visible) {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 4px;
+}
+
+.project-grid .wp-block-post-featured-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+}
+
+.project-grid .wp-block-post-featured-image.is-style-ntc-contained-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: scale-down !important;
+}
+
+.project-grid .wp-block-post-title a {
+	text-decoration: none;
+}
+
+.project-grid .wp-block-post-title a:hover,
+.project-grid .wp-block-post-title a:focus-visible {
+	color: var(--wp--preset--color--accent);
+	text-decoration: underline;
+}
+
+.project-grid .wp-block-post-excerpt {
+	flex-grow: 1;
+}
+
+.project-grid .wp-block-post-excerpt__excerpt {
+	margin-block: 0;
+}
+
+.project-grid .wp-block-query-no-results {
+	max-inline-size: var(--wp--style--global--content-size, 52rem);
+	margin-inline: auto;
+}
+
+/* Stacked cards do not need empty image slots to align their titles. */
+@media (max-width: 599px) {
+	.project-grid .project-card__media:not(:has(> *)) {
+		display: none;
+	}
+}
+
+.wp-block-query-pagination {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.45rem;
+	margin-block-start: var(--wp--preset--spacing--50);
+}
+
+.wp-block-query-pagination-numbers {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin: 0;
+}
+
+.wp-block-query-pagination-previous,
+.wp-block-query-pagination-next,
+.wp-block-query-pagination-numbers .page-numbers {
+	display: inline-flex;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+	padding: 0.45rem 0.7rem;
+	border: 1px solid var(--wp--preset--color--contrast);
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	font-size: 0.9rem;
+	font-weight: 700;
+	line-height: 1;
+	text-decoration: none;
+	transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.wp-block-query-pagination-previous:hover,
+.wp-block-query-pagination-next:hover,
+.wp-block-query-pagination-numbers a.page-numbers:hover {
+	border-color: var(--wp--preset--color--contrast);
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	text-decoration: none;
+}
+
+.wp-block-query-pagination-previous:focus-visible,
+.wp-block-query-pagination-next:focus-visible,
+.wp-block-query-pagination-numbers a.page-numbers:focus-visible {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	text-decoration: none;
+}
+
+.wp-block-query-pagination-numbers .page-numbers.current {
+	border-color: var(--wp--preset--color--contrast);
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+}
+
+.wp-block-query-pagination-numbers .page-numbers.dots {
+	min-width: 1.5rem;
+	padding-inline: 0.15rem;
+	border-color: transparent;
+}
+
+html[dir="rtl"] .project-grid .wp-block-post::before {
+	background-position: right center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-query-pagination-previous,
+	.wp-block-query-pagination-next,
+	.wp-block-query-pagination-numbers .page-numbers {
+		transition: none;
+	}
+}
+
+@media (forced-colors: active) {
+	.wp-block-query-pagination-previous,
+	.wp-block-query-pagination-next,
+	.wp-block-query-pagination-numbers .page-numbers {
+		border-color: ButtonText;
+	}
+
+	.wp-block-query-pagination-numbers .page-numbers.current {
+		border-color: Highlight;
+		background: Highlight;
+		color: HighlightText;
+		forced-color-adjust: none;
+	}
+}

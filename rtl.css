@@ -1,0 +1,10 @@
+/*
+ * RTL adjustments for theme-specific decorative details.
+ * Core block layouts and the remaining theme styles use logical properties.
+ */
+
+.eyebrow,
+.project-kicker,
+.post-meta {
+	letter-spacing: 0;
+}

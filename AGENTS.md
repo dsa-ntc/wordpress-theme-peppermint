@@ -1,0 +1,35 @@
+# Peppermint contributor guidance
+
+Peppermint is the NTC Block WordPress theme. Keep the installed directory
+`wordpress-theme-peppermint` and the `ntc-block` translation and block namespaces.
+Requirements and installation steps are in `readme.txt`.
+
+- Use core blocks, patterns, `theme.json`, and native editor controls. Preserve saved content.
+- Follow WordPress coding standards. Escape output at its destination and translate user-facing strings.
+- Write short, direct comments that explain intent. Keep user instructions in `readme.txt`.
+- Keep agent reports, credentials, uploads, dependencies, and generated output outside Git.
+  This is the only Markdown file maintained in the repository.
+- Run `composer install`, then `composer check`. Set `NTC_WORDPRESS_ROOT` to an
+  extracted or installed WordPress root and run `php tests/run.php static --require-wordpress`.
+- Run `npm --prefix tests/browser run setup` and install Chromium with Playwright.
+  Run `npm --prefix tests/browser run test:profiles`. From `tests/browser`, run
+  `npx playwright test --config=block-validation.config.mjs`.
+  Set `NTC_PHP_BINARY` if PHP is not on PATH.
+- Browser profiles require a running preview site. Set `NTC_TEST_BASE_URL`, inspect
+  `npm --prefix tests/browser run test:full -- --list`, then run `test:full` before pushing.
+  Use `test:component -- <name>` for scoped development. Do not accept new screenshot baselines automatically.
+  Set `NTC_TEST_CHANNEL=chrome` to test installed Google Chrome. CI uses bundled Chromium.
+- For visual changes, check the live Site Editor and frontend at phone, tablet, and desktop sizes.
+  Check keyboard use, light/dark appearance, RTL, text expansion, and affected accessibility behavior.
+- Compare separate theme copies with `php tests/compare-theme-trees.php <active> <mirror>`.
+  Copy intended source only. Record unavailable checks as not run.
+- CI runs source checks and isolated block validation on Linux; it has no site database.
+  Full frontend tests need preview fixtures. Deployment and release publishing are separate operations.
+- The compatibility tools are pinned prereleases because the older stable scanner crashes on PHP 8.5.
+  Their results supplement runtime tests; they do not certify every PHP or plugin integration.
+
+Local development files live in the ignored `.local/` directory: Composer packages
+under `vendor/`, browser packages under `browser/node_modules/`, and generated test
+results, logs, and images in their own subfolders. The link at `tests/browser/node_modules`
+points there for Node resolution. Use the setup command above instead of `npm ci` in
+`tests/browser`. Keep `package.json` and its lockfile there as tracked source.

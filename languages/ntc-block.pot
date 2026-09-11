@@ -1,0 +1,908 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NTC Block 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/ntc-block\n"
+"POT-Creation-Date: 2026-08-27 18:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: ntc-block\n"
+
+#. Theme Name of the theme
+msgid "NTC Block"
+msgstr ""
+
+#. Description of the theme
+msgid "A minimal, flexible block theme for the DSA National Tech Committee."
+msgstr ""
+
+#: functions.php
+msgid "NTC Red Tile"
+msgstr ""
+
+#: functions.php
+msgid "Windows 95 Frame"
+msgstr ""
+
+#: functions.php
+msgid "Simple Surface"
+msgstr ""
+
+#: functions.php
+msgid "Retro DSA Frame"
+msgstr ""
+
+#: functions.php
+msgid "macOS Frame"
+msgstr ""
+
+#: functions.php
+msgid "Image + Button Card"
+msgstr ""
+
+#: functions.php
+msgid "Signal Hero"
+msgstr ""
+
+#: functions.php
+msgid "Signal Rail"
+msgstr ""
+
+#: styles/dark.json
+msgid "Dark"
+msgstr ""
+
+#: styles/light.json
+msgid "Light"
+msgstr ""
+
+#: styles/system.json
+msgid "System"
+msgstr ""
+
+#: blocks/theme-switcher/block.json blocks/theme-switcher/index.js
+msgid "Appearance Switcher"
+msgstr ""
+
+#: blocks/theme-switcher/block.json blocks/theme-switcher/index.js
+msgid "A compact visitor control for choosing System, Light, or Dark appearance."
+msgstr ""
+
+#: blocks/theme-switcher/index.js
+msgid "Appearance"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Appearance: Dark"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Appearance: Light"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Appearance: System"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Appearance: Site default"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Site default"
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "Site default uses the appearance selected for this site."
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+msgid "System follows your device setting."
+msgstr ""
+
+#: blocks/theme-switcher/index.js
+msgid "Preview appearance choices"
+msgstr ""
+
+#: blocks/theme-switcher/index.js
+msgid "Preview only; visitors choose their own appearance."
+msgstr ""
+
+#: functions.php
+msgid "Contained artwork (no upscale)"
+msgstr ""
+
+#: patterns/blog-index.php
+msgid "Blog index"
+msgstr ""
+
+#: patterns/footer.php
+msgid "Site footer"
+msgstr ""
+
+#: patterns/front-page-projects.php
+msgid "Front page projects"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgid "404 content"
+msgstr ""
+
+#: patterns/image-action-card.php
+msgid "Image feature with button"
+msgstr ""
+
+#: patterns/image-action-card.php
+msgid "A clean image card with editable text and a separate action button."
+msgstr ""
+
+#: patterns/landing-hero.php
+msgid "Technical landing hero"
+msgstr ""
+
+#: patterns/landing-hero.php
+msgid "A full-width filtered image introduction with constrained text and a single call to action."
+msgstr ""
+
+#: patterns/no-results.php
+msgid "No results message"
+msgstr ""
+
+#: patterns/project-grid.php
+msgid "Two-column project grid"
+msgstr ""
+
+#: patterns/project-grid.php
+msgid "A two-column grid of project posts with featured images."
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Subcommittee image tiles"
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Three editable red image tiles for the NTC subcommittees."
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Subcommittees"
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Engagement"
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Formations"
+msgstr ""
+
+#: patterns/subcommittee-tiles.php
+msgid "Member Services"
+msgstr ""
+
+#: patterns/image-action-card.php
+msgid "Feature title"
+msgstr ""
+
+#: patterns/image-action-card.php
+msgid "Add a short description that explains the project, resource, or next step."
+msgstr ""
+
+#: patterns/image-action-card.php
+msgid "Learn more"
+msgstr ""
+
+#: patterns/landing-hero.php:20
+msgid "A clear statement of what this project does."
+msgstr ""
+
+#: patterns/landing-hero.php:24
+msgid "Add a short explanation of who the work serves, what changed, and where members can learn more."
+msgstr ""
+
+#: patterns/landing-hero.php:28
+msgid "Explore the project"
+msgstr ""
+
+#: patterns/project-grid.php:15
+msgid "Projects"
+msgstr ""
+
+#: patterns/project-grid.php:26
+msgctxt "project excerpt link"
+msgid "Read more"
+msgstr ""
+
+#: patterns/front-page-projects.php:15
+msgid "Projects & field notes"
+msgstr ""
+
+#: patterns/front-page-projects.php:30
+msgctxt "project excerpt link"
+msgid "Read project note"
+msgstr ""
+
+#: patterns/footer.php:16
+msgid "Contact us with any questions, comments or concerns at ntc@dsacommittees.org."
+msgstr ""
+
+#: patterns/no-results.php:12
+msgid "No content was found."
+msgstr ""
+
+#: patterns/hidden-404.php:10
+msgid "Error 404"
+msgstr ""
+
+#: patterns/hidden-404.php:11
+msgid "That route does not exist."
+msgstr ""
+
+#: patterns/hidden-404.php:12
+msgid "Try a search or return to the home page."
+msgstr ""
+
+#: patterns/hidden-404.php:14
+msgctxt "home link label"
+msgid "Return home"
+msgstr ""
+
+#: patterns/blog-index.php:12
+msgid "Project notes"
+msgstr ""
+
+#: theme.json
+msgid "DSA Red"
+msgstr ""
+
+#: theme.json
+msgid "DSA Black"
+msgstr ""
+
+#: theme.json
+msgid "White"
+msgstr ""
+
+#: theme.json
+msgid "Red Tint"
+msgstr ""
+
+#: theme.json
+msgid "Black Tint 2"
+msgstr ""
+
+#: theme.json
+msgid "Black Tint 4"
+msgstr ""
+
+#: theme.json
+msgid "Canvas"
+msgstr ""
+
+#: theme.json
+msgid "Raised Surface"
+msgstr ""
+
+#: theme.json
+msgid "Foreground"
+msgstr ""
+
+#: theme.json
+msgid "Muted Foreground"
+msgstr ""
+
+#: theme.json
+msgid "Accessible Red"
+msgstr ""
+
+#: theme.json
+msgid "On Accent"
+msgstr ""
+
+#: theme.json
+msgid "Line"
+msgstr ""
+
+#: theme.json
+msgid "Sans Serif"
+msgstr ""
+
+#: theme.json
+msgid "2XS"
+msgstr ""
+
+#: theme.json
+msgid "XS"
+msgstr ""
+
+#: theme.json
+msgid "S"
+msgstr ""
+
+#: theme.json
+msgid "M"
+msgstr ""
+
+#: theme.json
+msgid "L"
+msgstr ""
+
+#: theme.json
+msgid "XL"
+msgstr ""
+
+#: theme.json
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgid "Extra Large"
+msgstr ""
+
+#: theme.json
+msgid "Card Title"
+msgstr ""
+
+#: theme.json
+msgid "Page Title"
+msgstr ""
+
+#: theme.json
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgid "Footer"
+msgstr ""
+
+#: patterns/contact-details.php:50
+msgid "(000) 000-0000"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:77
+msgid "100%"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:32
+msgid "12"
+msgstr ""
+
+#: patterns/contact-details.php:69
+msgid "123 Solidarity Street"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:62
+msgid "42"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:47
+msgid "8"
+msgstr ""
+
+#: patterns/media-text-intro-image-left.php
+msgid "A balanced page introduction with an image on the left and editable text on the right."
+msgstr ""
+
+#: patterns/media-text-intro-image-right.php
+msgid "A balanced page introduction with editable text on the left and an image on the right."
+msgstr ""
+
+#: patterns/page-intro.php:20
+msgid "A clear introduction to the work."
+msgstr ""
+
+#: patterns/compact-query-loop.php
+msgid "A compact list of posts with category, linked title, date, no-results message, and pagination."
+msgstr ""
+
+#: patterns/project-landing-page.php
+msgid "A complete project page starter with an introduction, approach, outcomes, and next step."
+msgstr ""
+
+#: patterns/no-results.php
+msgid "A concise empty-query message for archives and searches."
+msgstr ""
+
+#: patterns/contact-details.php
+msgid "A contact section with editable email, phone, location, and availability details."
+msgstr ""
+
+#: patterns/call-to-action.php
+msgid "A high-contrast call to action with primary and secondary actions."
+msgstr ""
+
+#: patterns/logo-partner-grid.php
+msgid "A six-item partner grid with accessible text placeholders for logos or organization names."
+msgstr ""
+
+#: patterns/page-intro.php
+msgid "A spacious page introduction with an eyebrow, heading, and summary."
+msgstr ""
+
+#: patterns/team-person-grid.php
+msgid "A three-person team grid with names, roles, biographies, and areas of focus."
+msgstr ""
+
+#: patterns/page-intro.php:16
+msgid "About this work"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:65
+msgid "Active contributors"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:35
+msgid "Active projects"
+msgstr ""
+
+#: patterns/contact-details.php:73
+msgid "Add accessibility, transit, or appointment information here."
+msgstr ""
+
+#: patterns/team-person-grid.php:39
+msgid "Alex Morgan"
+msgstr ""
+
+#: patterns/team-person-grid.php:42
+msgid "Alex coordinates the roadmap and keeps the project accountable to member needs."
+msgstr ""
+
+#: patterns/featured-project.php
+msgid "An image-led featured project with a summary, key detail, and action."
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:16
+msgid "At a glance"
+msgstr ""
+
+#: patterns/contact-details.php:85
+msgid "Availability"
+msgstr ""
+
+#: patterns/media-text-intro-image-right.php:20
+msgid "Bring your skills to the movement."
+msgstr ""
+
+#: patterns/project-landing-page.php:22
+msgid "Build power with practical technology."
+msgstr ""
+
+#: patterns/call-to-action.php
+msgid "Call to action"
+msgstr ""
+
+#: styles/section-canvas.json
+msgid "Canvas Section"
+msgstr ""
+
+#: patterns/compact-query-loop.php
+msgid "Compact query loop"
+msgstr ""
+
+#: patterns/contact-details.php
+msgid "Contact and details section"
+msgstr ""
+
+#: patterns/project-landing-page.php:129
+msgid "Contact the project team"
+msgstr ""
+
+#: patterns/contact-details.php:16
+msgid "Contact"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:50
+msgid "Contributing chapters"
+msgstr ""
+
+#: patterns/project-landing-page.php:52
+msgid "Describe the problem in concrete terms. Include who is affected and why the current situation needs to change."
+msgstr ""
+
+#: patterns/project-landing-page.php:107
+msgid "Describe the skills, systems, or relationships the project builds."
+msgstr ""
+
+#: patterns/team-person-grid.php:57
+msgid "Design lead"
+msgstr ""
+
+#: patterns/contact-details.php:40
+msgid "Email"
+msgstr ""
+
+#: patterns/team-person-grid.php:78
+msgid "Engineering lead"
+msgstr ""
+
+#: patterns/media-text-intro-image-right.php:24
+msgid "Explain how people can contribute, what support is available, and the best first step to take."
+msgstr ""
+
+#: patterns/project-landing-page.php:64
+msgid "Explain the strategy, the work already underway, and how members or partners shape the project."
+msgstr ""
+
+#: patterns/featured-project.php patterns/featured-project.php:15
+msgid "Featured project"
+msgstr ""
+
+#: patterns/team-person-grid.php:87
+msgid "Focus: architecture and mentoring"
+msgstr ""
+
+#: patterns/team-person-grid.php:66
+msgid "Focus: research and accessibility"
+msgstr ""
+
+#: patterns/team-person-grid.php:45
+msgid "Focus: strategy and facilitation"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php
+msgid "Four editable facts or statistics in a responsive row."
+msgstr ""
+
+#: theme.json
+msgid "Full Width / Content Canvas"
+msgstr ""
+
+#: patterns/call-to-action.php:28 patterns/media-text-intro-image-right.php:16
+msgid "Get involved"
+msgstr ""
+
+#: patterns/call-to-action.php:22
+msgid "Give readers a concise reason to act now and explain what their participation makes possible."
+msgstr ""
+
+#: patterns/project-landing-page.php:123
+msgid "Give readers one clear next step and tell them what to expect after they respond."
+msgstr ""
+
+#: patterns/call-to-action.php:18
+msgid "Help move this work forward."
+msgstr ""
+
+#: patterns/contact-details.php:89
+msgid "Hours"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:16
+msgid "In partnership"
+msgstr ""
+
+#: patterns/team-person-grid.php:24
+msgid "Introduce the members responsible for the project and make their areas of focus easy to understand."
+msgstr ""
+
+#: patterns/media-text-intro-image-left.php:24
+msgid "Introduce the people, purpose, or project featured on this page in a few direct sentences."
+msgstr ""
+
+#: patterns/project-landing-page.php:32
+msgid "Join the project"
+msgstr ""
+
+#: patterns/team-person-grid.php:60
+msgid "Jordan Rivera"
+msgstr ""
+
+#: patterns/team-person-grid.php:63
+msgid "Jordan turns research into clear, accessible experiences that work across devices."
+msgstr ""
+
+#: patterns/key-facts-stats-row.php
+msgid "Key facts and stats row"
+msgstr ""
+
+#: theme.json
+msgid "Landing Page"
+msgstr ""
+
+#: patterns/project-landing-page.php:104
+msgid "Lasting capacity"
+msgstr ""
+
+#: patterns/compact-query-loop.php:15
+msgid "Latest updates"
+msgstr ""
+
+#: patterns/call-to-action.php:32
+msgid "Learn about the work"
+msgstr ""
+
+#: patterns/contact-details.php:66
+msgid "Location"
+msgstr ""
+
+#: patterns/logo-partner-grid.php
+msgid "Logo and partner grid"
+msgstr ""
+
+#: patterns/media-text-intro-image-left.php
+msgid "Media and text intro, image left"
+msgstr ""
+
+#: patterns/media-text-intro-image-right.php
+msgid "Media and text intro, image right"
+msgstr ""
+
+#: patterns/team-person-grid.php:20
+msgid "Meet the people doing the work."
+msgstr ""
+
+#: patterns/featured-project.php:19
+msgid "Member support without the paperwork maze."
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:80
+msgid "Member-led"
+msgstr ""
+
+#: patterns/contact-details.php:96
+msgid "Messages are usually answered within two working days."
+msgstr ""
+
+#: patterns/contact-details.php:92
+msgid "Monday–Friday, 9:00 a.m.–5:00 p.m."
+msgstr ""
+
+#: patterns/project-landing-page.php:85
+msgid "Name a concrete tool, service, or resource people can use."
+msgstr ""
+
+#: theme.json
+msgid "No Title"
+msgstr ""
+
+#: patterns/compact-query-loop.php:37
+msgid "No updates were found."
+msgstr ""
+
+#: patterns/logo-partner-grid.php:20
+msgid "Organizations working alongside us."
+msgstr ""
+
+#: patterns/project-landing-page.php:60
+msgid "Our approach"
+msgstr ""
+
+#: patterns/team-person-grid.php:16
+msgid "Our team"
+msgstr ""
+
+#: styles/section-outline.json
+msgid "Outlined Section"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:70
+msgid "Partner five"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:62
+msgid "Partner four"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:34
+msgid "Partner one"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:78
+msgid "Partner six"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:50
+msgid "Partner three"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:42
+msgid "Partner two"
+msgstr ""
+
+#: patterns/media-text-intro-image-left.php:20
+msgid "People building useful tools together."
+msgstr ""
+
+#: patterns/contact-details.php:47
+msgid "Phone"
+msgstr ""
+
+#: patterns/project-landing-page.php
+msgid "Project landing page starter"
+msgstr ""
+
+#: patterns/team-person-grid.php:36
+msgid "Project lead"
+msgstr ""
+
+#: patterns/project-landing-page.php:18
+msgid "Project overview"
+msgstr ""
+
+#: styles/section-surface.json
+msgid "Raised Section"
+msgstr ""
+
+#: patterns/project-landing-page.php:119
+msgid "Ready to contribute?"
+msgstr ""
+
+#: styles/section-red.json
+msgid "Red Section"
+msgstr ""
+
+#: patterns/logo-partner-grid.php:24
+msgid "Replace each name with a partner logo or keep the text treatment for a simple, accessible directory."
+msgstr ""
+
+#: patterns/team-person-grid.php:81
+msgid "Sam Kim"
+msgstr ""
+
+#: patterns/team-person-grid.php:84
+msgid "Sam builds maintainable systems and helps contributors ship improvements with confidence."
+msgstr ""
+
+#: patterns/contact-details.php:24
+msgid "Share the best ways to reach your team and set clear expectations for a response."
+msgstr ""
+
+#: patterns/project-landing-page.php:93
+msgid "Shared knowledge"
+msgstr ""
+
+#: patterns/project-landing-page.php:96
+msgid "Show how the work helps people learn from one another."
+msgstr ""
+
+#: patterns/featured-project.php:23
+msgid "Show what the project does, who built it, and how it helps members organize more effectively."
+msgstr ""
+
+#: patterns/project-landing-page.php:26
+msgid "State the project goal, the people it supports, and the change you are working to make."
+msgstr ""
+
+#: patterns/featured-project.php:27
+msgid "Status: active development"
+msgstr ""
+
+#: patterns/page-intro.php:24
+msgid "Summarize the purpose of this page, who it serves, and what readers will find below."
+msgstr ""
+
+#: patterns/call-to-action.php:14
+msgid "Take action"
+msgstr ""
+
+#: patterns/media-text-intro-image-right.php:30
+msgid "Take the first step"
+msgstr ""
+
+#: patterns/contact-details.php:20
+msgid "Talk with the team."
+msgstr ""
+
+#: patterns/team-person-grid.php
+msgid "Team and person grid"
+msgstr ""
+
+#: styles/technical-callout.json
+msgid "Technical Callout"
+msgstr ""
+
+#: patterns/page-intro.php
+msgid "Text-only page intro"
+msgstr ""
+
+#: patterns/project-landing-page.php:48
+msgid "The challenge"
+msgstr ""
+
+#: patterns/key-facts-stats-row.php:20
+msgid "The work in numbers."
+msgstr ""
+
+#: patterns/project-landing-page.php:82
+msgid "Useful resources"
+msgstr ""
+
+#: patterns/featured-project.php:33
+msgid "View project"
+msgstr ""
+
+#: patterns/contact-details.php:62
+msgid "Visit"
+msgstr ""
+
+#: patterns/project-landing-page.php:74
+msgid "What this project delivers"
+msgstr ""
+
+#: patterns/media-text-intro-image-left.php:16
+msgid "Who we are"
+msgstr ""
+
+#: patterns/contact-details.php:36
+msgid "Write or call"
+msgstr ""
+
+#: patterns/contact-details.php:69
+msgid "Your City, ST 00000"
+msgstr ""
+
+#: patterns/contact-details.php:43
+msgid "hello@example.org"
+msgstr ""
+
+#: patterns/project-skills-board.php Title
+msgid "Project skills board"
+msgstr ""
+
+#: patterns/project-skills-board.php Description
+msgid "A project introduction with three linked skill notes. Choose Corkboard, DSA Noticeboard, or Windows 95 Desktop on the outer Group and replace the starter links."
+msgstr ""
+
+#: functions.php
+msgid "Corkboard"
+msgstr ""
+
+#: functions.php
+msgid "DSA Noticeboard"
+msgstr ""
+
+#: functions.php
+msgid "Windows 95 Desktop"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Organize"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "WordPress commission"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Help us build accessible, reliable websites for chapters and national projects."
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "We’re looking for:"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "PHP developers"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Build useful WordPress features, review code, and make our tools easier to maintain."
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Linux administrators"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Keep hosting dependable. Help with updates, backups, monitoring, and documentation."
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Project managers"
+msgstr ""
+
+#: patterns/project-skills-board.php
+msgid "Turn ideas into manageable next steps and help contributors find a place to start."
+msgstr ""

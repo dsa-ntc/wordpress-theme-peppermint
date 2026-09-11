@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tests/browser/package-lock.json
+      - name: Check repository contents
+        run: node tests/repository-policy.mjs
+      - name: Install development tools
+        run: |
+          composer validate --no-check-publish
+          composer install --no-interaction --prefer-dist --no-progress
+          composer audit
+          npm --prefix tests/browser run setup
+          npm audit --prefix .local/browser --audit-level=high
+      - name: Download the supported WordPress version
+        run: |
+          curl --fail --silent --show-error --location --retry 3 \
+            https://wordpress.org/wordpress-7.1.tar.gz \
+            --output "$RUNNER_TEMP/wordpress.tar.gz"
+          tar -xzf "$RUNNER_TEMP/wordpress.tar.gz" -C "$RUNNER_TEMP"
+          echo "NTC_WORDPRESS_ROOT=$RUNNER_TEMP/wordpress" >> "$GITHUB_ENV"
+      - name: Check PHP conventions and theme contracts
+        run: |
+          composer check
+          php tests/run.php static --require-wordpress
+      - name: Check browser profiles and JavaScript syntax
+        run: |
+          npm --prefix tests/browser run test:profiles
+          node --check assets/js/theme-switcher.js
+          node --check blocks/theme-switcher/index.js
+      - name: Validate blocks with WordPress JavaScript
+        working-directory: tests/browser
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test --config=block-validation.config.mjs

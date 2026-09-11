@@ -1,0 +1,714 @@
+/*
+Theme Name: NTC Block
+Author: DSA National Tech Committee
+Author URI: https://www.dsausa.org/
+Description: A minimal, flexible block theme for the DSA National Tech Committee.
+Requires at least: 7.1
+Tested up to: 7.1
+Requires PHP: 8.5
+Version: 1.2.0
+Text Domain: ntc-block
+Domain Path: /languages
+Tags: full-site-editing, block-patterns, block-styles, custom-colors, custom-logo, editor-style, featured-images, translation-ready, wide-blocks
+*/
+
+:root {
+	--ntc-rule: 2px solid var(--wp--preset--color--contrast);
+	--ntc-soft-rule: 1px solid var(--wp--preset--color--line);
+}
+
+:root[data-ntc-color-scheme="light"] {
+	color-scheme: light;
+}
+
+:root[data-ntc-color-scheme="dark"] {
+	color-scheme: dark;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	text-rendering: optimizeLegibility;
+}
+
+.wp-site-blocks {
+	display: flex;
+	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
+	min-height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+	flex-direction: column;
+}
+
+.wp-site-blocks > main {
+	flex: 1 0 auto;
+}
+
+.wp-site-blocks > header,
+.wp-site-blocks > footer {
+	flex: 0 0 auto;
+}
+
+.wp-site-blocks > * {
+	margin-block-start: 0;
+}
+
+a {
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.15em;
+}
+
+a:hover,
+a:focus-visible {
+	text-decoration-thickness: 0.14em;
+}
+
+:focus-visible {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 4px;
+}
+
+::selection {
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--accent-contrast);
+}
+
+input,
+select,
+textarea {
+	border-color: var(--wp--preset--color--contrast);
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--wp--preset--color--contrast-2);
+	opacity: 1;
+}
+
+.site-topbar {
+	border-bottom: 0.4rem solid var(--wp--preset--color--dsa-red);
+}
+
+.topbar-logo img {
+	display: block;
+}
+
+.topbar-inner {
+	flex-wrap: wrap;
+}
+
+.topbar-brand {
+	flex: 1 1 12rem;
+	min-inline-size: 0;
+}
+
+.topbar-title {
+	max-width: 21ch;
+	margin: 0;
+	letter-spacing: -0.025em;
+}
+
+.topbar-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.topbar-navigation {
+	flex: 1 1 auto;
+	min-inline-size: 0;
+}
+
+.topbar-tools {
+	flex: 0 1 auto;
+	min-inline-size: 0;
+	max-inline-size: 100%;
+}
+
+.topbar-inner > .topbar-tools {
+	margin-inline-start: auto;
+}
+
+.wp-block-ntc-block-theme-switcher {
+	position: relative;
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	line-height: 1;
+}
+
+.ntc-theme-switcher[hidden],
+.ntc-theme-switcher__panel[hidden] {
+	display: none;
+}
+
+.ntc-theme-switcher__panel {
+	position: absolute;
+	z-index: 10000;
+	inset-block-start: calc(100% + 0.5rem);
+	inset-inline-end: 0;
+	inline-size: 14rem;
+	max-inline-size: calc(100vw - 2rem);
+	max-block-size: min(32rem, 70dvh);
+	overflow-y: auto;
+	box-sizing: border-box;
+	padding: 0.75rem;
+	border: var(--ntc-soft-rule);
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	box-shadow: 0.2rem 0.2rem 0 var(--wp--preset--color--line);
+	font-size: 1rem;
+	line-height: 1.4;
+}
+
+.ntc-theme-switcher__choices {
+	min-inline-size: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.ntc-theme-switcher__choices legend {
+	margin-block-end: 0.25rem;
+	font-weight: 600;
+}
+
+.ntc-theme-switcher__option {
+	display: flex;
+	min-block-size: 2.75rem;
+	box-sizing: border-box;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.5rem;
+	cursor: pointer;
+}
+
+.ntc-theme-switcher__option:hover,
+.ntc-theme-switcher__option:focus-within {
+	background: var(--wp--preset--color--base-2);
+}
+
+.ntc-theme-switcher__option input {
+	flex: 0 0 auto;
+	margin: 0;
+	accent-color: var(--wp--preset--color--accent);
+}
+
+.ntc-theme-switcher__option span {
+	min-inline-size: 0;
+	overflow-wrap: anywhere;
+}
+
+.ntc-theme-switcher__help {
+	margin: 0.5rem 0 0;
+	color: var(--wp--preset--color--contrast-2);
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.5;
+}
+
+.ntc-theme-switcher {
+	display: grid;
+	width: 2.75rem;
+	height: 2.75rem;
+	box-sizing: border-box;
+	padding: 0;
+	place-items: center;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	cursor: pointer;
+	transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.topbar-navigation .wp-block-navigation__responsive-container-open,
+.topbar-navigation .wp-block-navigation__responsive-container-close {
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Add menu gutters without changing core's modal and focus behavior. */
+.topbar-navigation .wp-block-navigation__responsive-container.is-menu-open {
+	box-sizing: border-box;
+	padding-inline: var(--wp--preset--spacing--40);
+}
+
+.ntc-theme-switcher:hover {
+	border-color: var(--wp--preset--color--line);
+	background: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--accent);
+}
+
+.ntc-theme-switcher__icon {
+	display: block;
+	width: 1.2rem;
+	height: 1.2rem;
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: square;
+	stroke-linejoin: miter;
+	stroke-width: 1.75;
+}
+
+.ntc-theme-switcher__icon--moon {
+	display: none;
+}
+
+:root[data-ntc-resolved-scheme="dark"] .ntc-theme-switcher__icon--sun {
+	display: none;
+}
+
+:root[data-ntc-resolved-scheme="dark"] .ntc-theme-switcher__icon--moon {
+	display: block;
+}
+
+.eyebrow,
+.project-kicker,
+.post-meta {
+	font-family: var(--wp--preset--font-family--manifold);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	line-height: 1.25;
+	text-transform: uppercase;
+}
+
+/*
+ * Signal Hero and Signal Rail.
+ *
+ * Both styles share a continuous rule and square endpoint.
+ * These CSS decorations carry no content or interaction.
+ */
+:where(.wp-block-heading, p).is-style-ntc-signal-rail,
+:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) .eyebrow {
+	position: relative;
+	padding-block-end: 1.15rem;
+}
+
+:where(.wp-block-heading, p).is-style-ntc-signal-rail::after,
+:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) .eyebrow::after {
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline-start: 0;
+	display: block;
+	width: min(100%, 34rem);
+	height: 0.75rem;
+	background-image:
+		linear-gradient(var(--wp--preset--color--accent), var(--wp--preset--color--accent)),
+		linear-gradient(var(--wp--preset--color--accent), var(--wp--preset--color--accent));
+	background-position: left center, right center;
+	background-repeat: no-repeat;
+	background-size: 100% 2px, 0.75rem 0.75rem;
+	content: "";
+	pointer-events: none;
+}
+
+:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) {
+	min-inline-size: 0;
+	box-sizing: border-box;
+}
+
+:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) > :is(h1, h2, h3),
+:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) > :is(h1, h2, h3) a {
+	min-inline-size: 0;
+	overflow-wrap: anywhere;
+	text-wrap: balance;
+}
+
+html[dir="rtl"] :where(.wp-block-heading, p).is-style-ntc-signal-rail::after,
+html[dir="rtl"] :where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) .eyebrow::after {
+	background-position: right center, left center;
+}
+
+@media (forced-colors: active) {
+	:where(.wp-block-heading, p).is-style-ntc-signal-rail::after,
+	:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) .eyebrow::after {
+		border-block-end: 2px solid CanvasText;
+		background: none !important;
+		box-shadow: inset -0.75rem 0 0 CanvasText;
+	}
+
+	:where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style-ntc-signal-hero) {
+		border: 1px solid CanvasText;
+	}
+}
+
+.entry-shell {
+	border-top: var(--ntc-rule);
+}
+
+.entry-content > :first-child {
+	margin-block-start: 0;
+}
+
+.entry-content > :last-child {
+	margin-block-end: 0;
+}
+
+/*
+ * Full-width Post Content lets the landing hero reach the viewport edges.
+ * Constrain other top-level blocks to the reading or wide measure and keep
+ * their side gutters. Additional alignfull sections stay full width.
+ */
+.ntc-landing-page-content > :not(.alignfull) {
+	width: calc(100% - (2 * var(--wp--preset--spacing--40)));
+	margin-inline: auto;
+	box-sizing: border-box;
+}
+
+.ntc-landing-page-content > :not(.alignfull):not(.alignwide) {
+	max-width: var(--wp--style--global--content-size, 52rem);
+}
+
+.ntc-landing-page-content > .alignwide {
+	max-width: var(--wp--style--global--wide-size, 80rem);
+}
+
+/* Add heading space after article text, without affecting nested components. */
+.entry-content > :where(p, ul, ol, blockquote) + :where(h2, h3) {
+	margin-block-start: 1.6em;
+}
+
+:where(.wp-block-column, .wp-block-group, .wp-block-media-text__content, .wp-block-post, .wp-block-post-title, .wp-block-query-title) {
+	min-inline-size: 0;
+}
+
+:where(.wp-block-heading, .wp-block-post-title, .wp-block-query-title) {
+	overflow-wrap: anywhere;
+	hyphens: manual;
+	text-wrap: balance;
+}
+
+:where(.entry-content p, .entry-content li, .wp-block-post-excerpt) {
+	overflow-wrap: anywhere;
+	text-wrap: pretty;
+}
+
+.entry-content code {
+	overflow-wrap: anywhere;
+}
+
+.entry-content pre {
+	max-inline-size: 100%;
+	overflow-x: auto;
+}
+
+.front-page-content > h1:first-child,
+.front-page-content > .wp-block-heading:first-child {
+	max-width: 15ch;
+	font-size: clamp(2.8rem, 7vw, 6.5rem);
+	line-height: 0.94;
+}
+
+.team-member-card {
+	border: var(--ntc-rule);
+}
+
+.featured-projects {
+	align-items: stretch;
+}
+
+.featured-projects > .wp-block-column {
+	display: flex;
+}
+
+.legacy-feature-card,
+.wp-block-group.is-style-ntc-media-action-card {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	flex-direction: column;
+	min-inline-size: 0;
+	border: var(--ntc-soft-rule);
+	border-block-start: 0.25rem solid var(--wp--preset--color--dsa-red);
+}
+
+.legacy-feature-card,
+.team-member-card {
+	height: 100%;
+	padding: var(--wp--preset--spacing--40);
+}
+
+.legacy-feature-card > .wp-block-image:first-child {
+	width: calc(100% + (2 * var(--wp--preset--spacing--40)));
+	max-width: none !important;
+	margin-inline: calc(-1 * var(--wp--preset--spacing--40)) !important;
+	margin-top: calc(-1 * var(--wp--preset--spacing--40));
+}
+
+.legacy-feature-card {
+	gap: var(--wp--preset--spacing--30);
+}
+
+.legacy-feature-card > * {
+	margin-block: 0;
+}
+
+.legacy-feature-card .wp-block-image img,
+.wp-block-group.is-style-ntc-media-action-card > .wp-block-image img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+}
+
+.legacy-feature-card .wp-block-buttons {
+	margin-top: auto;
+	padding-top: var(--wp--preset--spacing--30);
+}
+
+.wp-block-group.is-style-ntc-media-action-card > .wp-block-image {
+	width: 100%;
+	max-width: none !important;
+	margin: 0 !important;
+}
+
+.ntc-media-action-card__body {
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	flex-direction: column;
+	align-items: stretch;
+	gap: var(--wp--preset--spacing--30);
+	margin-block: 0;
+	padding: var(--wp--preset--spacing--40);
+}
+
+.ntc-media-action-card__body > * {
+	margin-block: 0;
+}
+
+.ntc-media-action-card__body > .wp-block-buttons {
+	margin-top: auto;
+	padding-top: var(--wp--preset--spacing--30);
+}
+
+/* Contained artwork shows the whole image without upscaling. */
+.wp-block-image.is-style-ntc-contained-media img,
+.wp-block-post-featured-image.is-style-ntc-contained-media img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	object-fit: scale-down !important;
+}
+
+.ntc-pattern-partner-grid > .wp-block-columns > .wp-block-column,
+.ntc-pattern-stats__row > .wp-block-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.ntc-pattern-partner-grid__item,
+.ntc-pattern-stat {
+	inline-size: 100%;
+	box-sizing: border-box;
+	align-self: stretch;
+	flex: 1 1 auto;
+}
+
+.ntc-pattern-partner-grid__item .wp-block-image {
+	max-inline-size: 100%;
+}
+
+.ntc-pattern-partner-grid__item img {
+	max-inline-size: 100%;
+	max-block-size: 8rem;
+	object-fit: scale-down;
+}
+
+/* Apply the feature grid only when requested; preserve ordinary Columns. */
+.wp-block-columns.ntc-feature-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, max(18rem, calc((100% - 2 * var(--wp--preset--spacing--40)) / 3))), 1fr));
+	gap: var(--wp--preset--spacing--40);
+}
+
+.ntc-feature-grid > .wp-block-column {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Give dashboard embeds enough height to use their controls. */
+.ntc-responsive-embed iframe {
+	display: block;
+	inline-size: 100%;
+	block-size: clamp(30rem, 75vh, 55rem);
+	box-sizing: border-box;
+	border: var(--ntc-soft-rule);
+	background-color: var(--wp--preset--color--base-2);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-canvas,
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-surface,
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-red,
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-outline,
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-technical-callout {
+	box-sizing: border-box;
+	padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-canvas {
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-surface {
+	background-color: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--contrast);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-red {
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--accent-contrast);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-red a:not(.wp-block-button__link) {
+	color: inherit;
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-red .wp-block-button__link {
+	border-color: var(--wp--preset--color--accent-contrast);
+	background-color: var(--wp--preset--color--accent-contrast);
+	color: var(--wp--preset--color--accent);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-section-outline {
+	border: var(--ntc-soft-rule);
+}
+
+:where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-ntc-technical-callout {
+	border-inline-start: 0.5rem solid var(--wp--preset--color--dsa-red);
+	background-color: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--contrast);
+}
+
+.post-meta > .wp-block-post-date,
+.post-meta > .wp-block-post-author-name,
+.wp-block-post-date.post-meta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.post-meta > .wp-block-post-date::before,
+.wp-block-post-date.post-meta::before,
+.post-meta > .wp-block-post-author-name::before {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	flex: 0 0 1em;
+	background-color: currentColor;
+	content: "";
+	mask-position: center;
+	mask-repeat: no-repeat;
+	mask-size: contain;
+}
+
+.post-meta > .wp-block-post-date::before,
+.wp-block-post-date.post-meta::before {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M4 6h16v15H4zM8 3v6M16 3v6M4 11h16'/%3E%3C/svg%3E");
+}
+
+.post-meta > .wp-block-post-author-name::before {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8'/%3E%3C/svg%3E");
+}
+
+.wp-block-details {
+	box-sizing: border-box;
+	padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--40);
+	border-top: var(--ntc-rule);
+	overflow-wrap: anywhere;
+}
+
+.wp-block-details:not(.has-background) {
+	background-color: var(--wp--preset--color--base-2);
+}
+
+.wp-block-details:last-child {
+	border-bottom: var(--ntc-rule);
+}
+
+.wp-block-details summary {
+	cursor: pointer;
+	font-size: var(--wp--preset--font-size--large);
+	font-weight: 700;
+}
+
+.wp-block-quote {
+	box-sizing: border-box;
+	border: 0;
+	border-inline-start-color: var(--wp--preset--color--dsa-red);
+	border-inline-start-style: solid;
+	border-inline-start-width: 0.35rem;
+	padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--40);
+}
+
+.wp-block-quote:not(.has-background) {
+	background-color: var(--wp--preset--color--base-2);
+}
+
+.wp-block-button__link {
+	transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+
+.site-footer {
+	margin-block-start: auto;
+	border-top: 0.5rem solid var(--wp--preset--color--dsa-red);
+}
+
+.site-footer a {
+	color: inherit;
+}
+
+.footer-contact {
+	overflow-wrap: anywhere;
+}
+
+.footer-fingerprint {
+	overflow-wrap: normal;
+	word-break: normal;
+	hyphens: none;
+	unicode-bidi: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.wp-block-button__link {
+		transition: none;
+	}
+
+	.ntc-theme-switcher {
+		transition: none;
+	}
+}
+
+@media (forced-colors: active) {
+	.ntc-theme-switcher {
+		border-color: ButtonText;
+		color: ButtonText;
+	}
+
+	.wp-block-details,
+	.wp-block-quote {
+		border-color: CanvasText;
+	}
+
+	.wp-block-quote {
+		border-inline-start-color: Highlight;
+	}
+
+	.wp-block-details:not(.has-background),
+	.wp-block-quote:not(.has-background) {
+		background: Canvas;
+		color: CanvasText;
+	}
+}

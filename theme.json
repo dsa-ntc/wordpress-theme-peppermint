@@ -1,0 +1,212 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"dimensions": {
+			"minHeight": true,
+			"minWidth": true
+		},
+		"color": {
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"defaultPalette": false,
+			"palette": [
+				{
+					"color": "#EC1F27",
+					"name": "DSA Red",
+					"slug": "dsa-red"
+				},
+				{
+					"color": "#231F20",
+					"name": "DSA Black",
+					"slug": "dsa-black"
+				},
+				{
+					"color": "#FFFFFF",
+					"name": "White",
+					"slug": "white"
+				},
+				{
+					"color": "#FBD2D4",
+					"name": "Red Tint",
+					"slug": "red-tint"
+				},
+				{
+					"color": "#605C5C",
+					"name": "Black Tint 2",
+					"slug": "black-tint-2"
+				},
+				{
+					"color": "#C1C0BF",
+					"name": "Black Tint 4",
+					"slug": "black-tint-4"
+				},
+				{
+					"color": "light-dark(#FFFFFF, #262324)",
+					"name": "Canvas",
+					"slug": "base"
+				},
+				{
+					"color": "light-dark(#F7F3F4, #322E2F)",
+					"name": "Raised Surface",
+					"slug": "base-2"
+				},
+				{
+					"color": "light-dark(#231F20, #F7F4F4)",
+					"name": "Foreground",
+					"slug": "contrast"
+				},
+				{
+					"color": "light-dark(#514B4D, #C9C1C3)",
+					"name": "Muted Foreground",
+					"slug": "contrast-2"
+				},
+				{
+					"color": "light-dark(#D71920, #FF6B70)",
+					"name": "Accessible Red",
+					"slug": "accent"
+				},
+				{
+					"color": "light-dark(#FFFFFF, #262324)",
+					"name": "On Accent",
+					"slug": "accent-contrast"
+				},
+				{
+					"color": "light-dark(#777173, #8A8083)",
+					"name": "Line",
+					"slug": "line"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "52rem",
+			"wideSize": "80rem"
+		},
+		"viewport": {
+			"mobile": "30rem",
+			"tablet": "48.875rem"
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"blockGap": true,
+			"margin": true,
+			"padding": true,
+			"units": ["px", "rem", "em", "vw", "%"],
+			"spacingSizes": [
+				{"name": "2XS", "size": "0.375rem", "slug": "10"},
+				{"name": "XS", "size": "0.75rem", "slug": "20"},
+				{"name": "S", "size": "1rem", "slug": "30"},
+				{"name": "M", "size": "clamp(1.25rem, 2vw, 2rem)", "slug": "40"},
+				{"name": "L", "size": "clamp(2rem, 5vw, 4rem)", "slug": "50"},
+				{"name": "XL", "size": "clamp(3.5rem, 8vw, 7rem)", "slug": "60"}
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"fontFamily": "Arial, Helvetica, sans-serif",
+					"name": "Sans Serif",
+					"slug": "manifold"
+				}
+			],
+			"fontSizes": [
+				{"fluid": false, "name": "Small", "size": "0.8125rem", "slug": "small"},
+				{"fluid": {"min": "1rem", "max": "1.125rem"}, "name": "Medium", "size": "1.0625rem", "slug": "medium"},
+				{"fluid": {"min": "1.35rem", "max": "1.75rem"}, "name": "Large", "size": "1.6rem", "slug": "large"},
+				{"fluid": false, "name": "Card Title", "size": "clamp(2rem, calc(1rem + 6cqi), 3.25rem)", "slug": "card-title"},
+				{"fluid": {"min": "2rem", "max": "3.25rem"}, "name": "Extra Large", "size": "2.7rem", "slug": "x-large"},
+				{"fluid": {"min": "2.5rem", "max": "5.5rem"}, "name": "Page Title", "size": "4.5rem", "slug": "page-title"},
+				{"fluid": {"min": "2.8rem", "max": "5.5rem"}, "name": "Display", "size": "4.5rem", "slug": "display"}
+			]
+		}
+	},
+	"styles": {
+		"css": ":root { color-scheme: light dark; }",
+		"color": {
+			"background": "var:preset|color|base",
+			"text": "var:preset|color|contrast"
+		},
+		"elements": {
+			"button": {
+				"border": {"radius": "0", "width": "2px", "color": "var:preset|color|contrast"},
+				"color": {"background": "var:preset|color|accent", "text": "var:preset|color|accent-contrast"},
+				"typography": {"fontWeight": "700", "letterSpacing": "0.02em"}
+			},
+			"caption": {
+				"color": {"text": "var:preset|color|contrast-2"}
+			},
+			"cite": {
+				"color": {"text": "var:preset|color|contrast-2"}
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|manifold",
+					"fontWeight": "800",
+					"letterSpacing": "-0.025em",
+					"lineHeight": "1.02"
+				}
+			},
+			"link": {
+				"color": {"text": "var:preset|color|accent"},
+				"typography": {"textDecoration": "underline"},
+				":hover": {"color": {"text": "var:preset|color|contrast"}}
+			}
+		},
+		"spacing": {"blockGap": "1.35rem"},
+		"typography": {
+			"fontFamily": "var:preset|font-family|manifold",
+			"fontSize": "var:preset|font-size|medium",
+			"lineHeight": "1.6"
+		},
+		"blocks": {
+			"core/button": {
+				":hover": {
+					"color": {
+						"background": "var:preset|color|contrast",
+						"text": "var:preset|color|base"
+					},
+					"shadow": "0.16rem 0.16rem 0 var(--wp--preset--color--dsa-red)"
+				},
+				":focus-visible": {
+					"color": {
+						"background": "var:preset|color|contrast",
+						"text": "var:preset|color|base"
+					},
+					"shadow": "0 0 0 0.2rem var(--wp--preset--color--base), 0 0 0 0.4rem var(--wp--preset--color--accent)"
+				}
+			},
+			"core/code": {
+				"color": {"background": "var:preset|color|base-2", "text": "var:preset|color|contrast"},
+				"typography": {"fontFamily": "var:preset|font-family|manifold", "fontSize": "0.9rem"}
+			},
+			"core/navigation": {"typography": {"fontSize": "0.95rem", "fontWeight": "600"}},
+			"core/navigation-link": {
+				"elements": {
+					"link": {
+						"typography": {"textDecoration": "none"}
+					}
+				},
+				":hover": {"color": {"text": "var:preset|color|accent"}},
+				":focus-visible": {"color": {"text": "var:preset|color|accent"}},
+				"-current": {
+					"color": {"text": "var:preset|color|accent"},
+					"typography": {"textDecoration": "underline"}
+				}
+			},
+			"core/post-title": {"typography": {"fontWeight": "800", "lineHeight": "0.98"}},
+			"core/separator": {"color": {"background": "var:preset|color|contrast"}}
+		}
+	},
+	"customTemplates": [
+		{"name": "landing-page", "postTypes": ["page"], "title": "Landing Page"},
+		{"name": "no-title", "postTypes": ["page"], "title": "No Title"},
+		{"name": "full-width", "postTypes": ["page"], "title": "Full Width / Content Canvas"}
+	],
+	"templateParts": [
+		{"area": "header", "name": "header", "title": "Header"},
+		{"area": "footer", "name": "footer", "title": "Footer"}
+	]
+}

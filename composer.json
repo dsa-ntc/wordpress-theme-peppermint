@@ -1,0 +1,39 @@
+{
+	"name": "dsa-national-tech-committee/ntc-block",
+	"description": "A minimal full-site-editing theme for the DSA National Tech Committee.",
+	"type": "wordpress-theme",
+	"require": {
+		"php": ">=8.5"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+		"phpcompatibility/php-compatibility": "10.0.0-alpha2",
+		"phpcompatibility/phpcompatibility-paragonie": "2.0.0-alpha2",
+		"phpcompatibility/phpcompatibility-wp": "3.0.0-alpha2",
+		"wp-coding-standards/wpcs": "^3.4.1"
+	},
+	"scripts": {
+		"check": [
+			"@test",
+			"@lint:php"
+		],
+		"lint:php": "@php .local/vendor/bin/phpcs --standard=phpcs.xml.dist",
+		"lint:syntax": "@php tests/run.php syntax",
+		"test": "@test:static",
+		"test:a11y": "@php tests/run.php a11y",
+		"test:blocks": "@php tests/run.php blocks",
+		"test:browser": "npm --prefix tests/browser test",
+		"test:components": "@php tests/run.php components",
+		"test:i18n": "@php tests/run.php i18n",
+		"test:json": "@php tests/run.php json",
+		"test:static": "@php tests/run.php static",
+		"test:wordpress-blocks": "@php tests/run.php blocks --require-wordpress"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"sort-packages": true,
+		"vendor-dir": ".local/vendor"
+	}
+}

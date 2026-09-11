@@ -1,0 +1,24 @@
+{
+	"name": "ntc-block-browser-tests",
+	"private": true,
+	"description": "Optional Playwright and axe checks for a running NTC Block site.",
+	"scripts": {
+		"setup": "node setup.mjs",
+		"screenshot": "node capture-theme-screenshot.mjs",
+		"test": "node run-profile.mjs smoke",
+		"test:smoke": "node run-profile.mjs smoke",
+		"test:component": "node run-profile.mjs component",
+		"test:shared": "node run-profile.mjs shared",
+		"test:full": "node run-profile.mjs full",
+		"test:profiles": "node --test profile.test.mjs",
+		"test:raw": "playwright test --config=playwright.config.mjs",
+		"test:headed": "node run-profile.mjs smoke --headed"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "^4.10.0",
+		"@playwright/test": "^1.50.0"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="NTC Block">
+	<description>WordPress and PHP compatibility checks for NTC Block.</description>
+
+	<file>functions.php</file>
+	<file>blocks</file>
+	<file>patterns</file>
+
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg value="ps"/>
+	<arg name="extensions" value="php"/>
+
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+	<!-- WordPress requires this filename for block script metadata. -->
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>/blocks/*/index.asset.php</exclude-pattern>
+	</rule>
+	<rule ref="PHPCompatibilityWP">
+		<config name="testVersion" value="8.5-"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ntc-block"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="ntc_block"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
