@@ -64,50 +64,6 @@ msgstr ""
 msgid "Appearance Switcher"
 msgstr ""
 
-#: blocks/theme-switcher/block.json blocks/theme-switcher/index.js
-msgid "A compact visitor control for choosing System, Light, or Dark appearance."
-msgstr ""
-
-#: blocks/theme-switcher/index.js
-msgid "Appearance"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Appearance: Dark"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Appearance: Light"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Appearance: System"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Appearance: Site default"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Site default"
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "Site default uses the appearance selected for this site."
-msgstr ""
-
-#: blocks/theme-switcher/render.php
-msgid "System follows your device setting."
-msgstr ""
-
-#: blocks/theme-switcher/index.js
-msgid "Preview appearance choices"
-msgstr ""
-
-#: blocks/theme-switcher/index.js
-msgid "Preview only; visitors choose their own appearance."
-msgstr ""
-
 #: functions.php
 msgid "Contained artwork (no upscale)"
 msgstr ""
@@ -905,4 +861,15 @@ msgstr ""
 
 #: patterns/project-skills-board.php
 msgid "Turn ideas into manageable next steps and help contributors find a place to start."
+msgstr ""
+
+#. Description of block "ntc-block/theme-switcher"
+#: blocks/theme-switcher/block.json
+#: blocks/theme-switcher/index.js
+msgid "A light/dark toggle that follows the visitor's system setting until they choose."
+msgstr ""
+
+#: blocks/theme-switcher/render.php
+#: blocks/theme-switcher/index.js
+msgid "Dark mode"
 msgstr ""

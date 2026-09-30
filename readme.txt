@@ -11,11 +11,13 @@ A block theme for the DSA National Tech Committee.
 
 Peppermint uses WordPress blocks, patterns, templates, and Global Styles.
 It includes project grids, image cards, pullquotes, recruitment boards,
-and a visitor appearance control. Edit content with native block controls.
+and a light/dark toggle. Edit content with native block controls.
 
-Choose System, Light, or Dark appearance. Visitors can override that choice
-for their browser. Without JavaScript, the site's CSS appearance still works.
-The appearance control in the editor is a preview.
+The site follows each visitor's system appearance, or the System, Light, or
+Dark style chosen in Global Styles. The header toggle lets visitors switch
+for their browser; switching back to the automatic appearance resumes following it.
+Without JavaScript, the site's CSS appearance still works.
+The toggle in the editor is a preview.
 
 The theme bundles no font files, photographs, or decorative icon files.
 Choose images in the Media Library and optional fonts in the Font Library.
@@ -77,7 +79,7 @@ different directory name and include development files; do not install them dire
 == Changelog ==
 
 = 1.2.0 (unreleased) =
-* Add editable project cards, pullquote frames, recruitment boards, and appearance choices.
+* Add editable project cards, pullquote frames, recruitment boards, and a light/dark toggle.
 * Use site-owned media and fonts with empty media and system-font fallbacks.
 * Add static, accessibility, responsive, and WordPress block validation checks.
 * Prepare GitHub CI, lock development dependencies, and align PHP with WordPress standards.
