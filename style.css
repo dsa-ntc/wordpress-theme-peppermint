@@ -131,7 +131,6 @@ textarea::placeholder {
 }
 
 .wp-block-ntc-block-theme-switcher {
-	position: relative;
 	display: flex;
 	flex: 0 0 auto;
 	align-items: center;
