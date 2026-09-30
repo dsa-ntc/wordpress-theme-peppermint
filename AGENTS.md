@@ -21,8 +21,9 @@ Requirements and installation steps are in `readme.txt`.
   Set `NTC_TEST_CHANNEL=chrome` to test installed Google Chrome. CI uses bundled Chromium.
 - For visual changes, check the live Site Editor and frontend at phone, tablet, and desktop sizes.
   Check keyboard use, light/dark appearance, RTL, text expansion, and affected accessibility behavior.
-- Compare separate theme copies with `php tests/compare-theme-trees.php <active> <mirror>`.
-  Copy intended source only. Record unavailable checks as not run.
+- The local preview site loads this checkout through a directory junction, so edit here only.
+  If a separate copy is ever used, compare it with `php tests/compare-theme-trees.php <active> <mirror>`.
+  Record unavailable checks as not run.
 - CI runs source checks and isolated block validation on Linux; it has no site database.
   Full frontend tests need preview fixtures. Deployment and release publishing are separate operations.
 - The compatibility tools are pinned prereleases because the older stable scanner crashes on PHP 8.5.
