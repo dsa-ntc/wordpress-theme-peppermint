@@ -277,6 +277,11 @@ textarea::placeholder {
 	text-transform: uppercase;
 }
 
+/* Letter spacing breaks joined scripts such as Arabic. */
+[dir="rtl"] :is(.eyebrow, .project-kicker, .post-meta) {
+	letter-spacing: 0;
+}
+
 /*
  * Signal Hero and Signal Rail.
  *

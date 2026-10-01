@@ -153,6 +153,7 @@
 
 /*
  * Windows 95 frame. The title bar and close glyph are decorative, not buttons.
+ * Their generated text has empty alternative text so screen readers skip it.
  * The Cover and its content retain their native WordPress editing controls.
  */
 .wp-block-cover.is-style-ntc-win95 {
@@ -198,7 +199,7 @@
 	padding-inline: 0.45rem;
 	background: var(--ntc-win95-title);
 	color: var(--ntc-win95-title-text);
-	content: "NTC TILE";
+	content: "NTC TILE" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: 0.72rem;
 	font-weight: 700;
@@ -232,7 +233,7 @@
 		inset 1px 1px #dfdfdf,
 		inset -1px -1px var(--ntc-win95-mid);
 	color: var(--ntc-win95-dark);
-	content: "\00d7";
+	content: "\00d7" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: 1rem;
 	font-weight: 800;
@@ -325,7 +326,7 @@
 	padding-inline: 0.45rem;
 	background: var(--ntc-retro-title);
 	color: var(--ntc-retro-title-text);
-	content: "NTC TILE";
+	content: "NTC TILE" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: 0.72rem;
 	font-weight: 700;
@@ -359,7 +360,7 @@
 		inset 1px 1px var(--ntc-retro-light),
 		inset -1px -1px var(--ntc-retro-mid);
 	color: var(--ntc-retro-glyph);
-	content: "\00d7";
+	content: "\00d7" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: 1rem;
 	font-weight: 800;
@@ -439,10 +440,10 @@
 	align-items: center;
 	justify-content: center;
 	border-bottom: 1px solid var(--ntc-macos-border);
-	background: light-dark(linear-gradient(180deg, #f2f1f3 0%, #dbd9dc 100%), linear-gradient(180deg, #3c383a 0%, #2e2a2c 100%));
+	background: linear-gradient(180deg, light-dark(#f2f1f3, #3c383a) 0%, light-dark(#dbd9dc, #2e2a2c) 100%);
 	box-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.12));
 	color: var(--ntc-macos-title);
-	content: "NTC TILE";
+	content: "NTC TILE" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: 0.72rem;
 	font-weight: 700;
