@@ -112,14 +112,15 @@
 					"slug": "manifold"
 				}
 			],
+			"customFontSize": false,
 			"fontSizes": [
+				{"fluid": false, "name": "Extra Small", "size": "0.75rem", "slug": "x-small"},
 				{"fluid": false, "name": "Small", "size": "0.8125rem", "slug": "small"},
 				{"fluid": {"min": "1rem", "max": "1.125rem"}, "name": "Medium", "size": "1.0625rem", "slug": "medium"},
-				{"fluid": {"min": "1.35rem", "max": "1.75rem"}, "name": "Large", "size": "1.6rem", "slug": "large"},
+				{"fluid": {"min": "1.25rem", "max": "1.75rem"}, "name": "Large", "size": "1.6rem", "slug": "large"},
 				{"fluid": false, "name": "Card Title", "size": "clamp(2rem, calc(1rem + 6cqi), 3.25rem)", "slug": "card-title"},
 				{"fluid": {"min": "2rem", "max": "3.25rem"}, "name": "Extra Large", "size": "2.7rem", "slug": "x-large"},
-				{"fluid": {"min": "2.5rem", "max": "5.5rem"}, "name": "Page Title", "size": "4.5rem", "slug": "page-title"},
-				{"fluid": {"min": "2.8rem", "max": "5.5rem"}, "name": "Display", "size": "4.5rem", "slug": "display"}
+				{"fluid": {"min": "2.5rem", "max": "5.5rem"}, "name": "Display", "size": "4.5rem", "slug": "display"}
 			]
 		}
 	},
@@ -149,6 +150,12 @@
 					"lineHeight": "1.02"
 				}
 			},
+			"h1": {"typography": {"fontSize": "var:preset|font-size|x-large"}},
+			"h2": {"typography": {"fontSize": "var:preset|font-size|large"}},
+			"h3": {"typography": {"fontSize": "var:preset|font-size|medium"}},
+			"h4": {"typography": {"fontSize": "var:preset|font-size|medium"}},
+			"h5": {"typography": {"fontSize": "var:preset|font-size|small"}},
+			"h6": {"typography": {"fontSize": "var:preset|font-size|small"}},
 			"link": {
 				"color": {"text": "var:preset|color|accent"},
 				"typography": {"textDecoration": "underline"},
@@ -180,7 +187,7 @@
 			},
 			"core/code": {
 				"color": {"background": "var:preset|color|base-2", "text": "var:preset|color|contrast"},
-				"typography": {"fontFamily": "var:preset|font-family|manifold", "fontSize": "0.9rem"}
+				"typography": {"fontFamily": "var:preset|font-family|manifold"}
 			},
 			"core/navigation": {"typography": {"fontSize": "var:preset|font-size|medium", "fontWeight": "600"}},
 			"core/navigation-link": {

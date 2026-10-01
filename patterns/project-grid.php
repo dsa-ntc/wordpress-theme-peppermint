@@ -15,7 +15,7 @@
 ?>
 <!-- wp:group {"align":"wide","className":"project-grid","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide project-grid">
-	<!-- wp:heading {"fontSize":"page-title"} --><h2 class="wp-block-heading has-page-title-font-size"><?php esc_html_e( 'Projects', 'ntc-block' ); ?></h2><!-- /wp:heading -->
+	<!-- wp:heading {"fontSize":"display"} --><h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Projects', 'ntc-block' ); ?></h2><!-- /wp:heading -->
 	<!-- wp:query {"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"align":"wide"} -->
 	<div class="wp-block-query alignwide">
 		<!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
