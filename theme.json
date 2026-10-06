@@ -182,7 +182,7 @@
 				"color": {"background": "var:preset|color|base-2", "text": "var:preset|color|contrast"},
 				"typography": {"fontFamily": "var:preset|font-family|manifold", "fontSize": "0.9rem"}
 			},
-			"core/navigation": {"typography": {"fontSize": "0.95rem", "fontWeight": "600"}},
+			"core/navigation": {"typography": {"fontSize": "var:preset|font-size|medium", "fontWeight": "600"}},
 			"core/navigation-link": {
 				"elements": {
 					"link": {

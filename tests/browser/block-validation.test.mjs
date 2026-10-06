@@ -249,39 +249,35 @@ test( 'negative control: an invalid Button inside Custom HTML is still rejected'
 	expect( result.failures.some( ( failure ) => failure.path.endsWith( ':core/button' ) ) ).toBe( true );
 } );
 
-test( 'Appearance Switcher editor labels work inside an iframe without changing visitor preference', async () => {
+test( 'Appearance Switcher editor preview toggles inside an iframe without changing visitor preference', async () => {
 	consoleErrors.length = 0;
 	const themeCSS = readFileSync( new URL( '../../style.css', import.meta.url ), 'utf8' );
-	const visitorState = await validationPage.evaluate( ( css ) => {
+	const readState = () => validationPage.evaluate( () => {
+		const canvas = document.getElementById( 'ntc-appearance-editor-test' ).contentDocument.documentElement;
+		return {
+			storage: localStorage.getItem( 'ntc-color-scheme' ),
+			outer: document.documentElement.getAttribute( 'data-ntc-color-scheme' ),
+			canvas: canvas.getAttribute( 'data-ntc-color-scheme' ),
+			serialized: window.ntcAppearanceEditorTest.serialized
+		};
+	} );
+	await validationPage.evaluate( ( css ) => {
 		const frame = document.createElement( 'iframe' );
 		frame.id = 'ntc-appearance-editor-test';
 		frame.title = 'Appearance block editor test';
 		frame.style.cssText = 'width: 900px; height: 650px; border: 0';
 		document.body.append( frame );
-		const outsideEditor = document.createElement( 'button' );
-		outsideEditor.id = 'ntc-outside-editor-test';
-		outsideEditor.type = 'button';
-		outsideEditor.textContent = 'Editor sidebar control';
-		document.body.append( outsideEditor );
 		const doc = frame.contentDocument;
 		const style = doc.createElement( 'style' );
 		style.textContent = css;
 		doc.head.append( style );
-		doc.body.innerHTML = '<main style="max-width: 600px; margin: 3rem auto"><div id="editor"></div><button id="outside" type="button">Outside the switcher</button><p id="outside-text">Outside nonfocusable text.</p></main>';
+		doc.body.innerHTML = '<main style="max-width: 600px; margin: 3rem auto"><div id="editor"></div></main>';
 		const previousPreference = localStorage.getItem( 'ntc-color-scheme' );
 		localStorage.setItem( 'ntc-color-scheme', 'dark' );
 		doc.documentElement.setAttribute( 'data-ntc-color-scheme', 'dark' );
-		doc.documentElement.setAttribute( 'data-ntc-resolved-scheme', 'dark' );
-		const readAppearance = ( element ) => ( {
-			preference: element.getAttribute( 'data-ntc-color-scheme' ),
-			resolved: element.getAttribute( 'data-ntc-resolved-scheme' )
-		} );
 		const { createElement: el, createRoot, useState } = window.wp.element;
 		const initialBlocks = [ window.wp.blocks.createBlock( 'ntc-block/theme-switcher' ) ];
-		window.ntcAppearanceEditorTest = {
-			previousPreference,
-			serialized: window.wp.blocks.serialize( initialBlocks )
-		};
+		window.ntcAppearanceEditorTest = { previousPreference, serialized: window.wp.blocks.serialize( initialBlocks ) };
 		function Editor() {
 			const [ blocks, setBlocks ] = useState( initialBlocks );
 			window.ntcAppearanceEditorTest.serialized = window.wp.blocks.serialize( blocks );
@@ -294,91 +290,21 @@ test( 'Appearance Switcher editor labels work inside an iframe without changing 
 		}
 		window.ntcAppearanceEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
 		window.ntcAppearanceEditorTestRoot.render( el( Editor ) );
-		return {
-			storage: localStorage.getItem( 'ntc-color-scheme' ),
-			outer: readAppearance( document.documentElement ),
-			canvas: readAppearance( doc.documentElement ),
-			serialized: window.wp.blocks.serialize( initialBlocks )
-		};
 	}, themeCSS );
 	try {
-		const frame = validationPage.frameLocator( '#ntc-appearance-editor-test' );
-		const button = frame.getByRole( 'button', { name: 'Preview appearance choices' } );
-		const panel = frame.locator( '.ntc-theme-switcher__panel' );
-		const option = ( value ) => frame.locator( `.ntc-theme-switcher__option:has(input[value="${ value }"])` );
-		const expectPreview = async ( value ) => {
-			await expect( option( value ).getByRole( 'radio' ) ).toBeChecked();
-			await expect( option( value ).getByRole( 'radio' ) ).toBeFocused();
-			await expect( button ).toHaveAttribute( 'aria-expanded', 'true' );
-			await expect( panel ).toBeVisible();
-			const current = await validationPage.evaluate( () => {
-				const readAppearance = ( element ) => ( {
-					preference: element.getAttribute( 'data-ntc-color-scheme' ),
-					resolved: element.getAttribute( 'data-ntc-resolved-scheme' )
-				} );
-				return {
-					storage: localStorage.getItem( 'ntc-color-scheme' ),
-					outer: readAppearance( document.documentElement ),
-					canvas: readAppearance( document.getElementById( 'ntc-appearance-editor-test' ).contentDocument.documentElement ),
-					serialized: window.ntcAppearanceEditorTest.serialized
-				};
-			} );
-			expect( current, 'Preview choices must not change visitor appearance or saved block content.' ).toEqual( visitorState );
-		};
-		await expect( button ).toBeVisible();
+		const initial = await readState();
+		const button = validationPage.frameLocator( '#ntc-appearance-editor-test' ).getByRole( 'button', { exact: true, name: 'Dark mode' } );
+		await expect( button ).toHaveAttribute( 'aria-pressed', 'false' );
 		await button.click();
-		await expectPreview( 'system' );
-		await option( 'dark' ).locator( 'span' ).click();
-		await expectPreview( 'dark' );
-
-		// Press the empty trailing label area, not the associated input. Keeping
-		// the pointer down checks dismissal before native label activation.
-		const padding = await option( 'light' ).evaluate( ( label ) => {
-			const rect = label.getBoundingClientRect();
-			const inset = parseFloat( getComputedStyle( label ).paddingRight ) / 2;
-			return { x: rect.width - inset, y: rect.height / 2 };
-		} );
-		const labelBox = await option( 'light' ).boundingBox();
-		expect( labelBox ).not.toBeNull();
-		await validationPage.mouse.move( labelBox.x + padding.x, labelBox.y + padding.y );
-		await validationPage.mouse.down();
-		await expect( panel ).toBeVisible();
-		await validationPage.mouse.up();
-		await expectPreview( 'light' );
-		await option( 'system' ).locator( 'span' ).click();
-		await expectPreview( 'system' );
-		await validationPage.keyboard.press( 'ArrowDown' );
-		await expectPreview( 'light' );
-		await validationPage.keyboard.press( 'Escape' );
-		await expect( panel ).toBeHidden();
-		await expect( button ).toBeFocused();
-
-		await validationPage.keyboard.press( 'Enter' );
-		await expectPreview( 'light' );
-		await validationPage.keyboard.press( 'Tab' );
-		await expect( panel ).toBeHidden();
-		await expect( button ).toHaveAttribute( 'aria-expanded', 'false' );
-
-		await button.click();
-		await frame.locator( '#outside-text' ).click();
-		await expect( panel ).toBeHidden();
-		await button.click();
-		await frame.locator( '.ntc-theme-switcher__help' ).click();
-		await expect( panel ).toBeVisible();
-		await frame.getByRole( 'button', { name: 'Outside the switcher' } ).focus();
-		await expect( panel ).toBeHidden();
-		await expect( button ).toHaveAttribute( 'aria-expanded', 'false' );
-
-		await button.click();
-		await validationPage.getByRole( 'button', { name: 'Editor sidebar control' } ).click();
-		await expect( panel ).toBeHidden();
-		await expect( validationPage.getByRole( 'button', { name: 'Editor sidebar control' } ) ).toBeFocused();
+		await expect( button ).toHaveAttribute( 'aria-pressed', 'true' );
+		await button.press( 'Enter' );
+		await expect( button ).toHaveAttribute( 'aria-pressed', 'false' );
+		expect( await readState(), 'The preview must not change visitor appearance or saved block content.' ).toEqual( initial );
 	} finally {
-		await validationPage.mouse.up();
 		await validationPage.evaluate( () => {
 			window.ntcAppearanceEditorTestRoot?.unmount();
 			delete window.ntcAppearanceEditorTestRoot;
-			const previous = window.ntcAppearanceEditorTest.previousPreference;
+			const previous = window.ntcAppearanceEditorTest?.previousPreference ?? null;
 			if ( previous === null ) {
 				localStorage.removeItem( 'ntc-color-scheme' );
 			} else {
@@ -386,7 +312,6 @@ test( 'Appearance Switcher editor labels work inside an iframe without changing 
 			}
 			delete window.ntcAppearanceEditorTest;
 			document.getElementById( 'ntc-appearance-editor-test' )?.remove();
-			document.getElementById( 'ntc-outside-editor-test' )?.remove();
 		} );
 	}
 	expect( runtimeErrors, 'The mounted editor and its cleanup must not raise runtime errors.' ).toEqual( [] );

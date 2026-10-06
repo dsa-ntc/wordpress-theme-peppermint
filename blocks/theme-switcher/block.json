@@ -6,7 +6,7 @@
 	"title": "Appearance Switcher",
 	"category": "theme",
 	"icon": "admin-appearance",
-	"description": "A compact visitor control for choosing System, Light, or Dark appearance.",
+	"description": "A light/dark toggle that follows the visitor's system setting until they choose.",
 	"textdomain": "ntc-block",
 	"supports": {
 		"align": false,

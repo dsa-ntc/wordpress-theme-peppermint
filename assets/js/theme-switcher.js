@@ -5,7 +5,7 @@
 	var root = document.documentElement;
 	var media = window.matchMedia ? window.matchMedia( '(prefers-color-scheme: dark)' ) : null;
 	var preference = readPreference();
-	var controls = [];
+	var buttons = [];
 
 	function isScheme( value ) {
 		return 'light' === value || 'dark' === value;
@@ -42,11 +42,12 @@
 		}
 	}
 
-	function getSiteDefault() {
+	// The appearance without a visitor override: a forced Light or Dark site
+	// style from Global Styles, otherwise the device setting.
+	function getAutomaticScheme() {
 		var override = root.getAttribute( 'data-ntc-color-scheme' );
 
 		// Read the CSS default after styles load, then restore the visitor override.
-		// Keep this out of mutation observers to avoid an attribute-change loop.
 		root.removeAttribute( 'data-ntc-color-scheme' );
 		var declaredScheme = window.getComputedStyle( root ).colorScheme || '';
 
@@ -54,131 +55,61 @@
 			root.setAttribute( 'data-ntc-color-scheme', override );
 		}
 
-		if ( declaredScheme.includes( 'dark' ) && ! declaredScheme.includes( 'light' ) ) {
-			return 'dark';
+		if ( declaredScheme.includes( 'dark' ) !== declaredScheme.includes( 'light' ) ) {
+			return declaredScheme.includes( 'dark' ) ? 'dark' : 'light';
 		}
 
-		if ( declaredScheme.includes( 'light' ) && ! declaredScheme.includes( 'dark' ) ) {
-			return 'light';
-		}
-
-		return '';
+		return media && media.matches ? 'dark' : 'light';
 	}
 
-	function updateControls() {
-		var siteDefault = getSiteDefault();
-		var resolvedScheme = preference || siteDefault || ( media && media.matches ? 'dark' : 'light' );
+	function update() {
+		var resolvedScheme = preference || getAutomaticScheme();
 
 		root.setAttribute( 'data-ntc-resolved-scheme', resolvedScheme );
-
-		controls.forEach( function ( control ) {
-			var labels = control.button.dataset;
-			var automaticLabel = siteDefault ? labels.labelDefault : labels.labelSystem;
-			var title = preference ? labels[ 'light' === preference ? 'labelLight' : 'labelDark' ] : automaticLabel;
-			var systemLabel = control.panel.querySelector( '[data-ntc-system-label]' );
-			var help = control.panel.querySelector( '[data-ntc-appearance-help]' );
-
-			control.button.setAttribute( 'aria-label', title );
-			control.button.title = title;
-			control.button.hidden = false;
-			control.panel.querySelectorAll( 'input[type="radio"]' ).forEach( function ( radio ) {
-				radio.checked = radio.value === ( preference || 'system' );
-			} );
-
-			if ( systemLabel ) {
-				systemLabel.textContent = siteDefault ? systemLabel.dataset.labelDefault : systemLabel.dataset.labelSystem;
-			}
-
-			if ( help ) {
-				help.textContent = siteDefault ? help.dataset.labelDefault : help.dataset.labelSystem;
-			}
+		buttons.forEach( function ( button ) {
+			button.setAttribute( 'aria-pressed', 'dark' === resolvedScheme ? 'true' : 'false' );
+			button.hidden = false;
 		} );
-
-		return resolvedScheme;
 	}
 
-	function notifyChange() {
-		root.dispatchEvent( new CustomEvent( 'ntc:color-scheme-change', {
-			detail: { scheme: preference || 'system', resolvedScheme: root.getAttribute( 'data-ntc-resolved-scheme' ) }
-		} ) );
-	}
+	function toggle() {
+		var automaticScheme = getAutomaticScheme();
+		var next = 'dark' === ( preference || automaticScheme ) ? 'light' : 'dark';
 
-	function setPreference( value ) {
-		writePreference( isScheme( value ) ? value : '' );
+		// Choosing the automatic appearance clears the override, so the page
+		// follows later device changes again.
+		writePreference( next === automaticScheme ? '' : next );
 		applyPreference();
-		updateControls();
-		notifyChange();
+		update();
 	}
 
-	function setExpanded( control, expanded, restoreFocus ) {
-		control.button.setAttribute( 'aria-expanded', expanded ? 'true' : 'false' );
-		control.panel.hidden = ! expanded;
-
-		if ( expanded ) {
-			var checked = control.panel.querySelector( 'input:checked' );
-			if ( checked ) {
-				checked.focus();
-			}
-		} else if ( restoreFocus ) {
-			control.button.focus();
-		}
-	}
-
-	function bindControls() {
+	function bindButtons() {
 		document.querySelectorAll( '[data-ntc-theme-switcher]' ).forEach( function ( button ) {
-			if ( 'true' === button.dataset.ntcThemeSwitcherBound ) {
-				return;
+			if ( -1 === buttons.indexOf( button ) ) {
+				buttons.push( button );
+				button.addEventListener( 'click', toggle );
 			}
-
-			var panel = document.getElementById( button.getAttribute( 'aria-controls' ) );
-			var wrapper = button.closest( '.wp-block-ntc-block-theme-switcher' );
-
-			// Keep incomplete controls hidden.
-			if ( ! panel || ! wrapper ) {
-				return;
-			}
-
-			var control = { button: button, panel: panel, wrapper: wrapper };
-			controls.push( control );
-			button.dataset.ntcThemeSwitcherBound = 'true';
-			button.addEventListener( 'click', function () {
-				var expanded = panel.hidden;
-				updateControls();
-				controls.forEach( function ( other ) {
-					if ( other !== control ) {
-						setExpanded( other, false, false );
-					}
-				} );
-				setExpanded( control, expanded, false );
-			} );
-
-			panel.addEventListener( 'change', function ( event ) {
-				if ( event.target.matches( 'input[type="radio"]' ) && event.target.checked ) {
-					setPreference( event.target.value );
-				}
-			} );
 		} );
 
-		updateControls();
+		update();
 	}
 
-	// Restore saved Light or Dark before paint; an absent value uses the CSS default.
+	// Restore a saved Light or Dark choice before paint.
 	applyPreference();
 	if ( preference ) {
 		root.setAttribute( 'data-ntc-resolved-scheme', preference );
 	}
 
 	if ( 'loading' === document.readyState ) {
-		document.addEventListener( 'DOMContentLoaded', bindControls, { once: true } );
+		document.addEventListener( 'DOMContentLoaded', bindButtons, { once: true } );
 	} else {
-		bindControls();
+		bindButtons();
 	}
 
 	if ( media ) {
 		var handleMediaChange = function () {
 			if ( ! preference ) {
-				updateControls();
-				notifyChange();
+				update();
 			}
 		};
 
@@ -189,40 +120,14 @@
 		}
 	}
 
-	// A label can briefly blur its radio before forwarding the click to it.
-	// Dismiss only on a confirmed outside interaction, not that intermediate blur.
-	function dismissOutsideControls( event ) {
-		controls.forEach( function ( control ) {
-			if ( ! control.wrapper.contains( event.target ) ) {
-				setExpanded( control, false, false );
-			}
-		} );
-	}
-
-	document.addEventListener( 'pointerdown', dismissOutsideControls );
-	document.addEventListener( 'focusin', dismissOutsideControls );
-
-	document.addEventListener( 'keydown', function ( event ) {
-		if ( 'Escape' !== event.key ) {
-			return;
-		}
-
-		controls.forEach( function ( control ) {
-			if ( ! control.panel.hidden && control.wrapper.contains( event.target ) ) {
-				event.preventDefault();
-				setExpanded( control, false, true );
-			}
-		} );
-	} );
-
+	// Keep other open tabs in step with this visitor's choice.
 	window.addEventListener( 'storage', function ( event ) {
 		if ( storageKey !== event.key && null !== event.key ) {
 			return;
 		}
 
-		preference = null === event.key ? readPreference() : ( isScheme( event.newValue ) ? event.newValue : '' );
+		preference = readPreference();
 		applyPreference();
-		updateControls();
-		notifyChange();
+		update();
 	} );
 }() );

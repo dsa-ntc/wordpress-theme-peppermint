@@ -131,80 +131,14 @@ textarea::placeholder {
 }
 
 .wp-block-ntc-block-theme-switcher {
-	position: relative;
 	display: flex;
 	flex: 0 0 auto;
 	align-items: center;
 	line-height: 1;
 }
 
-.ntc-theme-switcher[hidden],
-.ntc-theme-switcher__panel[hidden] {
+.ntc-theme-switcher[hidden] {
 	display: none;
-}
-
-.ntc-theme-switcher__panel {
-	position: absolute;
-	z-index: 10000;
-	inset-block-start: calc(100% + 0.5rem);
-	inset-inline-end: 0;
-	inline-size: 14rem;
-	max-inline-size: calc(100vw - 2rem);
-	max-block-size: min(32rem, 70dvh);
-	overflow-y: auto;
-	box-sizing: border-box;
-	padding: 0.75rem;
-	border: var(--ntc-soft-rule);
-	background: var(--wp--preset--color--base);
-	color: var(--wp--preset--color--contrast);
-	box-shadow: 0.2rem 0.2rem 0 var(--wp--preset--color--line);
-	font-size: 1rem;
-	line-height: 1.4;
-}
-
-.ntc-theme-switcher__choices {
-	min-inline-size: 0;
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
-
-.ntc-theme-switcher__choices legend {
-	margin-block-end: 0.25rem;
-	font-weight: 600;
-}
-
-.ntc-theme-switcher__option {
-	display: flex;
-	min-block-size: 2.75rem;
-	box-sizing: border-box;
-	align-items: center;
-	gap: 0.65rem;
-	padding: 0.5rem;
-	cursor: pointer;
-}
-
-.ntc-theme-switcher__option:hover,
-.ntc-theme-switcher__option:focus-within {
-	background: var(--wp--preset--color--base-2);
-}
-
-.ntc-theme-switcher__option input {
-	flex: 0 0 auto;
-	margin: 0;
-	accent-color: var(--wp--preset--color--accent);
-}
-
-.ntc-theme-switcher__option span {
-	min-inline-size: 0;
-	overflow-wrap: anywhere;
-}
-
-.ntc-theme-switcher__help {
-	margin: 0.5rem 0 0;
-	color: var(--wp--preset--color--contrast-2);
-	font-size: var(--wp--preset--font-size--small);
-	line-height: 1.5;
 }
 
 .ntc-theme-switcher {
