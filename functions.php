@@ -33,13 +33,11 @@ add_action( 'after_setup_theme', 'ntc_block_setup' );
  * Load the front-end stylesheet after global block styles.
  */
 function ntc_block_enqueue_styles(): void {
-	$version = wp_get_theme()->get( 'Version' );
-
 	wp_enqueue_style(
 		'ntc-block',
 		get_stylesheet_uri(),
 		array(),
-		$version ? $version : null
+		(string) filemtime( get_stylesheet_directory() . '/style.css' )
 	);
 }
 add_action( 'wp_enqueue_scripts', 'ntc_block_enqueue_styles' );
