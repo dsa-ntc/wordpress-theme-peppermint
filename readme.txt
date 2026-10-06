@@ -44,6 +44,9 @@ Edit page content in the page editor. Edit headers, footers, and templates in
 Appearance > Editor. Inserted patterns are independent block copies; theme
 updates do not replace them. Saved templates and Global Styles can override files.
 
+Text uses seven size presets, from Extra Small to Display. Editors choose a
+preset instead of typing a size; adjust the scale in Styles > Typography.
+
 Use a Cover's Styles panel for red tiles or window frames. Pullquotes offer
 Simple Surface and window frames. The Project skills board pattern offers
 Corkboard, DSA Noticeboard, and Windows 95 Desktop styles on its outer Group.

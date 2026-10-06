@@ -334,7 +334,7 @@ html[dir="rtl"] :where(.wp-block-group.ntc-signal-hero, .wp-block-group.is-style
 .front-page-content > h1:first-child,
 .front-page-content > .wp-block-heading:first-child {
 	max-width: 15ch;
-	font-size: clamp(2.8rem, 7vw, 6.5rem);
+	font-size: var(--wp--preset--font-size--display);
 	line-height: 0.94;
 }
 

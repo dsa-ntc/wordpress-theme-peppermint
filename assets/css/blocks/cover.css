@@ -200,7 +200,7 @@
 	color: var(--ntc-win95-title-text);
 	content: "NTC TILE";
 	font-family: var(--wp--preset--font-family--manifold);
-	font-size: 0.72rem;
+	font-size: var(--wp--preset--font-size--x-small);
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	line-height: 1;
@@ -234,7 +234,7 @@
 	color: var(--ntc-win95-dark);
 	content: "\00d7";
 	font-family: var(--wp--preset--font-family--manifold);
-	font-size: 1rem;
+	font-size: var(--wp--preset--font-size--medium);
 	font-weight: 800;
 	line-height: 1;
 	pointer-events: none;
@@ -327,7 +327,7 @@
 	color: var(--ntc-retro-title-text);
 	content: "NTC TILE";
 	font-family: var(--wp--preset--font-family--manifold);
-	font-size: 0.72rem;
+	font-size: var(--wp--preset--font-size--x-small);
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	line-height: 1;
@@ -361,7 +361,7 @@
 	color: var(--ntc-retro-glyph);
 	content: "\00d7";
 	font-family: var(--wp--preset--font-family--manifold);
-	font-size: 1rem;
+	font-size: var(--wp--preset--font-size--medium);
 	font-weight: 800;
 	line-height: 1;
 	pointer-events: none;
@@ -444,7 +444,7 @@
 	color: var(--ntc-macos-title);
 	content: "NTC TILE";
 	font-family: var(--wp--preset--font-family--manifold);
-	font-size: 0.72rem;
+	font-size: var(--wp--preset--font-size--x-small);
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	line-height: 1;

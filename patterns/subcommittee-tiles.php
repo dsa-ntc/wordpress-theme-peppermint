@@ -16,8 +16,8 @@
 <div class="wp-block-group alignwide subcommittee-section" style="border-top-color:var(--wp--preset--color--contrast);border-top-width:2px;margin-top:var(--wp--preset--spacing--60);padding-top:var(--wp--preset--spacing--50)">
 	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:heading {"fontSize":"page-title"} -->
-		<h2 class="wp-block-heading has-page-title-font-size"><?php esc_html_e( 'Subcommittees', 'ntc-block' ); ?></h2>
+		<!-- wp:heading {"fontSize":"display"} -->
+		<h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Subcommittees', 'ntc-block' ); ?></h2>
 		<!-- /wp:heading -->
 	</div>
 	<!-- /wp:group -->

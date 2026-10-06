@@ -12,7 +12,7 @@
 ?>
 <!-- wp:group {"tagName":"main","className":"project-grid","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|40","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group project-grid" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
-	<!-- wp:heading {"level":1,"fontSize":"page-title"} --><h1 class="wp-block-heading has-page-title-font-size"><?php esc_html_e( 'Project notes', 'ntc-block' ); ?></h1><!-- /wp:heading -->
+	<!-- wp:heading {"level":1,"fontSize":"display"} --><h1 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Project notes', 'ntc-block' ); ?></h1><!-- /wp:heading -->
 	<!-- wp:query {"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"align":"wide"} -->
 	<div class="wp-block-query alignwide">
 		<!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->

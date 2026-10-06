@@ -160,7 +160,7 @@
 	border: 1px solid var(--wp--preset--color--contrast);
 	background: transparent;
 	color: var(--wp--preset--color--contrast);
-	font-size: 0.9rem;
+	font-size: var(--wp--preset--font-size--small);
 	font-weight: 700;
 	line-height: 1;
 	text-decoration: none;

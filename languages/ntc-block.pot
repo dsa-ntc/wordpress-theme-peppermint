@@ -308,7 +308,7 @@ msgid "Card Title"
 msgstr ""
 
 #: theme.json
-msgid "Page Title"
+msgid "Extra Small"
 msgstr ""
 
 #: theme.json
