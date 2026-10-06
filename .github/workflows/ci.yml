@@ -56,6 +56,7 @@ jobs:
         run: |
           npm --prefix tests/browser run test:profiles
           node --check assets/js/theme-switcher.js
+          node --check assets/js/window-titles.js
           node --check blocks/theme-switcher/index.js
       - name: Validate blocks with WordPress JavaScript
         working-directory: tests/browser

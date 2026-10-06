@@ -47,9 +47,11 @@ updates do not replace them. Saved templates and Global Styles can override file
 Text uses seven size presets, from Extra Small to Display. Editors choose a
 preset instead of typing a size; adjust the scale in Styles > Typography.
 
-Use a Cover's Styles panel for red tiles or window frames. Pullquotes offer
-Simple Surface and window frames. The Project skills board pattern offers
-Corkboard, DSA Noticeboard, and Windows 95 Desktop styles on its outer Group.
+Use a Cover's Styles panel for red tiles or window frames. A Cover window
+frame shows the Cover's first heading in its title bar. A long heading ends
+with an ellipsis there. Pullquotes offer Simple Surface and window frames.
+The Project skills board pattern offers Corkboard, DSA Noticeboard, and
+Windows 95 Desktop styles on its outer Group.
 Replace every starter destination before publishing.
 
 For an Image or Post Featured Image, choose Contained artwork (no upscale)
@@ -83,6 +85,7 @@ different directory name and include development files; do not install them dire
 
 = 1.2.0 (unreleased) =
 * Add editable project cards, pullquote frames, recruitment boards, and a light/dark toggle.
+* Show each Cover window frame's first heading in its title bar.
 * Use site-owned media and fonts with empty media and system-font fallbacks.
 * Add static, accessibility, responsive, and WordPress block validation checks.
 * Prepare GitHub CI, lock development dependencies, and align PHP with WordPress standards.
