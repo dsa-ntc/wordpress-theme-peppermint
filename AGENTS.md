@@ -19,6 +19,10 @@ Requirements and installation steps are in `readme.md`.
   `npm --prefix tests/browser run test:full -- --list`, then run `test:full` before pushing.
   Use `test:component -- <name>` for scoped development. Do not accept new screenshot baselines automatically.
   Set `NTC_TEST_CHANNEL=chrome` to test installed Google Chrome. CI uses bundled Chromium.
+- Claude Code cannot always approve `.local` domains, so it prompts for each request to a
+  `.local` preview site. Give Claude the site's `http://127.0.0.1:<port>` address, and use
+  that address for `NTC_TEST_BASE_URL`. Node cannot resolve `*.localhost` names on Windows.
+  The site must serve its own URLs on that host. Configure that alias in the site, not in this theme.
 - For visual changes, check the live Site Editor and frontend at phone, tablet, and desktop sizes.
   Check keyboard use, light/dark appearance, RTL, text expansion, and affected accessibility behavior.
 - The local preview site loads this checkout through a directory junction, so edit here only.

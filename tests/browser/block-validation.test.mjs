@@ -64,6 +64,9 @@ test.beforeAll( async ( { browser } ) => {
 	for ( const path of fixtures.customScripts ) {
 		await validationPage.addScriptTag( { path } );
 	}
+	// WordPress loads editor filters before the first editor mounts. withFilters
+	// caches the filtered component at that mount, so load the filter here too.
+	await validationPage.addScriptTag( { path: fileURLToPath( new URL( '../../assets/js/window-titles.js', import.meta.url ) ) } );
 	expect( runtimeErrors, 'The installed WordPress editor packages must load cleanly.' ).toEqual( [] );
 	expect( consoleErrors, 'Core package startup must not emit console errors.' ).toEqual( [] );
 	console.log( `Validating ${ Object.keys( fixtures.documents ).length } documents with installed WordPress ${ fixtures.wordpressVersion } JavaScript.` );
@@ -328,6 +331,7 @@ test( 'Skills board styles preserve editable core notes without frontend link ov
 define( 'ABSPATH', '/' );
 $registrations = array();
 function add_action( ...$arguments ) {}
+function add_filter( ...$arguments ) {}
 function __( $text, $domain ) { return $text; }
 function register_block_style( $block, $properties ) {
 	global $registrations;
@@ -515,4 +519,108 @@ test( 'Media patterns start empty and preserve native media replacement through 
 	}
 	expect( runtimeErrors, 'Empty-media validation must not raise runtime errors.' ).toEqual( [] );
 	expect( consoleErrors, 'Empty-media validation must not emit console errors.' ).toEqual( [] );
+} );
+
+test( 'Window frames name their title bars after the first heading on the front end and in the editor', async () => {
+	consoleErrors.length = 0;
+	// Run the real render_block filter with core's HTML API and no database.
+	const includes = resolve( dirname( fixtures.coreScripts[ 'wp-block-library' ] ), '../..' );
+	const cover = ( style, inner ) => `<div class="wp-block-cover ${ style }"><div class="wp-block-cover__inner-container">${ inner }</div></div>`;
+	const cases = {
+		nested: cover( 'is-style-ntc-win95', '<h2 class="wp-block-post-title">Post title</h2><div class="wp-block-group"><h3 class="wp-block-heading"><a href="/team/">O&#039;Brien &amp;<br>Co </a></h3></div><h2 class="wp-block-heading">Second</h2>' ),
+		retro: cover( 'is-style-ntc-retro', '<h2 class="wp-block-heading">Formations</h2>' ),
+		untitled: cover( 'is-style-ntc-macos', '<p>No heading.</p>' ),
+		unframed: cover( 'is-style-ntc-red-tile', '<h2 class="wp-block-heading">Engagement</h2>' )
+	};
+	const rendered = JSON.parse( execFileSync( phpBinary, [ '-n', '-r', `
+define( 'ABSPATH', dirname( $argv[1] ) . '/' );
+define( 'WPINC', 'wp-includes' );
+foreach ( array( 'compat.php', 'utf8.php', 'class-wp-token-map.php', 'html-api/html5-named-character-references.php', 'html-api/class-wp-html-decoder.php', 'html-api/class-wp-html-attribute-token.php', 'html-api/class-wp-html-span.php', 'html-api/class-wp-html-text-replacement.php', 'html-api/class-wp-html-tag-processor.php' ) as $file ) {
+	require_once $argv[1] . '/' . $file;
+}
+function add_action( ...$arguments ) {}
+function add_filter( ...$arguments ) {}
+function wp_kses_uri_attributes() { return array( 'href' ); }
+require $argv[2];
+echo json_encode( array_map( 'ntc_block_add_window_title', json_decode( file_get_contents( 'php://stdin' ), true ) ), JSON_THROW_ON_ERROR );
+`, includes, fileURLToPath( new URL( '../../functions.php', import.meta.url ) ) ], {
+		encoding: 'utf8', input: JSON.stringify( cases ), windowsHide: true
+	} ) );
+	const titles = await validationPage.evaluate( ( rendered ) => Object.fromEntries( Object.entries( rendered ).map( ( [ key, html ] ) => [
+		key, new DOMParser().parseFromString( html, 'text/html' ).body.firstElementChild.getAttribute( 'data-ntc-window-title' )
+	] ) ), rendered );
+	expect( titles, 'Only framed Covers take the text of their first Heading block.' ).toEqual( { nested: 'O\'Brien & Co', retro: 'Formations', untitled: null, unframed: null } );
+	expect( rendered.untitled ).toBe( cases.untitled );
+	expect( rendered.unframed ).toBe( cases.unframed );
+
+	// The editor script gives the editor canvas the same title without saving it.
+	const markup = fixtures.documents[ 'patterns/subcommittee-tiles.php' ];
+	const coreCSSRoot = resolve( dirname( fixtures.coreScripts[ 'wp-block-library' ] ), '../../css/dist' );
+	const css = [
+		readFileSync( resolve( coreCSSRoot, 'block-library/style.css' ), 'utf8' ),
+		readFileSync( new URL( '../../assets/css/blocks/cover.css', import.meta.url ), 'utf8' )
+	].join( '\n' );
+	// Cover editing asks the REST API for post types. Answer offline.
+	await validationPage.route( '**/wp/v2/**', route => route.fulfill( { json: {} } ) );
+	await validationPage.evaluate( ( { markup, css } ) => {
+		const frame = document.createElement( 'iframe' );
+		frame.id = 'ntc-window-title-editor-test';
+		frame.title = 'Window title editor test';
+		frame.style.cssText = 'width: 1100px; height: 700px; border: 0';
+		document.body.append( frame );
+		const doc = frame.contentDocument;
+		const style = doc.createElement( 'style' );
+		style.textContent = css;
+		doc.head.append( style );
+		doc.body.innerHTML = '<main class="editor-styles-wrapper"><div id="editor"></div></main>';
+		const { createElement: el, createRoot, useState } = window.wp.element;
+		const initialBlocks = window.wp.blocks.parse( markup );
+		const headings = [];
+		const collect = ( blocks ) => blocks.forEach( ( block ) => {
+			if ( block.name === 'core/heading' && block.attributes.className === 'subcommittee-tile__title' ) {
+				headings.push( block.clientId );
+			}
+			collect( block.innerBlocks );
+		} );
+		collect( initialBlocks );
+		window.ntcWindowTitleEditorTest = { headings, serialized: '' };
+		function Canvas() {
+			window.ntcWindowTitleEditorTest.actions = window.wp.data.useDispatch( window.wp.blockEditor.store );
+			return el( window.wp.blockEditor.BlockList );
+		}
+		function Editor() {
+			const [ blocks, setBlocks ] = useState( initialBlocks );
+			window.ntcWindowTitleEditorTest.serialized = window.wp.blocks.serialize( blocks );
+			return el( window.wp.blockEditor.BlockEditorProvider, {
+				value: blocks, onInput: setBlocks, onChange: setBlocks, settings: { hasFixedToolbar: true }
+			}, el( Canvas ) );
+		}
+		window.ntcWindowTitleEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
+		window.ntcWindowTitleEditorTestRoot.render( el( Editor ) );
+	}, { markup, css } );
+	try {
+		const tiles = validationPage.frameLocator( '#ntc-window-title-editor-test' ).locator( '.wp-block-cover.subcommittee-tile' );
+		await expect( tiles ).toHaveCount( 3 );
+		await expect( tiles.nth( 0 ) ).not.toHaveAttribute( 'data-ntc-window-title' );
+		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-ntc-window-title', 'Formations' );
+		await expect( tiles.nth( 2 ) ).toHaveAttribute( 'data-ntc-window-title', 'Member Services' );
+		expect( await tiles.nth( 1 ).evaluate( ( tile ) => getComputedStyle( tile, '::before' ).content ) ).toBe( '"Formations" / ""' );
+		await validationPage.evaluate( () => {
+			const state = window.ntcWindowTitleEditorTest;
+			state.actions.updateBlockAttributes( state.headings[ 1 ], { content: '<a href="/formations/">Local <em>Formations</em></a>' } );
+		} );
+		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-ntc-window-title', 'Local Formations' );
+		await expect.poll( () => validationPage.evaluate( () => window.ntcWindowTitleEditorTest.serialized ) ).toContain( 'Local <em>Formations</em>' );
+		expect( await validationPage.evaluate( () => window.ntcWindowTitleEditorTest.serialized ), 'The editor title must not reach saved markup.' ).not.toContain( 'data-ntc-window-title' );
+	} finally {
+		await validationPage.evaluate( () => {
+			window.ntcWindowTitleEditorTestRoot?.unmount();
+			delete window.ntcWindowTitleEditorTestRoot;
+			delete window.ntcWindowTitleEditorTest;
+			document.getElementById( 'ntc-window-title-editor-test' )?.remove();
+		} );
+		await validationPage.unroute( '**/wp/v2/**' );
+	}
+	expect( runtimeErrors, 'Window titles must not raise runtime errors.' ).toEqual( [] );
+	expect( consoleErrors, 'Window titles must not emit console errors.' ).toEqual( [] );
 } );

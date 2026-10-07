@@ -319,3 +319,25 @@ test( 'hover and keyboard focus preserve image geometry', async ( { page } ) => 
 		expect( Math.abs( afterFocus.height - before.height ) ).toBeLessThanOrEqual( 0.5 );
 	}
 } );
+
+test( 'window title bars repeat each framed tile heading and truncate long names', async ( { page } ) => {
+	const tiles = await page.locator( cardSelector ).evaluateAll( ( cards ) => cards.map( ( card ) => {
+		const bar = getComputedStyle( card, '::before' );
+		return {
+			bar: { overflow: bar.overflow, textOverflow: bar.textOverflow, whiteSpace: bar.whiteSpace },
+			content: bar.content,
+			framed: /\bis-style-ntc-(win95|retro|macos)\b/.test( card.className ),
+			heading: card.querySelector( '.subcommittee-tile__title' ).textContent.replace( /\s+/g, ' ' ).trim(),
+			title: card.getAttribute( 'data-ntc-window-title' )
+		};
+	} ) );
+
+	expect( tiles.some( ( tile ) => tile.framed ), `${ cardRoute } needs at least one framed tile` ).toBe( true );
+	for ( const tile of tiles ) {
+		expect( tile.title, `${ tile.heading }: only framed tiles carry a title` ).toBe( tile.framed ? tile.heading : null );
+		if ( tile.framed ) {
+			expect( tile.content, `${ tile.heading }: the title bar shows the heading as decorative text` ).toBe( `${ JSON.stringify( tile.heading ) } / ""` );
+			expect( tile.bar ).toEqual( { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } );
+		}
+	}
+} );

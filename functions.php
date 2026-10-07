@@ -85,6 +85,73 @@ function ntc_block_enqueue_editor_assets(): void {
 add_action( 'enqueue_block_editor_assets', 'ntc_block_enqueue_editor_assets' );
 
 /**
+ * Show each framed Cover's first heading in its editor title bar.
+ */
+function ntc_block_enqueue_window_titles(): void {
+	$script_path = get_theme_file_path( 'assets/js/window-titles.js' );
+
+	if ( ! is_readable( $script_path ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'ntc-block-window-titles',
+		get_theme_file_uri( 'assets/js/window-titles.js' ),
+		array( 'wp-block-editor', 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-rich-text' ),
+		(string) filemtime( $script_path ),
+		true
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'ntc_block_enqueue_window_titles' );
+
+/**
+ * Show a framed Cover's first heading in its title bar.
+ *
+ * The Windows 95, Retro DSA, and macOS frames draw their title bar in CSS.
+ * This filter copies the text of the Cover's first Heading block into an
+ * attribute that the CSS displays. The saved markup does not change.
+ * assets/js/window-titles.js applies the same rule in the editor.
+ *
+ * @param string $block_content Rendered Cover markup.
+ * @return string Cover markup with a data-ntc-window-title attribute when the Cover has a heading.
+ */
+function ntc_block_add_window_title( string $block_content ): string {
+	$cover = new WP_HTML_Tag_Processor( $block_content );
+	if ( ! $cover->next_tag()
+		|| ! ( $cover->has_class( 'is-style-ntc-win95' ) || $cover->has_class( 'is-style-ntc-retro' ) || $cover->has_class( 'is-style-ntc-macos' ) )
+	) {
+		return $block_content;
+	}
+
+	$heading = new WP_HTML_Tag_Processor( $block_content );
+	$level   = '';
+	$title   = '';
+	while ( $heading->next_token() ) {
+		$token = $heading->get_token_name();
+		if ( '' === $level ) {
+			if ( preg_match( '/^H[1-6]$/', (string) $token ) && $heading->has_class( 'wp-block-heading' ) ) {
+				$level = $token;
+			}
+		} elseif ( '#text' === $token ) {
+			$title .= $heading->get_modifiable_text();
+		} elseif ( 'BR' === $token ) {
+			$title .= ' ';
+		} elseif ( $level === $token && $heading->is_tag_closer() ) {
+			break;
+		}
+	}
+
+	$title = trim( (string) preg_replace( '/\s+/u', ' ', $title ) );
+	if ( '' === $title ) {
+		return $block_content;
+	}
+
+	$cover->set_attribute( 'data-ntc-window-title', $title );
+	return $cover->get_updated_html();
+}
+add_filter( 'render_block_core/cover', 'ntc_block_add_window_title' );
+
+/**
  * Register the dynamic appearance control used by the header template part.
  */
 function ntc_block_register_blocks(): void {
