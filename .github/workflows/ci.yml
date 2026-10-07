@@ -11,15 +11,16 @@ permissions:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Let runs on main finish so they can publish releases.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   gate:
     name: gate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
@@ -27,7 +28,7 @@ jobs:
           php-version: '8.5'
           tools: composer:v2
           coverage: none
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '22'
           cache: npm
@@ -64,18 +65,19 @@ jobs:
           npx playwright install --with-deps chromium
           npx playwright test --config=block-validation.config.mjs
 
-  # Publish an installable zip for each pull request after the checks pass.
+  # Publish an installable zip after the checks pass: a prerelease for each pull request,
+  # and a release for each new style.css version on main.
   # Pull requests from forks get a read-only token, so they skip this job.
   package:
     name: package
     needs: gate
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
@@ -86,14 +88,18 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           version=$(sed -n 's/^Version:[[:space:]]*//p' style.css)
-          zip="$RUNNER_TEMP/wordpress-theme-peppermint-${version}-pr${PR_NUMBER}-${HEAD_SHA::7}.zip"
+          name="wordpress-theme-peppermint-${version}"
+          if [ -n "$PR_NUMBER" ]; then name="${name}-pr${PR_NUMBER}-${HEAD_SHA::7}"; fi
+          zip="$RUNNER_TEMP/${name}.zip"
           # WordPress installs the zip's single top folder as the theme directory.
           mkdir -p "$RUNNER_TEMP/build/wordpress-theme-peppermint"
           rsync -a --exclude-from=.distignore ./ "$RUNNER_TEMP/build/wordpress-theme-peppermint/"
           (cd "$RUNNER_TEMP/build" && zip -qr "$zip" wordpress-theme-peppermint)
           unzip -l "$zip"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "zip=$zip" >> "$GITHUB_OUTPUT"
       - name: Replace the pull request's prerelease
+        if: github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -113,3 +119,23 @@ jobs:
             --notes "Preview build of #${PR_NUMBER} at ${HEAD_SHA}. It is not a stable release.
 
           To install it, download the zip below. In WordPress, go to Appearance > Themes > Add New Theme > Upload Theme, choose the zip, and select Replace active with uploaded."
+      - name: Publish a release for a new version
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.build.outputs.version }}
+          ZIP: ${{ steps.build.outputs.zip }}
+        run: |
+          tag="v${VERSION}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "::notice::Release $tag already exists. Change Version in style.css to publish a new release."
+            exit 0
+          fi
+          # GitHub appends the merged pull requests to these notes.
+          gh release create "$tag" "$ZIP" \
+            --repo "$GITHUB_REPOSITORY" \
+            --latest \
+            --target "$GITHUB_SHA" \
+            --title "Peppermint ${VERSION}" \
+            --generate-notes \
+            --notes "To install it, download the zip below. In WordPress, go to Appearance > Themes > Add New Theme > Upload Theme, choose the zip, and select Replace active with uploaded."
