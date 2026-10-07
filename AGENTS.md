@@ -2,13 +2,13 @@
 
 Peppermint is the NTC Block WordPress theme. Keep the installed directory
 `wordpress-theme-peppermint` and the `ntc-block` translation and block namespaces.
-Requirements and installation steps are in `readme.txt`.
+Requirements and installation steps are in `readme.md`.
 
 - Use core blocks, patterns, `theme.json`, and native editor controls. Preserve saved content.
 - Follow WordPress coding standards. Escape output at its destination and translate user-facing strings.
-- Write short, direct comments that explain intent. Keep user instructions in `readme.txt`.
+- Write short, direct comments that explain intent. Keep user instructions in `readme.md`.
 - Keep agent reports, credentials, uploads, dependencies, and generated output outside Git.
-  This is the only Markdown file maintained in the repository.
+  `AGENTS.md` and `readme.md` are the only Markdown files in the repository.
 - Run `composer install`, then `composer check`. Set `NTC_WORDPRESS_ROOT` to an
   extracted or installed WordPress root and run `php tests/run.php static --require-wordpress`.
 - Run `npm --prefix tests/browser run setup` and install Chromium with Playwright.

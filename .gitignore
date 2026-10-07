@@ -20,6 +20,7 @@
 # Local guidance and generated reports stay outside source control.
 *.md
 !/AGENTS.md
+!/readme.md
 /.agents/
 /.codex/
 *.log

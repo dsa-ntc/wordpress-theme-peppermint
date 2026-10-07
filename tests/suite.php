@@ -334,18 +334,6 @@ final class NTC_Block_Test_Suite {
 			$issues[] = 'style.css: Text Domain must be ntc-block';
 		}
 
-		$readme = $this->read_file( $this->theme_root . '/readme.txt' );
-		foreach ( array( 'Requires at least', 'Tested up to', 'Requires PHP' ) as $field ) {
-			if ( preg_match( '/^' . preg_quote( $field, '/' ) . ':\s*(.+)$/mi', $readme, $match ) ) {
-				if ( trim( $match[1] ) !== $headers[ $field ] ) {
-					$issues[] = sprintf( 'readme.txt: %s must match style.css (%s)', $field, $headers[ $field ] );
-				}
-			} else {
-				$issues[] = 'readme.txt: missing ' . $field;
-			}
-		}
-
-		$this->capture_version( $readme, '/^Stable tag:\s*([^\s]+)$/mi', 'readme.txt Stable tag', $versions, $issues );
 		$this->capture_version(
 			$this->read_file( $this->theme_root . '/languages/ntc-block.pot' ),
 			'/Project-Id-Version:\s*NTC Block\s+([0-9]+(?:\.[0-9]+)+)/',
