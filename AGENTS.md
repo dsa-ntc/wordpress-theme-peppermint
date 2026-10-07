@@ -29,7 +29,8 @@ Requirements and installation steps are in `readme.md`.
   If a separate copy is ever used, compare it with `php tests/compare-theme-trees.php <active> <mirror>`.
   Record unavailable checks as not run.
 - CI runs source checks and isolated block validation on Linux; it has no site database.
-  Full frontend tests need preview fixtures. Deployment and release publishing are separate operations.
+  Full frontend tests need preview fixtures. After the checks pass, CI publishes each pull request
+  from this repository as a prerelease zip tagged `pr-<number>`. Deployment and stable releases are separate operations.
 - The compatibility tools are pinned prereleases because the older stable scanner crashes on PHP 8.5.
   Their results supplement runtime tests; they do not certify every PHP or plugin integration.
 
