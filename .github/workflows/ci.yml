@@ -62,3 +62,53 @@ jobs:
         run: |
           npx playwright install --with-deps chromium
           npx playwright test --config=block-validation.config.mjs
+
+  # Publish an installable zip for each pull request after the checks pass.
+  # Pull requests from forks get a read-only token, so they skip this job.
+  package:
+    name: package
+    needs: gate
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Build the theme zip
+        id: build
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          version=$(sed -n 's/^Version:[[:space:]]*//p' style.css)
+          zip="$RUNNER_TEMP/wordpress-theme-peppermint-${version}-pr${PR_NUMBER}-${HEAD_SHA::7}.zip"
+          # WordPress installs the zip's single top folder as the theme directory.
+          mkdir -p "$RUNNER_TEMP/build/wordpress-theme-peppermint"
+          rsync -a --exclude-from=.distignore ./ "$RUNNER_TEMP/build/wordpress-theme-peppermint/"
+          (cd "$RUNNER_TEMP/build" && zip -qr "$zip" wordpress-theme-peppermint)
+          unzip -l "$zip"
+          echo "zip=$zip" >> "$GITHUB_OUTPUT"
+      - name: Replace the pull request's prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          ZIP: ${{ steps.build.outputs.zip }}
+        run: |
+          tag="pr-${PR_NUMBER}"
+          # Delete the previous build so the tag moves to the new head commit.
+          gh release delete "$tag" --repo "$GITHUB_REPOSITORY" --cleanup-tag --yes || true
+          gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag" || true
+          gh release create "$tag" "$ZIP" \
+            --repo "$GITHUB_REPOSITORY" \
+            --prerelease \
+            --target "$HEAD_SHA" \
+            --title "PR #${PR_NUMBER} preview: ${PR_TITLE}" \
+            --notes "Preview build of #${PR_NUMBER} at ${HEAD_SHA}. It is not a stable release.
+
+          To install it, download the zip below. In WordPress, go to Appearance > Themes > Add New Theme > Upload Theme, choose the zip, and select Replace active with uploaded."
