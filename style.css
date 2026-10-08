@@ -17,13 +17,24 @@ Tags: full-site-editing, block-patterns, block-styles, custom-colors, custom-log
 	--ntc-soft-rule: 1px solid var(--wp--preset--color--line);
 }
 
+:root[data-ntc-color-scheme="light"] {
+	color-scheme: light;
+}
+
+:root[data-ntc-color-scheme="dark"] {
+	color-scheme: dark;
+}
+
 /*
- * Give browsers without light-dark() (Safari before 17.5) the light palette.
+ * Give browsers without light-dark() (Safari before 17.5) the light palette,
+ * and keep the page light over a saved or site-wide dark choice.
  * A custom property accepts any value, so a plain earlier declaration would
  * always lose to the theme.json value. Keep these in step with theme.json.
  */
 @supports not (color: light-dark(#fff, #000)) {
-	:root {
+	:root,
+	:root[data-ntc-color-scheme] {
+		color-scheme: light;
 		--wp--preset--color--base: #FFFFFF;
 		--wp--preset--color--base-2: #F7F3F4;
 		--wp--preset--color--contrast: #231F20;
@@ -32,14 +43,6 @@ Tags: full-site-editing, block-patterns, block-styles, custom-colors, custom-log
 		--wp--preset--color--accent-contrast: #FFFFFF;
 		--wp--preset--color--line: #777173;
 	}
-}
-
-:root[data-ntc-color-scheme="light"] {
-	color-scheme: light;
-}
-
-:root[data-ntc-color-scheme="dark"] {
-	color-scheme: dark;
 }
 
 html {
@@ -156,6 +159,13 @@ textarea::placeholder {
 
 .ntc-theme-switcher[hidden] {
 	display: none;
+}
+
+/* Without light-dark() the page stays light, so there is nothing to switch. */
+@supports not (color: light-dark(#fff, #000)) {
+	.wp-block-ntc-block-theme-switcher {
+		display: none;
+	}
 }
 
 .ntc-theme-switcher {

@@ -354,6 +354,47 @@
 	}
 }
 
+/* Give browsers without light-dark() (Safari before 17.5) the light boards. */
+@supports not (color: light-dark(#fff, #000)) {
+	.ntc-skills-board.is-style-ntc-board-cork {
+		--ntc-board-surface: #cda475;
+		--ntc-board-ink: #30261d;
+		--ntc-board-edge: #a87142;
+		--ntc-note-surface: #fff0a0;
+
+		border-block-start-color: #cb9865;
+		border-inline-start-color: #bb8653;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 2) {
+		--ntc-note-surface: #f9d7d2;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 3) {
+		--ntc-note-surface: #d8e8ed;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-dsa {
+		--ntc-board-surface: #f7eded;
+		--ntc-board-edge: #cdafb2;
+		--ntc-note-surface: #fffafb;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-dsa .ntc-skills-board__note::before {
+		border-block-start: 1.15rem solid #e5bfc3;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-technical {
+		--ntc-board-surface: #2456a6;
+		--ntc-board-edge: #163566;
+		--ntc-desktop-titlebar: #000080;
+	}
+
+	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note:has(.ntc-skills-board__title a:is(:hover, :focus-visible)) {
+		--ntc-desktop-titlebar: #184fba;
+	}
+}
+
 @media (forced-colors: active) {
 	.ntc-skills-board:is(.is-style-ntc-board-cork, .is-style-ntc-board-dsa, .is-style-ntc-board-technical) {
 		--ntc-note-focus: Highlight;
