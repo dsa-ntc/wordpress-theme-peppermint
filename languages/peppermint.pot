@@ -1,23 +1,23 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NTC Block 1.2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/ntc-block\n"
+"Project-Id-Version: Peppermint 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/peppermint\n"
 "POT-Creation-Date: 2026-08-27 18:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Domain: ntc-block\n"
+"X-Domain: peppermint\n"
 
 #. Theme Name of the theme
-msgid "NTC Block"
+msgid "Peppermint"
 msgstr ""
 
 #. Description of the theme
-msgid "A minimal, flexible block theme for the DSA National Tech Committee."
+msgid "A minimal, flexible block theme for organizing sites, with patterns, templates, and Global Styles."
 msgstr ""
 
 #: functions.php
-msgid "NTC Red Tile"
+msgid "Red Tile"
 msgstr ""
 
 #: functions.php
@@ -113,27 +113,27 @@ msgid "A two-column grid of project posts with featured images."
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Subcommittee image tiles"
+msgid "Group image tiles"
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Three editable red image tiles for the NTC subcommittees."
+msgid "Three editable image tiles for committees, working groups, or other sections. Window frame styles are available on each tile."
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Subcommittees"
+msgid "Groups"
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Engagement"
+msgid "Group one"
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Formations"
+msgid "Group two"
 msgstr ""
 
 #: patterns/subcommittee-tiles.php
-msgid "Member Services"
+msgid "Group three"
 msgstr ""
 
 #: patterns/image-action-card.php
@@ -164,22 +164,21 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-#: patterns/project-grid.php:26
+#: patterns/project-grid.php:26 patterns/front-page-projects.php:30
 msgctxt "project excerpt link"
 msgid "Read more"
 msgstr ""
 
 #: patterns/front-page-projects.php:15
-msgid "Projects & field notes"
-msgstr ""
-
-#: patterns/front-page-projects.php:30
-msgctxt "project excerpt link"
-msgid "Read project note"
+msgid "Latest posts"
 msgstr ""
 
 #: patterns/footer.php:16
-msgid "Contact us with any questions, comments or concerns at ntc@dsacommittees.org."
+msgid "Add contact details"
+msgstr ""
+
+#: patterns/footer.php:25
+msgid "Add a legal notice or disclaimer"
 msgstr ""
 
 #: patterns/no-results.php:12
@@ -204,7 +203,7 @@ msgid "Return home"
 msgstr ""
 
 #: patterns/blog-index.php:12
-msgid "Project notes"
+msgid "Blog"
 msgstr ""
 
 #: theme.json
@@ -863,7 +862,7 @@ msgstr ""
 msgid "Turn ideas into manageable next steps and help contributors find a place to start."
 msgstr ""
 
-#. Description of block "ntc-block/theme-switcher"
+#. Description of block "peppermint/theme-switcher"
 #: blocks/theme-switcher/block.json
 #: blocks/theme-switcher/index.js
 msgid "A light/dark toggle that follows the visitor's system setting until they choose."

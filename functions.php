@@ -1,8 +1,8 @@
 <?php
 /**
- * Theme setup for NTC Block.
+ * Theme setup for Peppermint.
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register translations, editor styles, and flexible logo support.
  */
-function ntc_block_setup(): void {
-	load_theme_textdomain( 'ntc-block', get_template_directory() . '/languages' );
+function peppermint_setup(): void {
+	load_theme_textdomain( 'peppermint', get_template_directory() . '/languages' );
 
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'style.css' );
@@ -27,20 +27,20 @@ function ntc_block_setup(): void {
 		)
 	);
 }
-add_action( 'after_setup_theme', 'ntc_block_setup' );
+add_action( 'after_setup_theme', 'peppermint_setup' );
 
 /**
  * Load the front-end stylesheet after global block styles.
  */
-function ntc_block_enqueue_styles(): void {
+function peppermint_enqueue_styles(): void {
 	wp_enqueue_style(
-		'ntc-block',
+		'peppermint',
 		get_stylesheet_uri(),
 		array(),
 		(string) filemtime( get_stylesheet_directory() . '/style.css' )
 	);
 }
-add_action( 'wp_enqueue_scripts', 'ntc_block_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'peppermint_enqueue_styles' );
 
 /**
  * Apply the visitor's saved appearance before the browser paints the page.
@@ -48,7 +48,7 @@ add_action( 'wp_enqueue_scripts', 'ntc_block_enqueue_styles' );
  * Load the script in the document head to avoid an appearance flash.
  * Without JavaScript, CSS still applies the site or system default.
  */
-function ntc_block_enqueue_theme_switcher(): void {
+function peppermint_enqueue_theme_switcher(): void {
 	$script_path = get_theme_file_path( 'assets/js/theme-switcher.js' );
 
 	if ( ! is_readable( $script_path ) ) {
@@ -56,19 +56,19 @@ function ntc_block_enqueue_theme_switcher(): void {
 	}
 
 	wp_enqueue_script(
-		'ntc-block-theme-switcher',
+		'peppermint-theme-switcher',
 		get_theme_file_uri( 'assets/js/theme-switcher.js' ),
 		array(),
 		(string) filemtime( $script_path ),
 		false
 	);
 }
-add_action( 'wp_enqueue_scripts', 'ntc_block_enqueue_theme_switcher' );
+add_action( 'wp_enqueue_scripts', 'peppermint_enqueue_theme_switcher' );
 
 /**
  * Keep light/dark palette indicators legible in the Site Editor UI.
  */
-function ntc_block_enqueue_editor_assets(): void {
+function peppermint_enqueue_editor_assets(): void {
 	$style_path = get_theme_file_path( 'assets/css/editor.css' );
 
 	if ( ! is_readable( $style_path ) ) {
@@ -76,18 +76,18 @@ function ntc_block_enqueue_editor_assets(): void {
 	}
 
 	wp_enqueue_style(
-		'ntc-block-editor',
+		'peppermint-editor',
 		get_theme_file_uri( 'assets/css/editor.css' ),
 		array(),
 		(string) filemtime( $style_path )
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'ntc_block_enqueue_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'peppermint_enqueue_editor_assets' );
 
 /**
  * Show each framed Cover's first heading in its editor title bar.
  */
-function ntc_block_enqueue_window_titles(): void {
+function peppermint_enqueue_window_titles(): void {
 	$script_path = get_theme_file_path( 'assets/js/window-titles.js' );
 
 	if ( ! is_readable( $script_path ) ) {
@@ -95,14 +95,14 @@ function ntc_block_enqueue_window_titles(): void {
 	}
 
 	wp_enqueue_script(
-		'ntc-block-window-titles',
+		'peppermint-window-titles',
 		get_theme_file_uri( 'assets/js/window-titles.js' ),
 		array( 'wp-block-editor', 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-rich-text' ),
 		(string) filemtime( $script_path ),
 		true
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'ntc_block_enqueue_window_titles' );
+add_action( 'enqueue_block_editor_assets', 'peppermint_enqueue_window_titles' );
 
 /**
  * Show a framed Cover's first heading in its title bar.
@@ -113,12 +113,12 @@ add_action( 'enqueue_block_editor_assets', 'ntc_block_enqueue_window_titles' );
  * assets/js/window-titles.js applies the same rule in the editor.
  *
  * @param string $block_content Rendered Cover markup.
- * @return string Cover markup with a data-ntc-window-title attribute when the Cover has a heading.
+ * @return string Cover markup with a data-peppermint-window-title attribute when the Cover has a heading.
  */
-function ntc_block_add_window_title( string $block_content ): string {
+function peppermint_add_window_title( string $block_content ): string {
 	$cover = new WP_HTML_Tag_Processor( $block_content );
 	if ( ! $cover->next_tag()
-		|| ! ( $cover->has_class( 'is-style-ntc-win95' ) || $cover->has_class( 'is-style-ntc-retro' ) || $cover->has_class( 'is-style-ntc-macos' ) )
+		|| ! ( $cover->has_class( 'is-style-peppermint-win95' ) || $cover->has_class( 'is-style-peppermint-retro' ) || $cover->has_class( 'is-style-peppermint-macos' ) )
 	) {
 		return $block_content;
 	}
@@ -146,22 +146,22 @@ function ntc_block_add_window_title( string $block_content ): string {
 		return $block_content;
 	}
 
-	$cover->set_attribute( 'data-ntc-window-title', $title );
+	$cover->set_attribute( 'data-peppermint-window-title', $title );
 	return $cover->get_updated_html();
 }
-add_filter( 'render_block_core/cover', 'ntc_block_add_window_title' );
+add_filter( 'render_block_core/cover', 'peppermint_add_window_title' );
 
 /**
  * Register the dynamic appearance control used by the header template part.
  */
-function ntc_block_register_blocks(): void {
+function peppermint_register_blocks(): void {
 	$block_path = get_theme_file_path( 'blocks/theme-switcher' );
 
 	if ( is_readable( $block_path . '/block.json' ) ) {
 		register_block_type( $block_path );
 	}
 }
-add_action( 'init', 'ntc_block_register_blocks' );
+add_action( 'init', 'peppermint_register_blocks' );
 
 /**
  * Register styles for core blocks.
@@ -169,13 +169,13 @@ add_action( 'init', 'ntc_block_register_blocks' );
  * Core block styles retain WordPress content and editing controls.
  * Section styles register separately from the JSON files in /styles.
  */
-function ntc_block_register_block_styles(): void {
+function peppermint_register_block_styles(): void {
 	foreach ( array( 'core/image', 'core/post-featured-image' ) as $media_block ) {
 		register_block_style(
 			$media_block,
 			array(
-				'name'  => 'ntc-contained-media',
-				'label' => __( 'Contained artwork (no upscale)', 'ntc-block' ),
+				'name'  => 'peppermint-contained-media',
+				'label' => __( 'Contained artwork (no upscale)', 'peppermint' ),
 			)
 		);
 	}
@@ -183,24 +183,24 @@ function ntc_block_register_block_styles(): void {
 	register_block_style(
 		'core/cover',
 		array(
-			'name'  => 'ntc-red-tile',
-			'label' => __( 'NTC Red Tile', 'ntc-block' ),
+			'name'  => 'peppermint-red-tile',
+			'label' => __( 'Red Tile', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/cover',
 		array(
-			'name'  => 'ntc-win95',
-			'label' => __( 'Windows 95 Frame', 'ntc-block' ),
+			'name'  => 'peppermint-win95',
+			'label' => __( 'Windows 95 Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/pullquote',
 		array(
-			'name'       => 'ntc-simple',
-			'label'      => __( 'Simple Surface', 'ntc-block' ),
+			'name'       => 'peppermint-simple',
+			'label'      => __( 'Simple Surface', 'peppermint' ),
 			'is_default' => true,
 		)
 	);
@@ -208,56 +208,56 @@ function ntc_block_register_block_styles(): void {
 	register_block_style(
 		'core/pullquote',
 		array(
-			'name'  => 'ntc-win95',
-			'label' => __( 'Windows 95 Frame', 'ntc-block' ),
+			'name'  => 'peppermint-win95',
+			'label' => __( 'Windows 95 Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/pullquote',
 		array(
-			'name'  => 'ntc-retro',
-			'label' => __( 'Retro DSA Frame', 'ntc-block' ),
+			'name'  => 'peppermint-retro',
+			'label' => __( 'Retro DSA Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/pullquote',
 		array(
-			'name'  => 'ntc-macos',
-			'label' => __( 'macOS Frame', 'ntc-block' ),
+			'name'  => 'peppermint-macos',
+			'label' => __( 'macOS Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/cover',
 		array(
-			'name'  => 'ntc-retro',
-			'label' => __( 'Retro DSA Frame', 'ntc-block' ),
+			'name'  => 'peppermint-retro',
+			'label' => __( 'Retro DSA Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/cover',
 		array(
-			'name'  => 'ntc-macos',
-			'label' => __( 'macOS Frame', 'ntc-block' ),
+			'name'  => 'peppermint-macos',
+			'label' => __( 'macOS Frame', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/group',
 		array(
-			'name'  => 'ntc-media-action-card',
-			'label' => __( 'Image + Button Card', 'ntc-block' ),
+			'name'  => 'peppermint-media-action-card',
+			'label' => __( 'Image + Button Card', 'peppermint' ),
 		)
 	);
 
 	register_block_style(
 		'core/group',
 		array(
-			'name'  => 'ntc-signal-hero',
-			'label' => __( 'Signal Hero', 'ntc-block' ),
+			'name'  => 'peppermint-signal-hero',
+			'label' => __( 'Signal Hero', 'peppermint' ),
 		)
 	);
 
@@ -265,16 +265,16 @@ function ntc_block_register_block_styles(): void {
 		register_block_style(
 			$block_name,
 			array(
-				'name'  => 'ntc-signal-rail',
-				'label' => __( 'Signal Rail', 'ntc-block' ),
+				'name'  => 'peppermint-signal-rail',
+				'label' => __( 'Signal Rail', 'peppermint' ),
 			)
 		);
 	}
 
 	$board_styles = array(
-		'ntc-board-cork'      => __( 'Corkboard', 'ntc-block' ),
-		'ntc-board-dsa'       => __( 'DSA Noticeboard', 'ntc-block' ),
-		'ntc-board-technical' => __( 'Windows 95 Desktop', 'ntc-block' ),
+		'peppermint-board-cork'      => __( 'Corkboard', 'peppermint' ),
+		'peppermint-board-dsa'       => __( 'DSA Noticeboard', 'peppermint' ),
+		'peppermint-board-technical' => __( 'Windows 95 Desktop', 'peppermint' ),
 	);
 	foreach ( $board_styles as $name => $label ) {
 		register_block_style(
@@ -286,32 +286,32 @@ function ntc_block_register_block_styles(): void {
 		);
 	}
 }
-add_action( 'init', 'ntc_block_register_block_styles' );
+add_action( 'init', 'peppermint_register_block_styles' );
 
 /**
  * Load block-specific CSS when WordPress renders the associated core block.
  */
-function ntc_block_enqueue_block_styles(): void {
+function peppermint_enqueue_block_styles(): void {
 	$block_styles = array(
 		'core/group'         => array(
 			'file'   => 'assets/css/blocks/skills-board.css',
-			'handle' => 'ntc-block-skills-board',
+			'handle' => 'peppermint-skills-board',
 		),
 		'core/cover'         => array(
 			'file'   => 'assets/css/blocks/cover.css',
-			'handle' => 'ntc-block-cover',
+			'handle' => 'peppermint-cover',
 		),
 		'core/query'         => array(
 			'file'   => 'assets/css/blocks/query.css',
-			'handle' => 'ntc-block-query',
+			'handle' => 'peppermint-query',
 		),
 		'core/post-template' => array(
 			'file'   => 'assets/css/blocks/query.css',
-			'handle' => 'ntc-block-query',
+			'handle' => 'peppermint-query',
 		),
 		'core/pullquote'     => array(
 			'file'   => 'assets/css/blocks/pullquote.css',
-			'handle' => 'ntc-block-pullquote',
+			'handle' => 'peppermint-pullquote',
 		),
 	);
 
@@ -333,4 +333,4 @@ function ntc_block_enqueue_block_styles(): void {
 		);
 	}
 }
-add_action( 'init', 'ntc_block_enqueue_block_styles', 20 );
+add_action( 'init', 'peppermint_enqueue_block_styles', 20 );

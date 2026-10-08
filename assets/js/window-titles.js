@@ -9,7 +9,7 @@
 	'use strict';
 
 	var el = element.createElement;
-	var framed = /(^|\s)is-style-ntc-(win95|retro|macos)(\s|$)/;
+	var framed = /(^|\s)is-style-peppermint-(win95|retro|macos)(\s|$)/;
 
 	// Return the first Heading block's text, or null when the tree has none.
 	function firstHeadingText( blocks ) {
@@ -26,9 +26,9 @@
 	}
 
 	function CoverWithTitle( props ) {
-		var BlockListBlock = props.ntcBlockListBlock;
+		var BlockListBlock = props.peppermintBlockListBlock;
 		var blockProps = Object.assign( {}, props );
-		delete blockProps.ntcBlockListBlock;
+		delete blockProps.peppermintBlockListBlock;
 
 		var isFramed = framed.test( props.attributes.className || '' );
 		var title = data.useSelect( function ( select ) {
@@ -37,7 +37,7 @@
 		title = ( title || '' ).replace( /\s+/g, ' ' ).trim();
 
 		if ( title ) {
-			blockProps.wrapperProps = Object.assign( {}, props.wrapperProps, { 'data-ntc-window-title': title } );
+			blockProps.wrapperProps = Object.assign( {}, props.wrapperProps, { 'data-peppermint-window-title': title } );
 		}
 		return el( BlockListBlock, blockProps );
 	}
@@ -46,10 +46,10 @@
 	var withWindowTitle = compose.createHigherOrderComponent( function ( BlockListBlock ) {
 		return function ( props ) {
 			return 'core/cover' === props.name
-				? el( CoverWithTitle, Object.assign( {}, props, { ntcBlockListBlock: BlockListBlock } ) )
+				? el( CoverWithTitle, Object.assign( {}, props, { peppermintBlockListBlock: BlockListBlock } ) )
 				: el( BlockListBlock, props );
 		};
-	}, 'withNtcWindowTitle' );
+	}, 'withPeppermintWindowTitle' );
 
-	hooks.addFilter( 'editor.BlockListBlock', 'ntc-block/window-titles', withWindowTitle );
+	hooks.addFilter( 'editor.BlockListBlock', 'peppermint/window-titles', withWindowTitle );
 }( window.wp.blockEditor, window.wp.compose, window.wp.data, window.wp.element, window.wp.hooks, window.wp.richText ) );

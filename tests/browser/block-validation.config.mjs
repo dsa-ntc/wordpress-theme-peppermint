@@ -14,6 +14,6 @@ export default defineConfig( {
 	retries: 0,
 	testDir: '.',
 	testMatch: 'block-validation.test.mjs',
-	use: { channel: process.env.NTC_TEST_CHANNEL || undefined },
+	use: { channel: process.env.PEPPERMINT_TEST_CHANNEL || undefined },
 	workers: 1
 } );

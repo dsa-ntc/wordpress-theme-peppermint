@@ -4,9 +4,9 @@
  */
 
 .wp-block-pullquote {
-	--ntc-pullquote-surface: light-dark(#fae9ea, #3b3031);
-	--ntc-pullquote-foreground: var(--wp--preset--color--contrast);
-	--ntc-pullquote-muted: var(--wp--preset--color--contrast-2);
+	--peppermint-pullquote-surface: light-dark(#fae9ea, #3b3031);
+	--peppermint-pullquote-foreground: var(--wp--preset--color--contrast);
+	--peppermint-pullquote-muted: var(--wp--preset--color--contrast-2);
 
 	box-sizing: border-box;
 	padding: clamp(1.25rem, 4vw, 2.5rem);
@@ -15,12 +15,12 @@
 	overflow-wrap: anywhere;
 }
 
-.wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos):not(.has-background) {
-	background-color: var(--ntc-pullquote-surface);
+.wp-block-pullquote:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos):not(.has-background) {
+	background-color: var(--peppermint-pullquote-surface);
 }
 
-.wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos):not(.has-text-color) {
-	color: var(--ntc-pullquote-foreground);
+.wp-block-pullquote:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos):not(.has-text-color) {
+	color: var(--peppermint-pullquote-foreground);
 }
 
 .wp-block-pullquote blockquote {
@@ -39,7 +39,7 @@
 }
 
 .wp-block-pullquote:not(.has-text-color) cite {
-	color: var(--ntc-pullquote-muted);
+	color: var(--peppermint-pullquote-muted);
 }
 
 .wp-block-pullquote.has-text-color cite {
@@ -50,80 +50,80 @@
  * Optional Windows 95 frame. The title bar and close glyph are decorative;
  * the Pullquote keeps its native editable quotation and citation fields.
  */
-.wp-block-pullquote.is-style-ntc-win95 {
-	--ntc-win95-chrome: #c0c0c0;
-	--ntc-win95-dark: #000000;
-	--ntc-win95-edge-dark: light-dark(#000000, #8a8a8a);
-	--ntc-win95-mid: #808080;
-	--ntc-win95-light: #ffffff;
-	--ntc-win95-title: light-dark(#000080, #134db3);
-	--ntc-win95-titlebar-height: 1.75rem;
+.wp-block-pullquote.is-style-peppermint-win95 {
+	--peppermint-win95-chrome: #c0c0c0;
+	--peppermint-win95-dark: #000000;
+	--peppermint-win95-edge-dark: light-dark(#000000, #8a8a8a);
+	--peppermint-win95-mid: #808080;
+	--peppermint-win95-light: #ffffff;
+	--peppermint-win95-title: light-dark(#000080, #134db3);
+	--peppermint-win95-titlebar-height: 1.75rem;
 
 	position: relative;
-	padding: calc(var(--ntc-win95-titlebar-height) + 0.85rem) 0.5rem 0.5rem;
+	padding: calc(var(--peppermint-win95-titlebar-height) + 0.85rem) 0.5rem 0.5rem;
 	border: 2px solid;
-	border-color: var(--ntc-win95-light) var(--ntc-win95-edge-dark) var(--ntc-win95-edge-dark) var(--ntc-win95-light);
-	background: var(--ntc-win95-chrome);
+	border-color: var(--peppermint-win95-light) var(--peppermint-win95-edge-dark) var(--peppermint-win95-edge-dark) var(--peppermint-win95-light);
+	background: var(--peppermint-win95-chrome);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-win95-mid),
+		inset -1px -1px var(--peppermint-win95-mid),
 		0.35rem 0.35rem 0 light-dark(#231f20, #000000);
 }
 
-.wp-block-pullquote.is-style-ntc-win95::before {
+.wp-block-pullquote.is-style-peppermint-win95::before {
 	position: absolute;
 	top: 0.35rem;
 	inset-inline: 0.35rem 2.35rem;
 	display: flex;
-	height: var(--ntc-win95-titlebar-height);
+	height: var(--peppermint-win95-titlebar-height);
 	box-sizing: border-box;
 	align-items: center;
 	padding-inline: 0.5rem;
-	background: var(--ntc-win95-title);
+	background: var(--peppermint-win95-title);
 	content: "";
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-win95::after {
+.wp-block-pullquote.is-style-peppermint-win95::after {
 	position: absolute;
 	top: 0.35rem;
 	inset-inline-end: 0.35rem;
 	display: grid;
 	width: 1.55rem;
-	height: var(--ntc-win95-titlebar-height);
+	height: var(--peppermint-win95-titlebar-height);
 	box-sizing: border-box;
 	place-items: center;
 	border: 2px solid;
-	border-color: var(--ntc-win95-light) var(--ntc-win95-edge-dark) var(--ntc-win95-edge-dark) var(--ntc-win95-light);
+	border-color: var(--peppermint-win95-light) var(--peppermint-win95-edge-dark) var(--peppermint-win95-edge-dark) var(--peppermint-win95-light);
 	background:
-		linear-gradient(45deg, transparent 42%, var(--ntc-win95-dark) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
-		linear-gradient(-45deg, transparent 42%, var(--ntc-win95-dark) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
-		var(--ntc-win95-chrome);
+		linear-gradient(45deg, transparent 42%, var(--peppermint-win95-dark) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
+		linear-gradient(-45deg, transparent 42%, var(--peppermint-win95-dark) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
+		var(--peppermint-win95-chrome);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-win95-mid);
+		inset -1px -1px var(--peppermint-win95-mid);
 	content: "";
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-win95 blockquote {
+.wp-block-pullquote.is-style-peppermint-win95 blockquote {
 	box-sizing: border-box;
 	min-inline-size: 0;
 	padding: clamp(1.25rem, 4vw, 2.5rem);
 	border: 2px solid;
-	border-color: var(--ntc-win95-mid) var(--ntc-win95-light) var(--ntc-win95-light) var(--ntc-win95-mid);
+	border-color: var(--peppermint-win95-mid) var(--peppermint-win95-light) var(--peppermint-win95-light) var(--peppermint-win95-mid);
 	background: var(--wp--preset--color--base);
 }
 
-.wp-block-pullquote.is-style-ntc-win95:not(.has-text-color) blockquote {
+.wp-block-pullquote.is-style-peppermint-win95:not(.has-text-color) blockquote {
 	color: var(--wp--preset--color--contrast);
 }
 
-.wp-block-pullquote.is-style-ntc-win95.has-text-color blockquote {
+.wp-block-pullquote.is-style-peppermint-win95.has-text-color blockquote {
 	color: inherit;
 }
 
-.wp-block-pullquote.is-style-ntc-win95:not(.has-text-color) cite {
+.wp-block-pullquote.is-style-peppermint-win95:not(.has-text-color) cite {
 	color: var(--wp--preset--color--contrast-2);
 }
 
@@ -131,76 +131,76 @@
  * Retro DSA reuses the Windows 95 geometry with the Cover style's muted
  * brand palette. Empty pseudo-elements keep the window chrome decorative.
  */
-.wp-block-pullquote.is-style-ntc-retro {
-	--ntc-retro-chrome: light-dark(#f0d3d5, #513235);
-	--ntc-retro-dark: light-dark(#762329, #2d1115);
-	--ntc-retro-mid: light-dark(#c47e82, #7b4145);
-	--ntc-retro-light: light-dark(#fff0f1, #aa6267);
-	--ntc-retro-title: light-dark(#8d4c51, #482327);
-	--ntc-retro-glyph: light-dark(#762329, #fff7f7);
-	--ntc-retro-titlebar-height: 1.75rem;
+.wp-block-pullquote.is-style-peppermint-retro {
+	--peppermint-retro-chrome: light-dark(#f0d3d5, #513235);
+	--peppermint-retro-dark: light-dark(#762329, #2d1115);
+	--peppermint-retro-mid: light-dark(#c47e82, #7b4145);
+	--peppermint-retro-light: light-dark(#fff0f1, #aa6267);
+	--peppermint-retro-title: light-dark(#8d4c51, #482327);
+	--peppermint-retro-glyph: light-dark(#762329, #fff7f7);
+	--peppermint-retro-titlebar-height: 1.75rem;
 
 	position: relative;
-	padding: calc(var(--ntc-retro-titlebar-height) + 0.85rem) 0.5rem 0.5rem;
+	padding: calc(var(--peppermint-retro-titlebar-height) + 0.85rem) 0.5rem 0.5rem;
 	border: 2px solid;
-	border-color: var(--ntc-retro-light) var(--ntc-retro-dark) var(--ntc-retro-dark) var(--ntc-retro-light);
-	background-color: var(--ntc-retro-chrome);
+	border-color: var(--peppermint-retro-light) var(--peppermint-retro-dark) var(--peppermint-retro-dark) var(--peppermint-retro-light);
+	background-color: var(--peppermint-retro-chrome);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M11 2v9H2M11 6v5H6M11 10v1h-1' fill='none' stroke='%23a86367' stroke-width='1'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right 2px bottom 2px;
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-light),
-		inset -1px -1px var(--ntc-retro-mid),
-		0.35rem 0.35rem 0 var(--ntc-retro-dark);
+		inset 1px 1px var(--peppermint-retro-light),
+		inset -1px -1px var(--peppermint-retro-mid),
+		0.35rem 0.35rem 0 var(--peppermint-retro-dark);
 }
 
-.wp-block-pullquote.is-style-ntc-retro::before {
+.wp-block-pullquote.is-style-peppermint-retro::before {
 	position: absolute;
 	top: 0.35rem;
 	inset-inline: 0.35rem 2.35rem;
 	display: block;
-	height: var(--ntc-retro-titlebar-height);
+	height: var(--peppermint-retro-titlebar-height);
 	box-sizing: border-box;
-	background: var(--ntc-retro-title);
+	background: var(--peppermint-retro-title);
 	content: "";
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-retro::after {
+.wp-block-pullquote.is-style-peppermint-retro::after {
 	position: absolute;
 	top: 0.35rem;
 	inset-inline-end: 0.35rem;
 	display: block;
 	width: 1.55rem;
-	height: var(--ntc-retro-titlebar-height);
+	height: var(--peppermint-retro-titlebar-height);
 	box-sizing: border-box;
 	border: 2px solid;
-	border-color: var(--ntc-retro-light) var(--ntc-retro-dark) var(--ntc-retro-dark) var(--ntc-retro-light);
+	border-color: var(--peppermint-retro-light) var(--peppermint-retro-dark) var(--peppermint-retro-dark) var(--peppermint-retro-light);
 	background:
-		linear-gradient(45deg, transparent 42%, var(--ntc-retro-glyph) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
-		linear-gradient(-45deg, transparent 42%, var(--ntc-retro-glyph) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
-		var(--ntc-retro-chrome);
+		linear-gradient(45deg, transparent 42%, var(--peppermint-retro-glyph) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
+		linear-gradient(-45deg, transparent 42%, var(--peppermint-retro-glyph) 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
+		var(--peppermint-retro-chrome);
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-light),
-		inset -1px -1px var(--ntc-retro-mid);
+		inset 1px 1px var(--peppermint-retro-light),
+		inset -1px -1px var(--peppermint-retro-mid);
 	content: "";
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-retro blockquote {
+.wp-block-pullquote.is-style-peppermint-retro blockquote {
 	box-sizing: border-box;
 	min-inline-size: 0;
 	padding: clamp(1.25rem, 4vw, 2.5rem);
 	border: 2px solid;
-	border-color: var(--ntc-retro-mid) var(--ntc-retro-light) var(--ntc-retro-light) var(--ntc-retro-mid);
+	border-color: var(--peppermint-retro-mid) var(--peppermint-retro-light) var(--peppermint-retro-light) var(--peppermint-retro-mid);
 	background: light-dark(#fff7f7, #2f2425);
 }
 
-.wp-block-pullquote.is-style-ntc-retro:not(.has-text-color) blockquote {
+.wp-block-pullquote.is-style-peppermint-retro:not(.has-text-color) blockquote {
 	color: var(--wp--preset--color--contrast);
 }
 
-.wp-block-pullquote.is-style-ntc-retro.has-text-color blockquote {
+.wp-block-pullquote.is-style-peppermint-retro.has-text-color blockquote {
 	color: inherit;
 }
 
@@ -208,29 +208,29 @@
  * macOS chrome mirrors the Cover frame without interactive hover states.
  * Traffic lights are a decorative background image, not controls.
  */
-.wp-block-pullquote.is-style-ntc-macos {
-	--ntc-macos-chrome: light-dark(#e6e5e8, #343032);
-	--ntc-macos-border: light-dark(#c7c5c8, #4d474a);
-	--ntc-macos-titlebar-height: 1.85rem;
+.wp-block-pullquote.is-style-peppermint-macos {
+	--peppermint-macos-chrome: light-dark(#e6e5e8, #343032);
+	--peppermint-macos-border: light-dark(#c7c5c8, #4d474a);
+	--peppermint-macos-titlebar-height: 1.85rem;
 
 	position: relative;
-	padding: calc(var(--ntc-macos-titlebar-height) + 0.45rem) 0.45rem 0.45rem;
+	padding: calc(var(--peppermint-macos-titlebar-height) + 0.45rem) 0.45rem 0.45rem;
 	overflow: hidden;
-	border: 1px solid var(--ntc-macos-border);
+	border: 1px solid var(--peppermint-macos-border);
 	border-radius: 10px;
-	background: var(--ntc-macos-chrome);
+	background: var(--peppermint-macos-chrome);
 	box-shadow: 0 4px 14px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.35));
 }
 
-.wp-block-pullquote.is-style-ntc-macos::before {
+.wp-block-pullquote.is-style-peppermint-macos::before {
 	position: absolute;
 	top: 0;
 	inset-inline: 0;
 	display: block;
-	height: var(--ntc-macos-titlebar-height);
+	height: var(--peppermint-macos-titlebar-height);
 	box-sizing: border-box;
-	border-bottom: 1px solid var(--ntc-macos-border);
-	background-color: var(--ntc-macos-chrome);
+	border-bottom: 1px solid var(--peppermint-macos-border);
+	background-color: var(--peppermint-macos-chrome);
 	background-image: linear-gradient(
 		180deg,
 		light-dark(#f2f1f3, #3c383a) 0%,
@@ -241,9 +241,9 @@
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-macos::after {
+.wp-block-pullquote.is-style-peppermint-macos::after {
 	position: absolute;
-	top: calc((var(--ntc-macos-titlebar-height) - 10px) / 2);
+	top: calc((var(--peppermint-macos-titlebar-height) - 10px) / 2);
 	inset-inline-start: 0.75rem;
 	display: block;
 	width: 40px;
@@ -255,7 +255,7 @@
 	pointer-events: none;
 }
 
-.wp-block-pullquote.is-style-ntc-macos blockquote {
+.wp-block-pullquote.is-style-peppermint-macos blockquote {
 	box-sizing: border-box;
 	min-inline-size: 0;
 	padding: clamp(1.25rem, 4vw, 2.5rem);
@@ -264,11 +264,11 @@
 	background: var(--wp--preset--color--base);
 }
 
-.wp-block-pullquote.is-style-ntc-macos:not(.has-text-color) blockquote {
+.wp-block-pullquote.is-style-peppermint-macos:not(.has-text-color) blockquote {
 	color: var(--wp--preset--color--contrast);
 }
 
-.wp-block-pullquote.is-style-ntc-macos.has-text-color blockquote {
+.wp-block-pullquote.is-style-peppermint-macos.has-text-color blockquote {
 	color: inherit;
 }
 
@@ -278,56 +278,56 @@
  */
 @supports not (color: light-dark(#fff, #000)) {
 	.wp-block-pullquote {
-		--ntc-pullquote-surface: #fae9ea;
+		--peppermint-pullquote-surface: #fae9ea;
 	}
 
-	.wp-block-pullquote.is-style-ntc-win95 {
-		--ntc-win95-edge-dark: #000000;
-		--ntc-win95-title: #000080;
+	.wp-block-pullquote.is-style-peppermint-win95 {
+		--peppermint-win95-edge-dark: #000000;
+		--peppermint-win95-title: #000080;
 
 		box-shadow:
 			inset 1px 1px #dfdfdf,
-			inset -1px -1px var(--ntc-win95-mid),
+			inset -1px -1px var(--peppermint-win95-mid),
 			0.35rem 0.35rem 0 #231f20;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro {
-		--ntc-retro-chrome: #f0d3d5;
-		--ntc-retro-dark: #762329;
-		--ntc-retro-mid: #c47e82;
-		--ntc-retro-light: #fff0f1;
-		--ntc-retro-title: #8d4c51;
-		--ntc-retro-glyph: #762329;
+	.wp-block-pullquote.is-style-peppermint-retro {
+		--peppermint-retro-chrome: #f0d3d5;
+		--peppermint-retro-dark: #762329;
+		--peppermint-retro-mid: #c47e82;
+		--peppermint-retro-light: #fff0f1;
+		--peppermint-retro-title: #8d4c51;
+		--peppermint-retro-glyph: #762329;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro blockquote {
+	.wp-block-pullquote.is-style-peppermint-retro blockquote {
 		background: #fff7f7;
 	}
 
-	.wp-block-pullquote.is-style-ntc-macos {
-		--ntc-macos-chrome: #e6e5e8;
-		--ntc-macos-border: #c7c5c8;
+	.wp-block-pullquote.is-style-peppermint-macos {
+		--peppermint-macos-chrome: #e6e5e8;
+		--peppermint-macos-border: #c7c5c8;
 	}
 }
 
 @media (forced-colors: active) {
-	.wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos) {
+	.wp-block-pullquote:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos) {
 		border-color: Highlight;
 		background: Canvas;
 		color: CanvasText;
 	}
 
-	.wp-block-pullquote.is-style-ntc-win95 {
+	.wp-block-pullquote.is-style-peppermint-win95 {
 		border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
 		background: ButtonFace;
 		box-shadow: inset 1px 1px ButtonHighlight, inset -1px -1px ButtonShadow;
 	}
 
-	.wp-block-pullquote.is-style-ntc-win95::before {
+	.wp-block-pullquote.is-style-peppermint-win95::before {
 		background: Highlight;
 	}
 
-	.wp-block-pullquote.is-style-ntc-win95::after {
+	.wp-block-pullquote.is-style-peppermint-win95::after {
 		border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
 		background:
 			linear-gradient(45deg, transparent 42%, ButtonText 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
@@ -336,23 +336,23 @@
 		box-shadow: inset 1px 1px ButtonHighlight, inset -1px -1px ButtonShadow;
 	}
 
-	.wp-block-pullquote.is-style-ntc-win95 blockquote {
+	.wp-block-pullquote.is-style-peppermint-win95 blockquote {
 		border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
 		background: Canvas;
 		color: CanvasText;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro {
+	.wp-block-pullquote.is-style-peppermint-retro {
 		border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
 		background: ButtonFace;
 		box-shadow: inset 1px 1px ButtonHighlight, inset -1px -1px ButtonShadow;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro::before {
+	.wp-block-pullquote.is-style-peppermint-retro::before {
 		background: Highlight;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro::after {
+	.wp-block-pullquote.is-style-peppermint-retro::after {
 		border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
 		background:
 			linear-gradient(45deg, transparent 42%, ButtonText 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
@@ -361,38 +361,38 @@
 		box-shadow: inset 1px 1px ButtonHighlight, inset -1px -1px ButtonShadow;
 	}
 
-	.wp-block-pullquote.is-style-ntc-retro blockquote {
+	.wp-block-pullquote.is-style-peppermint-retro blockquote {
 		border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
 		background: Canvas;
 		color: CanvasText;
 	}
 
-	.wp-block-pullquote.is-style-ntc-macos {
+	.wp-block-pullquote.is-style-peppermint-macos {
 		border-color: ButtonText;
 		background: ButtonFace;
 		box-shadow: none;
 	}
 
-	.wp-block-pullquote.is-style-ntc-macos::before {
+	.wp-block-pullquote.is-style-peppermint-macos::before {
 		border-color: ButtonText;
 		background: ButtonFace;
 		box-shadow: none;
 	}
 
-	.wp-block-pullquote.is-style-ntc-macos::after {
+	.wp-block-pullquote.is-style-peppermint-macos::after {
 		background-image:
 			radial-gradient(circle at 5px 5px, ButtonText 0 4px, transparent 5px),
 			radial-gradient(circle at 20px 5px, ButtonText 0 4px, transparent 5px),
 			radial-gradient(circle at 35px 5px, ButtonText 0 4px, transparent 5px);
 	}
 
-	.wp-block-pullquote.is-style-ntc-macos blockquote {
+	.wp-block-pullquote.is-style-peppermint-macos blockquote {
 		border-color: ButtonText;
 		background: Canvas;
 		color: CanvasText;
 	}
 
-	.wp-block-pullquote:is(.is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos) cite {
+	.wp-block-pullquote:is(.is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos) cite {
 		color: CanvasText;
 	}
 }

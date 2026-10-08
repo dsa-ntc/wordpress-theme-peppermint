@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-const heroRoute = process.env.NTC_LANDING_HERO_TEST_PATH || '/theme-preview/landing-hero/';
-const heroSelector = '.wp-block-cover.ntc-image-hero.alignfull';
+const heroRoute = process.env.PEPPERMINT_LANDING_HERO_TEST_PATH || '/theme-preview/landing-hero/';
+const heroSelector = '.wp-block-cover.peppermint-image-hero.alignfull';
 
 async function settle( page ) {
 	await page.evaluate( () => document.fonts.ready );
@@ -11,7 +11,7 @@ async function settle( page ) {
 async function openHero( page, scheme ) {
 	if ( scheme ) {
 		await page.addInitScript( ( requestedScheme ) => {
-			window.localStorage.setItem( 'ntc-color-scheme', requestedScheme );
+			window.localStorage.setItem( 'peppermint-color-scheme', requestedScheme );
 		}, scheme );
 	}
 
@@ -37,8 +37,8 @@ async function heroReport( page ) {
 	return page.locator( heroSelector ).evaluate( ( hero ) => {
 		const image = hero.querySelector( '.wp-block-cover__image-background' );
 		const overlay = hero.querySelector( '.wp-block-cover__background' );
-		const layout = hero.querySelector( '.ntc-image-hero__layout' );
-		const content = hero.querySelector( '.ntc-image-hero__content' );
+		const layout = hero.querySelector( '.peppermint-image-hero__layout' );
+		const content = hero.querySelector( '.peppermint-image-hero__content' );
 		const heading = content?.querySelector( 'h1' );
 		const paragraph = content?.querySelector( 'p' );
 		if ( ! image || ! overlay || ! layout || ! content || ! heading || ! paragraph ) {
@@ -194,11 +194,11 @@ function expectHeroTreatment( report ) {
 
 test( 'landing hero is one full-bleed core Cover with clean editable content', async ( { page } ) => {
 	const hero = await openHero( page );
-	await expect( hero.locator( '.ntc-image-hero__layout' ) ).toHaveCount( 1 );
-	await expect( hero.locator( '.ntc-image-hero__content' ) ).toHaveCount( 1 );
+	await expect( hero.locator( '.peppermint-image-hero__layout' ) ).toHaveCount( 1 );
+	await expect( hero.locator( '.peppermint-image-hero__content' ) ).toHaveCount( 1 );
 	await expect( hero.getByRole( 'heading', { level: 1 } ) ).toHaveCount( 1 );
 	await expect( hero.locator( '.wp-block-button__link', { hasText: 'Explore the project' } ) ).toHaveCount( 1 );
-	await expect( hero.locator( '.eyebrow, .ntc-signal-hero, .is-style-ntc-signal-rail' ) ).toHaveCount( 0 );
+	await expect( hero.locator( '.eyebrow, .peppermint-signal-hero, .is-style-peppermint-signal-rail' ) ).toHaveCount( 0 );
 	await expect( hero ).not.toContainText( 'Project / 001' );
 
 	const report = await heroReport( page );
@@ -232,7 +232,7 @@ test( 'landing hero remains centered beyond the standard desktop test width', as
 for ( const scheme of [ 'light', 'dark' ] ) {
 	test( `${ scheme } landing hero remains full-width, constrained, and overflow-free`, async ( { page } ) => {
 		await openHero( page, scheme );
-		await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+		await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 
 		const report = await heroReport( page );
 		expectHeroGeometry( report );

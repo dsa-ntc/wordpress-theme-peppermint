@@ -1,9 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = process.env.NTC_TEST_BASE_URL?.trim();
+const baseURL = process.env.PEPPERMINT_TEST_BASE_URL?.trim();
 
 if ( ! baseURL || ! baseURL.trim() ) {
-	throw new Error( 'Set NTC_TEST_BASE_URL to the URL of a disposable NTC Block test site.' );
+	throw new Error( 'Set PEPPERMINT_TEST_BASE_URL to the URL of a disposable Peppermint test site.' );
 }
 
 try {
@@ -12,13 +12,13 @@ try {
 		throw new Error( 'Unsupported test URL.' );
 	}
 } catch {
-	throw new Error( 'NTC_TEST_BASE_URL must be an HTTP(S) test-site URL without embedded credentials.' );
+	throw new Error( 'PEPPERMINT_TEST_BASE_URL must be an HTTP(S) test-site URL without embedded credentials.' );
 }
 
 // Reject typos instead of silently skipping routes or appearance modes.
 // Validate here so --list checks the same inputs as a full run.
-const routeLists = [ 'NTC_TEST_PATHS', 'NTC_RESPONSIVE_TEST_PATHS', 'NTC_EXPECTED_404_PATHS' ];
-const singleRoutes = [ 'NTC_CARD_TEST_PATH', 'NTC_LANDING_HERO_TEST_PATH', 'NTC_SIGNAL_RAIL_TEST_PATH', 'NTC_APPEARANCE_TEST_PATH', 'NTC_PULLQUOTE_TEST_PATH' ];
+const routeLists = [ 'PEPPERMINT_TEST_PATHS', 'PEPPERMINT_RESPONSIVE_TEST_PATHS', 'PEPPERMINT_EXPECTED_404_PATHS' ];
+const singleRoutes = [ 'PEPPERMINT_CARD_TEST_PATH', 'PEPPERMINT_LANDING_HERO_TEST_PATH', 'PEPPERMINT_SIGNAL_RAIL_TEST_PATH', 'PEPPERMINT_APPEARANCE_TEST_PATH', 'PEPPERMINT_PULLQUOTE_TEST_PATH' ];
 for ( const name of [ ...routeLists, ...singleRoutes ] ) {
 	if ( process.env[ name ] === undefined ) {
 		continue;
@@ -32,7 +32,7 @@ for ( const name of [ ...routeLists, ...singleRoutes ] ) {
 		try {
 			decodeURI( route );
 			if ( ! route.startsWith( '/' ) || route.startsWith( '//' ) || /[\s\\]/u.test( route )
-				|| new URL( route, 'https://ntc-test.invalid' ).origin !== 'https://ntc-test.invalid' ) {
+				|| new URL( route, 'https://peppermint-test.invalid' ).origin !== 'https://peppermint-test.invalid' ) {
 				throw new Error( 'Invalid site-relative path.' );
 			}
 		} catch {
@@ -42,12 +42,12 @@ for ( const name of [ ...routeLists, ...singleRoutes ] ) {
 	// Share normalized values with every spec, including single-route tests.
 	process.env[ name ] = routes.join( ',' );
 }
-if ( process.env.NTC_RESPONSIVE_SCHEMES !== undefined ) {
-	const schemes = process.env.NTC_RESPONSIVE_SCHEMES.split( ',' ).map( ( scheme ) => scheme.trim() );
+if ( process.env.PEPPERMINT_RESPONSIVE_SCHEMES !== undefined ) {
+	const schemes = process.env.PEPPERMINT_RESPONSIVE_SCHEMES.split( ',' ).map( ( scheme ) => scheme.trim() );
 	if ( schemes.some( ( scheme ) => ! [ 'light', 'dark' ].includes( scheme ) ) || new Set( schemes ).size !== schemes.length ) {
-		throw new Error( 'NTC_RESPONSIVE_SCHEMES must be light, dark, or light,dark without duplicate or empty entries.' );
+		throw new Error( 'PEPPERMINT_RESPONSIVE_SCHEMES must be light, dark, or light,dark without duplicate or empty entries.' );
 	}
-	process.env.NTC_RESPONSIVE_SCHEMES = schemes.join( ',' );
+	process.env.PEPPERMINT_RESPONSIVE_SCHEMES = schemes.join( ',' );
 }
 
 export default defineConfig( {
@@ -105,7 +105,7 @@ export default defineConfig( {
 	testMatch: '*.spec.mjs',
 	use: {
 		baseURL,
-		channel: process.env.NTC_TEST_CHANNEL || undefined,
+		channel: process.env.PEPPERMINT_TEST_CHANNEL || undefined,
 		screenshot: 'only-on-failure',
 		trace: 'retain-on-failure'
 	},

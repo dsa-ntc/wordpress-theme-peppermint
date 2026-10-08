@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="NTC Block">
-	<description>WordPress and PHP compatibility checks for NTC Block.</description>
+<ruleset name="Peppermint">
+	<description>WordPress and PHP compatibility checks for Peppermint.</description>
 
 	<file>functions.php</file>
 	<file>blocks</file>
@@ -24,14 +24,14 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="ntc-block"/>
+				<element value="peppermint"/>
 			</property>
 		</properties>
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="ntc_block"/>
+				<element value="peppermint"/>
 			</property>
 		</properties>
 	</rule>

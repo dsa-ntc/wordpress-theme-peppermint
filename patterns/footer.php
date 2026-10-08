@@ -1,13 +1,13 @@
 <?php
 /**
  * Title: Site footer
- * Slug: ntc-block/footer
+ * Slug: peppermint/footer
  * Categories: footer
  * Inserter: no
  * Block Types: core/template-part
  * Template Types: footer
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 ?>
@@ -15,8 +15,15 @@
 <div class="wp-block-group alignfull site-footer has-white-color has-dsa-black-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)">
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:paragraph {"className":"footer-contact","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.5"}},"fontSize":"small"} -->
-		<p class="footer-contact has-small-font-size" style="margin-top:0;margin-bottom:0;line-height:1.5"><?php esc_html_e( 'Contact us with any questions, comments or concerns at ntc@dsacommittees.org.', 'ntc-block' ); ?><br><span class="footer-fingerprint" dir="ltr"><?php echo esc_html( 'openpgp4fpr:' ) . '<wbr>' . implode( '<wbr>', array_map( 'esc_html', str_split( 'FBCDCC2F20A31C717F8EF5324C1D612B9C3E2AE8', 4 ) ) ); ?></span></p>
+		<!-- wp:site-title {"level":0,"style":{"typography":{"fontWeight":"700"}},"fontSize":"small"} /-->
+		<!-- wp:paragraph {"placeholder":"<?php echo esc_attr__( 'Add contact details', 'peppermint' ); ?>","className":"footer-contact","style":{"typography":{"lineHeight":"1.5"}},"fontSize":"small"} -->
+		<p class="footer-contact has-small-font-size" style="line-height:1.5"></p>
+		<!-- /wp:paragraph -->
+		<!-- wp:social-links {"iconColor":"white","iconColorValue":"#FFFFFF","className":"is-style-logos-only"} -->
+		<ul class="wp-block-social-links has-icon-color is-style-logos-only"></ul>
+		<!-- /wp:social-links -->
+		<!-- wp:paragraph {"placeholder":"<?php echo esc_attr__( 'Add a legal notice or disclaimer', 'peppermint' ); ?>","className":"footer-legal","fontSize":"x-small"} -->
+		<p class="footer-legal has-x-small-font-size"></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->

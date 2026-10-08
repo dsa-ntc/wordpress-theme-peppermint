@@ -4,7 +4,6 @@ import { expect, test } from '@playwright/test';
 // or contacting the dashboard application.
 // Contracts: WCAG 1.4.10 Reflow (320 CSS px), 1.4.4 Resize Text (200%),
 // 1.3.2 Meaningful Sequence, and MDN's wbr / object-fit / iframe guidance.
-const fingerprint = 'openpgp4fpr:FBCDCC2F20A31C717F8EF5324C1D612B9C3E2AE8';
 const queryRoute = '/theme-preview-posts/';
 
 async function settle( page ) {
@@ -72,7 +71,7 @@ function expectInlineFit( report ) {
 for ( const scheme of [ 'light', 'dark' ] ) {
 	test.describe( `${ scheme } content resilience`, () => {
 		test.beforeEach( async ( { page } ) => {
-			await page.addInitScript( ( appearance ) => localStorage.setItem( 'ntc-color-scheme', appearance ), scheme );
+			await page.addInitScript( ( appearance ) => localStorage.setItem( 'peppermint-color-scheme', appearance ), scheme );
 			await page.emulateMedia( { reducedMotion: 'reduce' } );
 		} );
 
@@ -96,28 +95,6 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 			expect( enlarged.text ).toBe( ordinary.text );
 			expectInlineFit( enlarged );
 			expect( enlarged.lines.at( -1 ).text.length, JSON.stringify( enlarged ) ).toBeGreaterThan( 1 );
-		} );
-
-		test( 'footer keeps its exact copyable fingerprint and complete four-character wrap groups', async ( { page } ) => {
-			await open( page, '/theme-preview-interoperability/' );
-			const identifier = page.locator( '.footer-fingerprint' );
-			await expect( identifier ).toHaveAttribute( 'dir', 'ltr' );
-			expect( await identifier.locator( 'wbr' ).count() ).toBeGreaterThan( 0 );
-			for ( const scale of [ 1, 2 ] ) {
-				if ( scale === 2 ) {
-					await identifier.evaluate( ( element ) => {
-						element.style.fontSize = `${ Number.parseFloat( getComputedStyle( element ).fontSize ) * 2 }px`;
-					} );
-					await settle( page );
-				}
-				const report = await textMetrics( identifier );
-				expect( report.text, 'Break opportunities must not add spaces, hyphens, or translated URI text.' ).toBe( fingerprint );
-				expectInlineFit( report );
-				expect( report.lines.at( -1 ).text.length, JSON.stringify( report ) ).toBeGreaterThanOrEqual( 4 );
-				for ( const line of report.lines ) {
-					expect( line.text.replace( 'openpgp4fpr:', '' ).length % 4, JSON.stringify( report ) ).toBe( 0 );
-				}
-			}
 		} );
 
 		test( 'opened mobile navigation keeps real inline gutters', async ( { page } ) => {
@@ -277,7 +254,7 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 			const figure = page.locator( '.project-grid .wp-block-post-featured-image' ).first();
 			await expect( figure ).toBeVisible();
 			await figure.evaluate( ( element ) => {
-				element.classList.add( 'is-style-ntc-contained-media' );
+				element.classList.add( 'is-style-peppermint-contained-media' );
 				const image = element.querySelector( 'img' );
 				image.removeAttribute( 'srcset' );
 				image.removeAttribute( 'sizes' );

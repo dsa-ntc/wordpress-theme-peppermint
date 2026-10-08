@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const signalRoute = process.env.NTC_SIGNAL_RAIL_TEST_PATH || '/theme-preview/section-styles/';
+const signalRoute = process.env.PEPPERMINT_SIGNAL_RAIL_TEST_PATH || '/theme-preview/section-styles/';
 
 async function settle( page ) {
 	await page.evaluate( () => document.fonts.ready );
@@ -9,7 +9,7 @@ async function settle( page ) {
 
 async function signalHeroReport( page ) {
 	return page.evaluate( () => {
-		const hero = document.querySelector( '.ntc-signal-hero, .is-style-ntc-signal-hero' );
+		const hero = document.querySelector( '.peppermint-signal-hero, .is-style-peppermint-signal-hero' );
 		if ( ! hero ) {
 			return null;
 		}
@@ -38,7 +38,7 @@ async function signalHeroReport( page ) {
 
 		return {
 			documentOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-			experimentalClassCount: document.querySelectorAll( '[class*="ntc-signal-hero--"]' ).length,
+			experimentalClassCount: document.querySelectorAll( '[class*="peppermint-signal-hero--"]' ).length,
 			headingClipped: ( [ 'clip', 'hidden' ].includes( headingStyle.overflowX ) && heading.scrollWidth > heading.clientWidth + 1 )
 				|| ( [ 'clip', 'hidden' ].includes( headingStyle.overflowY ) && heading.scrollHeight > heading.clientHeight + 1 ),
 			headingEscapes: headingRect.left < heroRect.left - 1 || headingRect.right > heroRect.right + 1,
@@ -60,7 +60,7 @@ test( 'optional Signal Hero is previewed on Section Styles using core blocks', a
 	expect( response.status() ).toBe( 200 );
 	await settle( page );
 
-	const hero = page.locator( '.ntc-signal-hero, .is-style-ntc-signal-hero' );
+	const hero = page.locator( '.peppermint-signal-hero, .is-style-peppermint-signal-hero' );
 	await expect( hero ).toHaveCount( 1 );
 	await expect( hero.locator( '.eyebrow' ) ).toHaveCount( 1 );
 	expect( await hero.locator( 'h1, h2, h3' ).count() ).toBeGreaterThanOrEqual( 1 );
@@ -81,7 +81,7 @@ test( 'standalone Signal Rail remains previewed on a core Heading block', async 
 
 	const heading = page.getByRole( 'heading', { level: 2, name: 'Signal Rail' } );
 	await expect( heading ).toHaveCount( 1 );
-	await expect( heading ).toHaveClass( /is-style-ntc-signal-rail/ );
+	await expect( heading ).toHaveClass( /is-style-peppermint-signal-rail/ );
 	const rail = await heading.evaluate( ( element ) => {
 		const style = getComputedStyle( element, '::after' );
 		return {
@@ -106,11 +106,11 @@ test( 'standalone Signal Rail remains previewed on a core Heading block', async 
 for ( const scheme of [ 'light', 'dark' ] ) {
 	test( `${ scheme } optional Signal Hero stays clean and contained`, async ( { page } ) => {
 		await page.addInitScript( ( requestedScheme ) => {
-			window.localStorage.setItem( 'ntc-color-scheme', requestedScheme );
+			window.localStorage.setItem( 'peppermint-color-scheme', requestedScheme );
 		}, scheme );
 		await page.goto( signalRoute, { waitUntil: 'domcontentloaded' } );
 		await settle( page );
-		await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+		await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 
 		const report = await signalHeroReport( page );
 		expect( report ).not.toBeNull();
@@ -136,7 +136,7 @@ test( 'optional Signal Hero survives 200 percent text and WCAG text spacing', as
 
 	await page.reload( { waitUntil: 'domcontentloaded' } );
 	await page.addStyleTag( {
-		content: `.ntc-signal-hero * {
+		content: `.peppermint-signal-hero * {
 			letter-spacing: 0.12em !important;
 			line-height: 1.5 !important;
 			word-spacing: 0.16em !important;

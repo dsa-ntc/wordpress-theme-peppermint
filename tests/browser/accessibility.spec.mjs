@@ -1,19 +1,19 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const routes = ( process.env.NTC_TEST_PATHS || '/' )
+const routes = ( process.env.PEPPERMINT_TEST_PATHS || '/' )
 	.split( ',' )
 	.map( ( route ) => route.trim() )
 	.filter( Boolean );
 
-const notFoundRoutes = ( process.env.NTC_EXPECTED_404_PATHS || '/theme-preview-guaranteed-missing-route/' )
+const notFoundRoutes = ( process.env.PEPPERMINT_EXPECTED_404_PATHS || '/theme-preview-guaranteed-missing-route/' )
 	.split( ',' ).map( ( route ) => route.trim() ).filter( Boolean );
 
 for ( const route of routes ) {
 	for ( const scheme of [ 'light', 'dark' ] ) {
 		test( `${ scheme } appearance: ${ route }`, async ( { page } ) => {
 			await page.addInitScript( ( requestedScheme ) => {
-				window.localStorage.setItem( 'ntc-color-scheme', requestedScheme );
+				window.localStorage.setItem( 'peppermint-color-scheme', requestedScheme );
 			}, scheme );
 
 			const response = await page.goto( route, { waitUntil: 'domcontentloaded' } );
@@ -31,7 +31,7 @@ for ( const route of routes ) {
 			expect( skipTarget ).toMatch( /^#[A-Za-z][A-Za-z0-9_:.-]*$/ );
 			await expect( page.locator( skipTarget ) ).toHaveCount( 1 );
 
-			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 
 			const unsafeBlankLinks = await page.locator( 'a[target="_blank"]' ).evaluateAll( ( links ) => (
 				links

@@ -48,7 +48,7 @@ jobs:
             https://wordpress.org/wordpress-7.1.tar.gz \
             --output "$RUNNER_TEMP/wordpress.tar.gz"
           tar -xzf "$RUNNER_TEMP/wordpress.tar.gz" -C "$RUNNER_TEMP"
-          echo "NTC_WORDPRESS_ROOT=$RUNNER_TEMP/wordpress" >> "$GITHUB_ENV"
+          echo "PEPPERMINT_WORDPRESS_ROOT=$RUNNER_TEMP/wordpress" >> "$GITHUB_ENV"
       - name: Check PHP conventions and theme contracts
         run: |
           composer check

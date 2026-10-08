@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 
 const fixtureExporter = fileURLToPath( new URL( './block-validation-fixtures.php', import.meta.url ) );
-const phpBinary = process.env.NTC_PHP_BINARY || 'php';
+const phpBinary = process.env.PEPPERMINT_PHP_BINARY || 'php';
 const fixtures = JSON.parse( execFileSync( phpBinary, [ '-n', fixtureExporter ], {
 	encoding: 'utf8',
 	maxBuffer: 8 * 1024 * 1024,
@@ -13,10 +13,10 @@ const fixtures = JSON.parse( execFileSync( phpBinary, [ '-n', fixtureExporter ],
 } ) );
 
 // Check exported post or template markup without a database or editor session.
-if ( process.env.NTC_BLOCK_VALIDATION_CONTENT ) {
-	const extraDocuments = JSON.parse( readFileSync( process.env.NTC_BLOCK_VALIDATION_CONTENT, 'utf8' ).replace( /^\uFEFF/, '' ) );
+if ( process.env.PEPPERMINT_BLOCK_VALIDATION_CONTENT ) {
+	const extraDocuments = JSON.parse( readFileSync( process.env.PEPPERMINT_BLOCK_VALIDATION_CONTENT, 'utf8' ).replace( /^\uFEFF/, '' ) );
 	if ( ! extraDocuments || typeof extraDocuments !== 'object' || Array.isArray( extraDocuments ) || ! Object.keys( extraDocuments ).length ) {
-		throw new Error( 'NTC_BLOCK_VALIDATION_CONTENT must contain a nonempty JSON object of label-to-block-markup strings.' );
+		throw new Error( 'PEPPERMINT_BLOCK_VALIDATION_CONTENT must contain a nonempty JSON object of label-to-block-markup strings.' );
 	}
 	for ( const [ label, markup ] of Object.entries( extraDocuments ) ) {
 		if ( typeof markup !== 'string' ) {
@@ -50,7 +50,7 @@ test.beforeAll( async ( { browser } ) => {
 			consoleErrors.push( message.text() );
 		}
 	} );
-	await validationPage.goto( 'https://ntc-block-validation.test/' );
+	await validationPage.goto( 'https://peppermint-validation.test/' );
 	for ( const [ handle, path ] of Object.entries( fixtures.coreScripts ) ) {
 		await validationPage.addScriptTag( { path } );
 		if ( handle === 'lodash' ) {
@@ -208,7 +208,7 @@ test( 'negative control: a missing Group border color is rejected', async () => 
 	expect( ( await inspectMarkup( invalid ) ).failures.some( failure => failure.path.endsWith( ':core/group' ) ) ).toBe( true );
 } );
 
-const customHTMLControl = '<!-- wp:html --><div class="ntc-responsive-embed">\n\t<iframe title="Dashboard &amp; proposals" src="https://dashboard.example.invalid/view?embed=true&amp;mode=read" loading="lazy"></iframe>\n\t<p>Keep  intentional   spaces &amp; entities.</p>\n</div><!-- /wp:html -->';
+const customHTMLControl = '<!-- wp:html --><div class="peppermint-responsive-embed">\n\t<iframe title="Dashboard &amp; proposals" src="https://dashboard.example.invalid/view?embed=true&amp;mode=read" loading="lazy"></iframe>\n\t<p>Keep  intentional   spaces &amp; entities.</p>\n</div><!-- /wp:html -->';
 
 test( 'Custom HTML iframe preserves exact static content without calling its null save output', async () => {
 	consoleErrors.length = 0;
@@ -233,7 +233,7 @@ test( 'Custom HTML preserves static fragments around a valid editable child', as
 } );
 
 test( 'negative control: losing a Custom HTML fragment is rejected even when the parser calls it valid', async () => {
-	const truncated = '<!-- wp:html --><div class="ntc-responsive-embed"></div><!-- /wp:html -->';
+	const truncated = '<!-- wp:html --><div class="peppermint-responsive-embed"></div><!-- /wp:html -->';
 	const result = await inspectMarkup( customHTMLControl, truncated );
 	expect( result.failures.some( ( failure ) => failure.path.endsWith( ':core/html' )
 		&& failure.issues.some( ( issue ) => issue.message === 'Static HTML bytes and child-slot positions must survive serialize/parse' ) ) ).toBe( true );
@@ -256,17 +256,17 @@ test( 'Appearance Switcher editor preview toggles inside an iframe without chang
 	consoleErrors.length = 0;
 	const themeCSS = readFileSync( new URL( '../../style.css', import.meta.url ), 'utf8' );
 	const readState = () => validationPage.evaluate( () => {
-		const canvas = document.getElementById( 'ntc-appearance-editor-test' ).contentDocument.documentElement;
+		const canvas = document.getElementById( 'peppermint-appearance-editor-test' ).contentDocument.documentElement;
 		return {
-			storage: localStorage.getItem( 'ntc-color-scheme' ),
-			outer: document.documentElement.getAttribute( 'data-ntc-color-scheme' ),
-			canvas: canvas.getAttribute( 'data-ntc-color-scheme' ),
-			serialized: window.ntcAppearanceEditorTest.serialized
+			storage: localStorage.getItem( 'peppermint-color-scheme' ),
+			outer: document.documentElement.getAttribute( 'data-peppermint-color-scheme' ),
+			canvas: canvas.getAttribute( 'data-peppermint-color-scheme' ),
+			serialized: window.peppermintAppearanceEditorTest.serialized
 		};
 	} );
 	await validationPage.evaluate( ( css ) => {
 		const frame = document.createElement( 'iframe' );
-		frame.id = 'ntc-appearance-editor-test';
+		frame.id = 'peppermint-appearance-editor-test';
 		frame.title = 'Appearance block editor test';
 		frame.style.cssText = 'width: 900px; height: 650px; border: 0';
 		document.body.append( frame );
@@ -275,28 +275,28 @@ test( 'Appearance Switcher editor preview toggles inside an iframe without chang
 		style.textContent = css;
 		doc.head.append( style );
 		doc.body.innerHTML = '<main style="max-width: 600px; margin: 3rem auto"><div id="editor"></div></main>';
-		const previousPreference = localStorage.getItem( 'ntc-color-scheme' );
-		localStorage.setItem( 'ntc-color-scheme', 'dark' );
-		doc.documentElement.setAttribute( 'data-ntc-color-scheme', 'dark' );
+		const previousPreference = localStorage.getItem( 'peppermint-color-scheme' );
+		localStorage.setItem( 'peppermint-color-scheme', 'dark' );
+		doc.documentElement.setAttribute( 'data-peppermint-color-scheme', 'dark' );
 		const { createElement: el, createRoot, useState } = window.wp.element;
-		const initialBlocks = [ window.wp.blocks.createBlock( 'ntc-block/theme-switcher' ) ];
-		window.ntcAppearanceEditorTest = { previousPreference, serialized: window.wp.blocks.serialize( initialBlocks ) };
+		const initialBlocks = [ window.wp.blocks.createBlock( 'peppermint/theme-switcher' ) ];
+		window.peppermintAppearanceEditorTest = { previousPreference, serialized: window.wp.blocks.serialize( initialBlocks ) };
 		function Editor() {
 			const [ blocks, setBlocks ] = useState( initialBlocks );
-			window.ntcAppearanceEditorTest.serialized = window.wp.blocks.serialize( blocks );
+			window.peppermintAppearanceEditorTest.serialized = window.wp.blocks.serialize( blocks );
 			return el( window.wp.blockEditor.BlockEditorProvider, {
 				value: blocks,
 				onInput: setBlocks,
 				onChange: setBlocks,
-				settings: { allowedBlockTypes: [ 'ntc-block/theme-switcher' ], hasFixedToolbar: true }
+				settings: { allowedBlockTypes: [ 'peppermint/theme-switcher' ], hasFixedToolbar: true }
 			}, el( window.wp.blockEditor.BlockList ) );
 		}
-		window.ntcAppearanceEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
-		window.ntcAppearanceEditorTestRoot.render( el( Editor ) );
+		window.peppermintAppearanceEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
+		window.peppermintAppearanceEditorTestRoot.render( el( Editor ) );
 	}, themeCSS );
 	try {
 		const initial = await readState();
-		const button = validationPage.frameLocator( '#ntc-appearance-editor-test' ).getByRole( 'button', { exact: true, name: 'Dark mode' } );
+		const button = validationPage.frameLocator( '#peppermint-appearance-editor-test' ).getByRole( 'button', { exact: true, name: 'Dark mode' } );
 		await expect( button ).toHaveAttribute( 'aria-pressed', 'false' );
 		await button.click();
 		await expect( button ).toHaveAttribute( 'aria-pressed', 'true' );
@@ -305,16 +305,16 @@ test( 'Appearance Switcher editor preview toggles inside an iframe without chang
 		expect( await readState(), 'The preview must not change visitor appearance or saved block content.' ).toEqual( initial );
 	} finally {
 		await validationPage.evaluate( () => {
-			window.ntcAppearanceEditorTestRoot?.unmount();
-			delete window.ntcAppearanceEditorTestRoot;
-			const previous = window.ntcAppearanceEditorTest?.previousPreference ?? null;
+			window.peppermintAppearanceEditorTestRoot?.unmount();
+			delete window.peppermintAppearanceEditorTestRoot;
+			const previous = window.peppermintAppearanceEditorTest?.previousPreference ?? null;
 			if ( previous === null ) {
-				localStorage.removeItem( 'ntc-color-scheme' );
+				localStorage.removeItem( 'peppermint-color-scheme' );
 			} else {
-				localStorage.setItem( 'ntc-color-scheme', previous );
+				localStorage.setItem( 'peppermint-color-scheme', previous );
 			}
-			delete window.ntcAppearanceEditorTest;
-			document.getElementById( 'ntc-appearance-editor-test' )?.remove();
+			delete window.peppermintAppearanceEditorTest;
+			document.getElementById( 'peppermint-appearance-editor-test' )?.remove();
 		} );
 	}
 	expect( runtimeErrors, 'The mounted editor and its cleanup must not raise runtime errors.' ).toEqual( [] );
@@ -338,17 +338,17 @@ function register_block_style( $block, $properties ) {
 	$registrations[] = array( 'block' => $block, 'properties' => $properties );
 }
 require $argv[1];
-ntc_block_register_block_styles();
+peppermint_register_block_styles();
 echo json_encode( $registrations, JSON_THROW_ON_ERROR );
 `, fileURLToPath( new URL( '../../functions.php', import.meta.url ) ) ], {
 		encoding: 'utf8', windowsHide: true
-	} ) ).filter( ( registration ) => registration.block === 'core/group' && registration.properties.name.startsWith( 'ntc-board-' ) );
-	const expectedStyles = [ 'ntc-board-cork', 'ntc-board-dsa', 'ntc-board-technical' ];
+	} ) ).filter( ( registration ) => registration.block === 'core/group' && registration.properties.name.startsWith( 'peppermint-board-' ) );
+	const expectedStyles = [ 'peppermint-board-cork', 'peppermint-board-dsa', 'peppermint-board-technical' ];
 	expect( registrations.map( ( registration ) => registration.properties.name ).sort() ).toEqual( [ ...expectedStyles ].sort() );
 	for ( const { properties } of registrations ) {
 		expect( properties.label.trim() ).not.toBe( '' );
 	}
-	expect( registrations.find( ( registration ) => registration.properties.name === 'ntc-board-technical' ).properties.label ).toBe( 'Windows 95 Desktop' );
+	expect( registrations.find( ( registration ) => registration.properties.name === 'peppermint-board-technical' ).properties.label ).toBe( 'Windows 95 Desktop' );
 	const coreCSSRoot = resolve( dirname( fixtures.coreScripts[ 'wp-block-library' ] ), '../../css/dist' );
 	const css = [
 		readFileSync( resolve( coreCSSRoot, 'block-library/style.css' ), 'utf8' ),
@@ -357,7 +357,7 @@ echo json_encode( $registrations, JSON_THROW_ON_ERROR );
 	].join( '\n' );
 	await validationPage.evaluate( ( { markup, registrations, css } ) => {
 		const frame = document.createElement( 'iframe' );
-		frame.id = 'ntc-skills-editor-test';
+		frame.id = 'peppermint-skills-editor-test';
 		frame.title = 'Skills board editing test';
 		frame.style.cssText = 'width: 960px; height: 850px; border: 0';
 		document.body.append( frame );
@@ -371,58 +371,58 @@ echo json_encode( $registrations, JSON_THROW_ON_ERROR );
 		}
 		const { createElement: el, createRoot, useState } = window.wp.element;
 		const initialBlocks = window.wp.blocks.parse( markup );
-		const board = initialBlocks.find( ( block ) => block.name === 'core/group' && block.attributes.className?.split( /\s+/ ).includes( 'ntc-skills-board' ) );
+		const board = initialBlocks.find( ( block ) => block.name === 'core/group' && block.attributes.className?.split( /\s+/ ).includes( 'peppermint-skills-board' ) );
 		if ( ! board ) {
 			throw new Error( 'The skills-board pattern must contain its editable outer Group.' );
 		}
-		window.ntcSkillsBoardEditorTest = { boardId: board.clientId, serialized: '', innerSerialized: '', baseClass: board.attributes.className.replace( /\bis-style-ntc-board-\S+/g, '' ).trim() };
+		window.peppermintSkillsBoardEditorTest = { boardId: board.clientId, serialized: '', innerSerialized: '', baseClass: board.attributes.className.replace( /\bis-style-peppermint-board-\S+/g, '' ).trim() };
 		function Canvas() {
-			window.ntcSkillsBoardEditorTest.actions = window.wp.data.useDispatch( window.wp.blockEditor.store );
+			window.peppermintSkillsBoardEditorTest.actions = window.wp.data.useDispatch( window.wp.blockEditor.store );
 			return el( window.wp.blockEditor.BlockList );
 		}
 		function Editor() {
 			const [ blocks, setBlocks ] = useState( initialBlocks );
 			const current = blocks.find( ( block ) => block.clientId === board.clientId );
-			window.ntcSkillsBoardEditorTest.serialized = window.wp.blocks.serialize( blocks );
-			window.ntcSkillsBoardEditorTest.innerSerialized = window.wp.blocks.serialize( current.innerBlocks );
+			window.peppermintSkillsBoardEditorTest.serialized = window.wp.blocks.serialize( blocks );
+			window.peppermintSkillsBoardEditorTest.innerSerialized = window.wp.blocks.serialize( current.innerBlocks );
 			return el( window.wp.blockEditor.BlockEditorProvider, {
 				value: blocks, onInput: setBlocks, onChange: setBlocks,
 				settings: { allowedBlockTypes: [ 'core/group', 'core/heading', 'core/paragraph' ], hasFixedToolbar: true }
 			}, el( Canvas ) );
 		}
-		window.ntcSkillsBoardEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
-		window.ntcSkillsBoardEditorTestRoot.render( el( Editor ) );
+		window.peppermintSkillsBoardEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
+		window.peppermintSkillsBoardEditorTestRoot.render( el( Editor ) );
 	}, { markup, registrations, css } );
 	try {
-		const frame = validationPage.frameLocator( '#ntc-skills-editor-test' );
-		const board = frame.locator( '.ntc-skills-board' );
+		const frame = validationPage.frameLocator( '#peppermint-skills-editor-test' );
+		const board = frame.locator( '.peppermint-skills-board' );
 		await expect( board ).toHaveCount( 1 );
-		const registered = await validationPage.evaluate( () => window.wp.data.select( 'core/blocks' ).getBlockStyles( 'core/group' ).filter( ( style ) => style.name.startsWith( 'ntc-board-' ) ).map( ( style ) => style.name ) );
+		const registered = await validationPage.evaluate( () => window.wp.data.select( 'core/blocks' ).getBlockStyles( 'core/group' ).filter( ( style ) => style.name.startsWith( 'peppermint-board-' ) ).map( ( style ) => style.name ) );
 		expect( registered.sort() ).toEqual( [ ...expectedStyles ].sort() );
 		for ( const name of expectedStyles ) {
 			const previousContent = await validationPage.evaluate( ( name ) => {
-				const state = window.ntcSkillsBoardEditorTest;
+				const state = window.peppermintSkillsBoardEditorTest;
 				const previous = state.innerSerialized;
 				state.actions.updateBlockAttributes( state.boardId, { className: `${ state.baseClass } is-style-${ name }` } );
 				return previous;
 			}, name );
 			await expect( board ).toHaveClass( new RegExp( `\\bis-style-${ name }\\b` ) );
-			expect( await validationPage.evaluate( () => window.ntcSkillsBoardEditorTest.innerSerialized ), 'Changing the style must not replace or lock the inner blocks.' ).toBe( previousContent );
-			await expect( board.locator( '.ntc-skills-board__note h3[contenteditable="true"]' ) ).toHaveCount( 3 );
-			await expect( board.locator( '.ntc-skills-board__note p[contenteditable="true"]' ) ).toHaveCount( 3 );
-			const taskbar = board.locator( '.ntc-skills-board__taskbar' );
+			expect( await validationPage.evaluate( () => window.peppermintSkillsBoardEditorTest.innerSerialized ), 'Changing the style must not replace or lock the inner blocks.' ).toBe( previousContent );
+			await expect( board.locator( '.peppermint-skills-board__note h3[contenteditable="true"]' ) ).toHaveCount( 3 );
+			await expect( board.locator( '.peppermint-skills-board__note p[contenteditable="true"]' ) ).toHaveCount( 3 );
+			const taskbar = board.locator( '.peppermint-skills-board__taskbar' );
 			await expect( taskbar ).toHaveCount( 1 );
-			if ( name === 'ntc-board-technical' ) {
+			if ( name === 'peppermint-board-technical' ) {
 				await expect( taskbar ).toBeVisible();
 				await expect( taskbar.locator( 'p[contenteditable="true"]' ) ).toHaveCount( 1 );
-				await expect( taskbar.locator( 'p.ntc-skills-board__start' ) ).toHaveText( '🌹 Organize' );
-				await expect( taskbar.locator( 'a, button, .ntc-skills-board__task' ) ).toHaveCount( 0 );
+				await expect( taskbar.locator( 'p.peppermint-skills-board__start' ) ).toHaveText( '🌹 Organize' );
+				await expect( taskbar.locator( 'a, button, .peppermint-skills-board__task' ) ).toHaveCount( 0 );
 				await expect( taskbar.locator( 'span[aria-hidden="true"]' ) ).toHaveText( '🌹' );
 				await expect( taskbar.locator( 'span[aria-hidden="true"]' ) ).toHaveClass( /\bwp-exclude-emoji\b/ );
 			} else {
 				await expect( taskbar ).toBeHidden();
 			}
-			const note = board.locator( '.ntc-skills-board__note' ).first();
+			const note = board.locator( '.peppermint-skills-board__note' ).first();
 			await note.scrollIntoViewIfNeeded();
 			const hit = await note.evaluate( ( element ) => {
 				const bounds = element.getBoundingClientRect();
@@ -437,24 +437,24 @@ echo json_encode( $registrations, JSON_THROW_ON_ERROR );
 			expect( hit, 'The note overlay must not intercept clicks intended to edit another inner block.' ).toEqual( [ { found: true, linkIntercepted: false }, { found: true, linkIntercepted: false } ] );
 			const edited = `Editable skills description in ${ name }.`;
 			await note.locator( 'p[contenteditable="true"]' ).fill( edited );
-			await expect.poll( () => validationPage.evaluate( () => window.ntcSkillsBoardEditorTest.serialized ) ).toContain( edited );
-			const currentMarkup = await validationPage.evaluate( () => window.ntcSkillsBoardEditorTest.serialized );
+			await expect.poll( () => validationPage.evaluate( () => window.peppermintSkillsBoardEditorTest.serialized ) ).toContain( edited );
+			const currentMarkup = await validationPage.evaluate( () => window.peppermintSkillsBoardEditorTest.serialized );
 			expect( ( await inspectMarkup( currentMarkup ) ).failures ).toEqual( [] );
 		}
-		const taskLabel = board.locator( '.ntc-skills-board__start[contenteditable="true"]' );
+		const taskLabel = board.locator( '.peppermint-skills-board__start[contenteditable="true"]' );
 		await taskLabel.focus();
 		await taskLabel.press( 'Control+End' );
 		await taskLabel.pressSequentially( ' together' );
 		await expect( taskLabel ).toHaveText( '🌹 Organize together' );
 		await expect( taskLabel.locator( 'span[aria-hidden="true"]' ) ).toHaveText( '🌹' );
-		await expect.poll( () => validationPage.evaluate( () => window.ntcSkillsBoardEditorTest.serialized ) ).toContain( 'Organize together' );
-		expect( ( await inspectMarkup( await validationPage.evaluate( () => window.ntcSkillsBoardEditorTest.serialized ) ) ).failures ).toEqual( [] );
+		await expect.poll( () => validationPage.evaluate( () => window.peppermintSkillsBoardEditorTest.serialized ) ).toContain( 'Organize together' );
+		expect( ( await inspectMarkup( await validationPage.evaluate( () => window.peppermintSkillsBoardEditorTest.serialized ) ) ).failures ).toEqual( [] );
 	} finally {
 		await validationPage.evaluate( ( names ) => {
-			window.ntcSkillsBoardEditorTestRoot?.unmount();
-			delete window.ntcSkillsBoardEditorTestRoot;
-			delete window.ntcSkillsBoardEditorTest;
-			document.getElementById( 'ntc-skills-editor-test' )?.remove();
+			window.peppermintSkillsBoardEditorTestRoot?.unmount();
+			delete window.peppermintSkillsBoardEditorTestRoot;
+			delete window.peppermintSkillsBoardEditorTest;
+			document.getElementById( 'peppermint-skills-editor-test' )?.remove();
 			for ( const name of names ) {
 				window.wp.blocks.unregisterBlockStyle( 'core/group', name );
 			}
@@ -527,10 +527,10 @@ test( 'Window frames name their title bars after the first heading on the front 
 	const includes = resolve( dirname( fixtures.coreScripts[ 'wp-block-library' ] ), '../..' );
 	const cover = ( style, inner ) => `<div class="wp-block-cover ${ style }"><div class="wp-block-cover__inner-container">${ inner }</div></div>`;
 	const cases = {
-		nested: cover( 'is-style-ntc-win95', '<h2 class="wp-block-post-title">Post title</h2><div class="wp-block-group"><h3 class="wp-block-heading"><a href="/team/">O&#039;Brien &amp;<br>Co </a></h3></div><h2 class="wp-block-heading">Second</h2>' ),
-		retro: cover( 'is-style-ntc-retro', '<h2 class="wp-block-heading">Formations</h2>' ),
-		untitled: cover( 'is-style-ntc-macos', '<p>No heading.</p>' ),
-		unframed: cover( 'is-style-ntc-red-tile', '<h2 class="wp-block-heading">Engagement</h2>' )
+		nested: cover( 'is-style-peppermint-win95', '<h2 class="wp-block-post-title">Post title</h2><div class="wp-block-group"><h3 class="wp-block-heading"><a href="/team/">O&#039;Brien &amp;<br>Co </a></h3></div><h2 class="wp-block-heading">Second</h2>' ),
+		retro: cover( 'is-style-peppermint-retro', '<h2 class="wp-block-heading">Formations</h2>' ),
+		untitled: cover( 'is-style-peppermint-macos', '<p>No heading.</p>' ),
+		unframed: cover( 'is-style-peppermint-red-tile', '<h2 class="wp-block-heading">Engagement</h2>' )
 	};
 	const rendered = JSON.parse( execFileSync( phpBinary, [ '-n', '-r', `
 define( 'ABSPATH', dirname( $argv[1] ) . '/' );
@@ -542,19 +542,22 @@ function add_action( ...$arguments ) {}
 function add_filter( ...$arguments ) {}
 function wp_kses_uri_attributes() { return array( 'href' ); }
 require $argv[2];
-echo json_encode( array_map( 'ntc_block_add_window_title', json_decode( file_get_contents( 'php://stdin' ), true ) ), JSON_THROW_ON_ERROR );
+echo json_encode( array_map( 'peppermint_add_window_title', json_decode( file_get_contents( 'php://stdin' ), true ) ), JSON_THROW_ON_ERROR );
 `, includes, fileURLToPath( new URL( '../../functions.php', import.meta.url ) ) ], {
 		encoding: 'utf8', input: JSON.stringify( cases ), windowsHide: true
 	} ) );
 	const titles = await validationPage.evaluate( ( rendered ) => Object.fromEntries( Object.entries( rendered ).map( ( [ key, html ] ) => [
-		key, new DOMParser().parseFromString( html, 'text/html' ).body.firstElementChild.getAttribute( 'data-ntc-window-title' )
+		key, new DOMParser().parseFromString( html, 'text/html' ).body.firstElementChild.getAttribute( 'data-peppermint-window-title' )
 	] ) ), rendered );
 	expect( titles, 'Only framed Covers take the text of their first Heading block.' ).toEqual( { nested: 'O\'Brien & Co', retro: 'Formations', untitled: null, unframed: null } );
 	expect( rendered.untitled ).toBe( cases.untitled );
 	expect( rendered.unframed ).toBe( cases.unframed );
 
 	// The editor script gives the editor canvas the same title without saving it.
-	const markup = fixtures.documents[ 'patterns/subcommittee-tiles.php' ];
+	// The pattern ships plain tiles. Frame the second and third to test their titles.
+	const frames = [ 'red-tile', 'red-tile', 'retro', 'retro', 'win95', 'win95' ];
+	let frame = 0;
+	const markup = fixtures.documents[ 'patterns/subcommittee-tiles.php' ].replace( /is-style-peppermint-red-tile/g, () => `is-style-peppermint-${ frames[ frame++ ] }` );
 	const coreCSSRoot = resolve( dirname( fixtures.coreScripts[ 'wp-block-library' ] ), '../../css/dist' );
 	const css = [
 		readFileSync( resolve( coreCSSRoot, 'block-library/style.css' ), 'utf8' ),
@@ -564,7 +567,7 @@ echo json_encode( array_map( 'ntc_block_add_window_title', json_decode( file_get
 	await validationPage.route( '**/wp/v2/**', route => route.fulfill( { json: {} } ) );
 	await validationPage.evaluate( ( { markup, css } ) => {
 		const frame = document.createElement( 'iframe' );
-		frame.id = 'ntc-window-title-editor-test';
+		frame.id = 'peppermint-window-title-editor-test';
 		frame.title = 'Window title editor test';
 		frame.style.cssText = 'width: 1100px; height: 700px; border: 0';
 		document.body.append( frame );
@@ -583,41 +586,41 @@ echo json_encode( array_map( 'ntc_block_add_window_title', json_decode( file_get
 			collect( block.innerBlocks );
 		} );
 		collect( initialBlocks );
-		window.ntcWindowTitleEditorTest = { headings, serialized: '' };
+		window.peppermintWindowTitleEditorTest = { headings, serialized: '' };
 		function Canvas() {
-			window.ntcWindowTitleEditorTest.actions = window.wp.data.useDispatch( window.wp.blockEditor.store );
+			window.peppermintWindowTitleEditorTest.actions = window.wp.data.useDispatch( window.wp.blockEditor.store );
 			return el( window.wp.blockEditor.BlockList );
 		}
 		function Editor() {
 			const [ blocks, setBlocks ] = useState( initialBlocks );
-			window.ntcWindowTitleEditorTest.serialized = window.wp.blocks.serialize( blocks );
+			window.peppermintWindowTitleEditorTest.serialized = window.wp.blocks.serialize( blocks );
 			return el( window.wp.blockEditor.BlockEditorProvider, {
 				value: blocks, onInput: setBlocks, onChange: setBlocks, settings: { hasFixedToolbar: true }
 			}, el( Canvas ) );
 		}
-		window.ntcWindowTitleEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
-		window.ntcWindowTitleEditorTestRoot.render( el( Editor ) );
+		window.peppermintWindowTitleEditorTestRoot = createRoot( doc.getElementById( 'editor' ) );
+		window.peppermintWindowTitleEditorTestRoot.render( el( Editor ) );
 	}, { markup, css } );
 	try {
-		const tiles = validationPage.frameLocator( '#ntc-window-title-editor-test' ).locator( '.wp-block-cover.subcommittee-tile' );
+		const tiles = validationPage.frameLocator( '#peppermint-window-title-editor-test' ).locator( '.wp-block-cover.subcommittee-tile' );
 		await expect( tiles ).toHaveCount( 3 );
-		await expect( tiles.nth( 0 ) ).not.toHaveAttribute( 'data-ntc-window-title' );
-		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-ntc-window-title', 'Formations' );
-		await expect( tiles.nth( 2 ) ).toHaveAttribute( 'data-ntc-window-title', 'Member Services' );
-		expect( await tiles.nth( 1 ).evaluate( ( tile ) => getComputedStyle( tile, '::before' ).content ) ).toBe( '"Formations" / ""' );
+		await expect( tiles.nth( 0 ) ).not.toHaveAttribute( 'data-peppermint-window-title' );
+		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-peppermint-window-title', 'Group two' );
+		await expect( tiles.nth( 2 ) ).toHaveAttribute( 'data-peppermint-window-title', 'Group three' );
+		expect( await tiles.nth( 1 ).evaluate( ( tile ) => getComputedStyle( tile, '::before' ).content ) ).toBe( '"Group two" / ""' );
 		await validationPage.evaluate( () => {
-			const state = window.ntcWindowTitleEditorTest;
-			state.actions.updateBlockAttributes( state.headings[ 1 ], { content: '<a href="/formations/">Local <em>Formations</em></a>' } );
+			const state = window.peppermintWindowTitleEditorTest;
+			state.actions.updateBlockAttributes( state.headings[ 1 ], { content: '<a href="/groups/">Local <em>Group</em></a>' } );
 		} );
-		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-ntc-window-title', 'Local Formations' );
-		await expect.poll( () => validationPage.evaluate( () => window.ntcWindowTitleEditorTest.serialized ) ).toContain( 'Local <em>Formations</em>' );
-		expect( await validationPage.evaluate( () => window.ntcWindowTitleEditorTest.serialized ), 'The editor title must not reach saved markup.' ).not.toContain( 'data-ntc-window-title' );
+		await expect( tiles.nth( 1 ) ).toHaveAttribute( 'data-peppermint-window-title', 'Local Group' );
+		await expect.poll( () => validationPage.evaluate( () => window.peppermintWindowTitleEditorTest.serialized ) ).toContain( 'Local <em>Group</em>' );
+		expect( await validationPage.evaluate( () => window.peppermintWindowTitleEditorTest.serialized ), 'The editor title must not reach saved markup.' ).not.toContain( 'data-peppermint-window-title' );
 	} finally {
 		await validationPage.evaluate( () => {
-			window.ntcWindowTitleEditorTestRoot?.unmount();
-			delete window.ntcWindowTitleEditorTestRoot;
-			delete window.ntcWindowTitleEditorTest;
-			document.getElementById( 'ntc-window-title-editor-test' )?.remove();
+			window.peppermintWindowTitleEditorTestRoot?.unmount();
+			delete window.peppermintWindowTitleEditorTestRoot;
+			delete window.peppermintWindowTitleEditorTest;
+			document.getElementById( 'peppermint-window-title-editor-test' )?.remove();
 		} );
 		await validationPage.unroute( '**/wp/v2/**' );
 	}
