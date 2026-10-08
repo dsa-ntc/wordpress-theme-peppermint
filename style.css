@@ -6,7 +6,7 @@ Description: A minimal, flexible block theme for organizing sites, with patterns
 Requires at least: 7.1
 Tested up to: 7.1
 Requires PHP: 8.5
-Version: 2.0.0
+Version: 2.1.0
 Text Domain: peppermint
 Domain Path: /languages
 Tags: full-site-editing, block-patterns, block-styles, custom-colors, custom-logo, editor-style, featured-images, translation-ready, wide-blocks
@@ -122,6 +122,17 @@ textarea::placeholder {
 .topbar-brand {
 	flex: 1 1 12rem;
 	min-inline-size: 0;
+}
+
+/* Headers with a button let the title wrap sooner, so the tools stay on the title's row. */
+.topbar-inner:has(.topbar-actions) .topbar-brand {
+	flex-basis: 8rem;
+}
+
+.topbar-actions .wp-block-button__link {
+	padding-block: 0.6em;
+	padding-inline: 1em;
+	white-space: nowrap;
 }
 
 .topbar-title {
@@ -513,6 +524,36 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 	box-sizing: border-box;
 	border: var(--peppermint-soft-rule);
 	background-color: var(--wp--preset--color--base-2);
+}
+
+/* Embed areas stay hidden until an editor pastes embed code into them. */
+.peppermint-responsive-embed:empty,
+.peppermint-embed-frame:empty {
+	display: none;
+}
+
+/* Embedded forms fill the frame's width and keep their own height. */
+.peppermint-embed-frame iframe {
+	display: block;
+	inline-size: 100%;
+	border: 0;
+}
+
+/* Join steps number themselves, so reordering them keeps the sequence. */
+.peppermint-steps {
+	counter-reset: peppermint-step;
+}
+
+.peppermint-step::before {
+	counter-increment: peppermint-step;
+	content: counter(peppermint-step);
+	display: block;
+	margin-block-end: var(--wp--preset--spacing--20);
+	color: var(--wp--preset--color--accent);
+	font-family: var(--wp--preset--font-family--manifold);
+	font-size: var(--wp--preset--font-size--display);
+	font-weight: 800;
+	line-height: 1;
 }
 
 :where(.wp-block-group, .wp-block-columns, .wp-block-media-text).is-style-peppermint-section-canvas,

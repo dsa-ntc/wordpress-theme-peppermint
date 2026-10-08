@@ -13,6 +13,7 @@ const routes = ( process.env.PEPPERMINT_RESPONSIVE_TEST_PATHS || [
 	'/theme-preview/query-components/',
 	'/theme-preview/project-skills-boards/',
 	'/theme-preview/project-skills-interest/',
+	'/theme-preview/chapter-patterns/',
 	'/theme-preview-posts/',
 	'/theme-preview-accessibility/',
 	'/theme-preview-interoperability/',
