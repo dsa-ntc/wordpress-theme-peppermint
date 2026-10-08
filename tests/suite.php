@@ -256,6 +256,18 @@ final class NTC_Block_Test_Suite {
 			}
 		}
 
+		// Block stylesheets repeat the light value of each light-dark() custom property.
+		foreach ( glob( $this->theme_root . '/assets/css/blocks/*.css' ) ?: array() as $file ) {
+			$css      = $this->read_file( $file );
+			$fallback = (string) strstr( $css, '@supports not (color: light-dark(#fff, #000))' );
+			preg_match_all( '/(--[\w-]+):\s*light-dark\(\s*(#[0-9a-f]+)\s*,/i', $css, $matches, PREG_SET_ORDER );
+			foreach ( $matches as $match ) {
+				if ( false === stripos( $fallback, $match[1] . ': ' . $match[2] . ';' ) ) {
+					$issues[] = sprintf( '%s: light-dark() fallback needs %s: %s', $this->relative_path( $file ), $match[1], $match[2] );
+				}
+			}
+		}
+
 		$style_files = glob( $this->theme_root . '/styles/*.json' ) ?: array();
 		foreach ( $style_files as $file ) {
 			$document = $this->decode_json_file( $file );

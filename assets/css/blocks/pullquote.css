@@ -272,6 +272,44 @@
 	color: inherit;
 }
 
+/*
+ * Give browsers without light-dark() (Safari before 17.5) the light frames.
+ * They drop the macOS shadow, hairline, and gradient that use it directly.
+ */
+@supports not (color: light-dark(#fff, #000)) {
+	.wp-block-pullquote {
+		--ntc-pullquote-surface: #fae9ea;
+	}
+
+	.wp-block-pullquote.is-style-ntc-win95 {
+		--ntc-win95-edge-dark: #000000;
+		--ntc-win95-title: #000080;
+
+		box-shadow:
+			inset 1px 1px #dfdfdf,
+			inset -1px -1px var(--ntc-win95-mid),
+			0.35rem 0.35rem 0 #231f20;
+	}
+
+	.wp-block-pullquote.is-style-ntc-retro {
+		--ntc-retro-chrome: #f0d3d5;
+		--ntc-retro-dark: #762329;
+		--ntc-retro-mid: #c47e82;
+		--ntc-retro-light: #fff0f1;
+		--ntc-retro-title: #8d4c51;
+		--ntc-retro-glyph: #762329;
+	}
+
+	.wp-block-pullquote.is-style-ntc-retro blockquote {
+		background: #fff7f7;
+	}
+
+	.wp-block-pullquote.is-style-ntc-macos {
+		--ntc-macos-chrome: #e6e5e8;
+		--ntc-macos-border: #c7c5c8;
+	}
+}
+
 @media (forced-colors: active) {
 	.wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos) {
 		border-color: Highlight;
