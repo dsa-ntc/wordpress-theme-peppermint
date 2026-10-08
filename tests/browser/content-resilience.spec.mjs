@@ -150,6 +150,40 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 			await expect( menu ).toHaveCount( 0 );
 		} );
 
+		// WCAG 1.4.11: each keyboard focus ring needs 3:1 against the overlay.
+		test( 'opened mobile navigation focus rings contrast with the overlay', async ( { page } ) => {
+			await page.setViewportSize( { width: 320, height: 720 } );
+			await open( page, '/' );
+			await page.locator( '.wp-block-navigation__responsive-container-open' ).click();
+			const menu = page.locator( '.wp-block-navigation__responsive-container.is-menu-open' );
+			await expect( menu ).toBeVisible();
+			const stops = await menu.locator( 'a, button' ).count();
+			expect( stops ).toBeGreaterThan( 1 );
+			for ( let stop = 0; stop < stops; stop++ ) {
+				await page.keyboard.press( 'Tab' );
+				const ring = await menu.evaluate( ( container ) => {
+					const focused = document.activeElement;
+					const channels = ( color ) => ( color.match( /[\d.]+/g ) || [] ).slice( 0, 3 ).map( Number );
+					const luminance = ( color ) => channels( color ).map( ( channel ) => channel / 255 ).map( ( channel ) => (
+						channel <= 0.04045 ? channel / 12.92 : ( ( channel + 0.055 ) / 1.055 ) ** 2.4
+					) ).reduce( ( total, channel, index ) => total + channel * [ 0.2126, 0.7152, 0.0722 ][ index ], 0 );
+					const outline = getComputedStyle( focused ).outlineColor;
+					const background = getComputedStyle( container ).backgroundColor;
+					const [ lighter, darker ] = [ luminance( outline ), luminance( background ) ].sort( ( a, b ) => b - a );
+					return {
+						label: focused.textContent.trim() || focused.getAttribute( 'aria-label' ),
+						inside: container.contains( focused ),
+						focusVisible: focused.matches( ':focus-visible' ),
+						outline,
+						background,
+						contrast: ( lighter + 0.05 ) / ( darker + 0.05 )
+					};
+				} );
+				expect( ring.inside && ring.focusVisible, JSON.stringify( ring ) ).toBe( true );
+				expect( ring.contrast, JSON.stringify( ring ) ).toBeGreaterThanOrEqual( 3 );
+			}
+		} );
+
 		test( 'query image slots align mixed media, and disappear only when genuinely empty on stacked phones', async ( { page } ) => {
 			await open( page, queryRoute );
 			const report = await page.locator( '.project-grid .wp-block-post-template' ).first().evaluate( ( grid ) => {

@@ -17,6 +17,23 @@ Tags: full-site-editing, block-patterns, block-styles, custom-colors, custom-log
 	--ntc-soft-rule: 1px solid var(--wp--preset--color--line);
 }
 
+/*
+ * Give browsers without light-dark() (Safari before 17.5) the light palette.
+ * A custom property accepts any value, so a plain earlier declaration would
+ * always lose to the theme.json value. Keep these in step with theme.json.
+ */
+@supports not (color: light-dark(#fff, #000)) {
+	:root {
+		--wp--preset--color--base: #FFFFFF;
+		--wp--preset--color--base-2: #F7F3F4;
+		--wp--preset--color--contrast: #231F20;
+		--wp--preset--color--contrast-2: #514B4D;
+		--wp--preset--color--accent: #D71920;
+		--wp--preset--color--accent-contrast: #FFFFFF;
+		--wp--preset--color--line: #777173;
+	}
+}
+
 :root[data-ntc-color-scheme="light"] {
 	color-scheme: light;
 }
@@ -169,6 +186,11 @@ textarea::placeholder {
 .topbar-navigation .wp-block-navigation__responsive-container.is-menu-open {
 	box-sizing: border-box;
 	padding-inline: var(--wp--preset--spacing--40);
+}
+
+/* Accent can fall below 3:1 on the overlay. Its text color always contrasts. */
+.wp-block-navigation__responsive-container.is-menu-open :focus-visible {
+	outline-color: currentColor;
 }
 
 .ntc-theme-switcher:hover {

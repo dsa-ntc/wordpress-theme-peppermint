@@ -245,6 +245,17 @@ final class NTC_Block_Test_Suite {
 			$issues[] = 'theme.json: defaultFontSizes must be false so the theme typography presets are used';
 		}
 
+		// style.css repeats each light value for browsers without light-dark().
+		$stylesheet = $this->read_file( $this->theme_root . '/style.css' );
+		foreach ( $theme['settings']['color']['palette'] ?? array() as $item ) {
+			$slug = (string) ( $item['slug'] ?? '' );
+			if ( preg_match( '/^light-dark\(\s*(#[0-9a-f]+)\s*,/i', (string) ( $item['color'] ?? '' ), $match )
+				&& ! preg_match( '/--wp--preset--color--' . preg_quote( $slug, '/' ) . ':\s*' . preg_quote( $match[1], '/' ) . ';/i', $stylesheet )
+			) {
+				$issues[] = sprintf( 'style.css: light-dark() fallback needs --wp--preset--color--%s: %s', $slug, $match[1] );
+			}
+		}
+
 		$style_files = glob( $this->theme_root . '/styles/*.json' ) ?: array();
 		foreach ( $style_files as $file ) {
 			$document = $this->decode_json_file( $file );
