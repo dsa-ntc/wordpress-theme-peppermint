@@ -2,10 +2,10 @@
 /**
  * Appearance switcher editor dependencies.
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 return array(
 	'dependencies' => array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-i18n' ),
-	'version'      => '1.2.2',
+	'version'      => '2.0.0',
 );

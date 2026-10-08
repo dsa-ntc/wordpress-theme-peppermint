@@ -1,8 +1,8 @@
 <?php
 /**
- * Dependency-free static validation for the NTC Block theme.
+ * Dependency-free static validation for the Peppermint theme.
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 declare(strict_types=1);
@@ -10,7 +10,7 @@ declare(strict_types=1);
 /**
  * Runs the theme's offline validation groups.
  */
-final class NTC_Block_Test_Suite {
+final class Peppermint_Test_Suite {
 	/**
 	 * Theme root.
 	 *
@@ -112,7 +112,7 @@ final class NTC_Block_Test_Suite {
 		$passed = 0;
 		$failed = 0;
 
-		echo "NTC Block validation\n";
+		echo "Peppermint validation\n";
 
 		foreach ( $groups as $group ) {
 			$this->notes = array();
@@ -301,12 +301,12 @@ final class NTC_Block_Test_Suite {
 				$issues[] = $relative . ': $schema must be the WordPress block.json schema';
 			}
 
-			if ( isset( $document['name'] ) && 'ntc-block/' . $directory !== $document['name'] ) {
+			if ( isset( $document['name'] ) && 'peppermint/' . $directory !== $document['name'] ) {
 				$issues[] = $relative . ': block name must match its directory';
 			}
 
-			if ( isset( $document['textdomain'] ) && 'ntc-block' !== $document['textdomain'] ) {
-				$issues[] = $relative . ': textdomain must be ntc-block';
+			if ( isset( $document['textdomain'] ) && 'peppermint' !== $document['textdomain'] ) {
+				$issues[] = $relative . ': textdomain must be peppermint';
 			}
 
 			if ( isset( $document['apiVersion'] ) && $document['apiVersion'] < 3 ) {
@@ -353,14 +353,14 @@ final class NTC_Block_Test_Suite {
 			$issues[] = 'composer.json: require.php must declare >= the theme Requires PHP minimum';
 		}
 
-		if ( 'ntc-block' !== $headers['Text Domain'] ) {
-			$issues[] = 'style.css: Text Domain must be ntc-block';
+		if ( 'peppermint' !== $headers['Text Domain'] ) {
+			$issues[] = 'style.css: Text Domain must be peppermint';
 		}
 
 		$this->capture_version(
-			$this->read_file( $this->theme_root . '/languages/ntc-block.pot' ),
-			'/Project-Id-Version:\s*NTC Block\s+([0-9]+(?:\.[0-9]+)+)/',
-			'languages/ntc-block.pot header',
+			$this->read_file( $this->theme_root . '/languages/peppermint.pot' ),
+			'/Project-Id-Version:\s*Peppermint\s+([0-9]+(?:\.[0-9]+)+)/',
+			'languages/peppermint.pot header',
 			$versions,
 			$issues
 		);
@@ -470,12 +470,12 @@ final class NTC_Block_Test_Suite {
 
 				if ( 'core/pattern' === $token['name'] ) {
 					$slug = $token['attrs']['slug'] ?? '';
-					if ( is_string( $slug ) && str_starts_with( $slug, 'ntc-block/' ) && ! isset( $patterns[ $slug ] ) ) {
+					if ( is_string( $slug ) && str_starts_with( $slug, 'peppermint/' ) && ! isset( $patterns[ $slug ] ) ) {
 						$issues[] = sprintf( '%s: unresolved pattern slug %s', $relative, $slug );
 					}
 				}
 
-				if ( str_starts_with( $token['name'], 'ntc-block/' ) && ! isset( $block_documents[ $token['name'] ] ) ) {
+				if ( str_starts_with( $token['name'], 'peppermint/' ) && ! isset( $block_documents[ $token['name'] ] ) ) {
 					$issues[] = sprintf( '%s: unresolved custom block %s', $relative, $token['name'] );
 				}
 			}
@@ -558,11 +558,11 @@ final class NTC_Block_Test_Suite {
 	private function check_template_part_portability_controls( array &$issues ): void {
 		$fixtures = array(
 			'portable' => array( '<!-- wp:template-part {"slug":"header","tagName":"header"} /--><!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->', 0 ),
-			'old-slug' => array( '<!-- wp:template-part {"slug":"header","theme":"ntc-block"} /-->', 1 ),
+			'old-slug' => array( '<!-- wp:template-part {"slug":"header","theme":"peppermint"} /-->', 1 ),
 			'current-slug' => array( '<!-- wp:template-part {"slug":"header","theme":"wordpress-theme-peppermint"} /-->', 1 ),
 			'empty-theme' => array( '<!-- wp:template-part {"slug":"header","theme":""} /-->', 1 ),
 			'null-theme' => array( '<!-- wp:template-part {"slug":"header","theme":null} /-->', 1 ),
-			'nested-old-slug' => array( '<!-- wp:group --><div class="wp-block-group"><!-- wp:template-part {"slug":"footer","theme":"ntc-block"} /--></div><!-- /wp:group -->', 1 ),
+			'nested-old-slug' => array( '<!-- wp:group --><div class="wp-block-group"><!-- wp:template-part {"slug":"footer","theme":"peppermint"} /--></div><!-- /wp:group -->', 1 ),
 		);
 		foreach ( $fixtures as $name => list( $source, $expected_count ) ) {
 			$relative = 'templates/portability-' . $name . '.html';
@@ -592,7 +592,7 @@ final class NTC_Block_Test_Suite {
 	 * @return void
 	 */
 	private function check_source_collection_helpers( array &$issues ): void {
-		$fixture_root  = rtrim( sys_get_temp_dir(), '/\\' ) . '/ntc-source-collection-' . bin2hex( random_bytes( 8 ) );
+		$fixture_root  = rtrim( sys_get_temp_dir(), '/\\' ) . '/peppermint-source-collection-' . bin2hex( random_bytes( 8 ) );
 		$created_dirs  = array();
 		$created_files = array();
 		$excluded      = array( '.git', '.local', 'node_modules', 'vendor', 'artifacts', 'test-results', 'playwright-report' );
@@ -814,7 +814,7 @@ final class NTC_Block_Test_Suite {
 				$description = trim( $description_match[1] );
 			}
 
-			$expected_slug = 'ntc-block/' . basename( $file, '.php' );
+			$expected_slug = 'peppermint/' . basename( $file, '.php' );
 			if ( $metadata['Slug'] !== $expected_slug ) {
 				$issues[] = sprintf( '%s: Slug must be %s', $relative, $expected_slug );
 			}
@@ -930,7 +930,7 @@ final class NTC_Block_Test_Suite {
 
 		$wordpress_root = $this->find_wordpress_root();
 		if ( '' === $wordpress_root ) {
-			$message = 'WordPress core was not found; set NTC_WORDPRESS_ROOT to require parser round trips.';
+			$message = 'WordPress core was not found; set PEPPERMINT_WORDPRESS_ROOT to require parser round trips.';
 			if ( $this->require_wordpress ) {
 				$issues[] = $message;
 			} else {
@@ -938,7 +938,7 @@ final class NTC_Block_Test_Suite {
 			}
 		} else {
 			require_once __DIR__ . '/wordpress-block-parser.php';
-			$load_error = ntc_block_tests_load_wordpress_block_parser( $wordpress_root );
+			$load_error = peppermint_tests_load_wordpress_block_parser( $wordpress_root );
 
 			if ( '' !== $load_error ) {
 				if ( $this->require_wordpress ) {
@@ -1363,29 +1363,29 @@ final class NTC_Block_Test_Suite {
 			$this->extract_js_translations( $file, $expected, $issues );
 		}
 
-		$pot_file = $this->theme_root . '/languages/ntc-block.pot';
+		$pot_file = $this->theme_root . '/languages/peppermint.pot';
 		$pot      = $this->parse_pot( $this->read_file( $pot_file ), $issues );
 		$header   = $pot['header'];
 
-		if ( ! str_contains( $header, 'X-Domain: ntc-block' ) ) {
-			$issues[] = 'languages/ntc-block.pot: X-Domain must be ntc-block';
+		if ( ! str_contains( $header, 'X-Domain: peppermint' ) ) {
+			$issues[] = 'languages/peppermint.pot: X-Domain must be peppermint';
 		}
 
 		$actual = $pot['messages'];
 		foreach ( array_diff_key( $expected, $actual ) as $key => $sources ) {
 			$issues[] = sprintf(
-				'languages/ntc-block.pot: missing %s (source: %s)',
+				'languages/peppermint.pot: missing %s (source: %s)',
 				$this->translation_key_label( $key ),
 				implode( ', ', $sources )
 			);
 		}
 		foreach ( array_diff_key( $actual, $expected ) as $key => $unused ) {
-			$issues[] = 'languages/ntc-block.pot: stale ' . $this->translation_key_label( $key );
+			$issues[] = 'languages/peppermint.pot: stale ' . $this->translation_key_label( $key );
 		}
 
 		$this->throw_for_issues( 'Translation catalog drift:', $issues );
 
-		return sprintf( '%d unique source messages match the POT catalog and use the ntc-block domain.', count( $expected ) );
+		return sprintf( '%d unique source messages match the POT catalog and use the peppermint domain.', count( $expected ) );
 	}
 
 	/**
@@ -1452,8 +1452,8 @@ final class NTC_Block_Test_Suite {
 			$line_label = $relative . ':' . $token[2];
 			$domain     = $this->php_literal_argument( $arguments[ $definition['domain'] ] ?? array() );
 
-			if ( 'ntc-block' !== $domain ) {
-				$issues[] = sprintf( '%s: %s() must use the literal ntc-block text domain', $line_label, $token[1] );
+			if ( 'peppermint' !== $domain ) {
+				$issues[] = sprintf( '%s: %s() must use the literal peppermint text domain', $line_label, $token[1] );
 				continue;
 			}
 
@@ -1572,8 +1572,8 @@ final class NTC_Block_Test_Suite {
 		$relative = $this->relative_path( $file );
 		$found    = 0;
 		$patterns = array(
-			'__' => '/\bi18n\.__\(\s*([\'\"])(.*?)\1\s*,\s*([\'\"])ntc-block\3\s*\)/s',
-			'_x' => '/\bi18n\._x\(\s*([\'\"])(.*?)\1\s*,\s*([\'\"])(.*?)\3\s*,\s*([\'\"])ntc-block\5\s*\)/s',
+			'__' => '/\bi18n\.__\(\s*([\'\"])(.*?)\1\s*,\s*([\'\"])peppermint\3\s*\)/s',
+			'_x' => '/\bi18n\._x\(\s*([\'\"])(.*?)\1\s*,\s*([\'\"])(.*?)\3\s*,\s*([\'\"])peppermint\5\s*\)/s',
 		);
 
 		foreach ( $patterns as $function => $pattern ) {
@@ -1620,7 +1620,7 @@ final class NTC_Block_Test_Suite {
 			$context = (string) $this->po_field( $entry, 'msgctxt' );
 			$key     = $context . "\x04" . $message;
 			if ( isset( $messages[ $key ] ) ) {
-				$issues[] = 'languages/ntc-block.pot: duplicate ' . $this->translation_key_label( $key );
+				$issues[] = 'languages/peppermint.pot: duplicate ' . $this->translation_key_label( $key );
 			}
 			$messages[ $key ] = true;
 			$plural = $this->po_field( $entry, 'msgid_plural' );
@@ -1631,7 +1631,7 @@ final class NTC_Block_Test_Suite {
 		}
 
 		if ( '' === $header ) {
-			$issues[] = 'languages/ntc-block.pot: gettext header entry is missing';
+			$issues[] = 'languages/peppermint.pot: gettext header entry is missing';
 		}
 
 		return array(
@@ -1922,12 +1922,12 @@ final class NTC_Block_Test_Suite {
 	}
 
 	/**
-	 * Locate WordPress from NTC_WORDPRESS_ROOT or this theme's installation.
+	 * Locate WordPress from PEPPERMINT_WORDPRESS_ROOT or this theme's installation.
 	 *
 	 * @return string Absolute WordPress root or empty string.
 	 */
 	private function find_wordpress_root(): string {
-		$environment = getenv( 'NTC_WORDPRESS_ROOT' );
+		$environment = getenv( 'PEPPERMINT_WORDPRESS_ROOT' );
 		$candidates  = array();
 
 		if ( is_string( $environment ) && '' !== trim( $environment ) ) {

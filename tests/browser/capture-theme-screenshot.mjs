@@ -5,7 +5,7 @@ import { chromium, expect } from '@playwright/test';
 // Capture local review images; keep site-owned media outside the theme repository.
 let baseURL;
 try {
-	const target = new URL( process.env.NTC_TEST_BASE_URL?.trim() );
+	const target = new URL( process.env.PEPPERMINT_TEST_BASE_URL?.trim() );
 	if ( ! [ 'http:', 'https:' ].includes( target.protocol ) || target.username || target.password || target.search || target.hash ) {
 		throw new Error( 'Unsupported screenshot URL.' );
 	}
@@ -13,7 +13,7 @@ try {
 	target.pathname = `${ target.pathname.replace( /\/+$/, '' ) }/`;
 	baseURL = target.href;
 } catch {
-	throw new Error( 'Set NTC_TEST_BASE_URL to an HTTP(S) site root without credentials, a query, or a fragment.' );
+	throw new Error( 'Set PEPPERMINT_TEST_BASE_URL to an HTTP(S) site root without credentials, a query, or a fragment.' );
 }
 
 const previews = [
@@ -22,7 +22,7 @@ const previews = [
 	{ name: 'project-grid', route: 'theme-preview/query-components/?query-page=2', scheme: 'light', kind: 'query' }
 ];
 const outputDirectory = fileURLToPath( new URL( '../../.local/artifacts/readme-gallery/', import.meta.url ) );
-const browser = await chromium.launch( { channel: process.env.NTC_TEST_CHANNEL || undefined } );
+const browser = await chromium.launch( { channel: process.env.PEPPERMINT_TEST_CHANNEL || undefined } );
 
 try {
 	await mkdir( outputDirectory, { recursive: true } );
@@ -42,10 +42,10 @@ try {
 			const response = await page.goto( new URL( preview.route, baseURL ).href, { waitUntil: 'domcontentloaded', timeout: 30_000 } );
 			expect( response?.status(), `${ preview.route } must return a public page.` ).toBe( 200 );
 			await expect( page.locator( '#wpadminbar' ), 'Do not capture a signed-in administrator preview.' ).toHaveCount( 0 );
-			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', preview.scheme );
+			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', preview.scheme );
 			await expect( page.getByRole( 'banner' ) ).toBeVisible();
 			await expect( page.getByRole( 'main' ) ).toBeVisible();
-			const region = page.locator( preview.kind === 'hero' ? '.ntc-pattern-stats'
+			const region = page.locator( preview.kind === 'hero' ? '.peppermint-pattern-stats'
 				: preview.kind === 'cards' ? '.subcommittee-section' : '.project-grid' ).nth( preview.kind === 'query' ? 1 : 0 );
 			await expect( region ).toBeVisible();
 			await region.scrollIntoViewIfNeeded();
@@ -61,7 +61,7 @@ try {
 				let start = 0;
 				let end;
 				if ( kind === 'hero' ) {
-					end = box( document.querySelector( '.ntc-pattern-stats' ) ).bottom;
+					end = box( document.querySelector( '.peppermint-pattern-stats' ) ).bottom;
 				} else if ( kind === 'cards' ) {
 					const section = box( document.querySelector( '.subcommittee-section' ) );
 					start = section.top - 24;

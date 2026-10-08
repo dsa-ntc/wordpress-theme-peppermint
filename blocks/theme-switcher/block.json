@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "ntc-block/theme-switcher",
-	"version": "1.2.2",
+	"name": "peppermint/theme-switcher",
+	"version": "2.0.0",
 	"title": "Appearance Switcher",
 	"category": "theme",
 	"icon": "admin-appearance",
 	"description": "A light/dark toggle that follows the visitor's system setting until they choose.",
-	"textdomain": "ntc-block",
+	"textdomain": "peppermint",
 	"supports": {
 		"align": false,
 		"html": false,

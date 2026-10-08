@@ -5,7 +5,7 @@
  * Load only the files needed for block round trips. Avoid wp-load.php,
  * which requires a live database connection.
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 declare(strict_types=1);
@@ -33,7 +33,7 @@ if ( ! function_exists( 'wp_json_encode' ) ) {
  * @param string $wordpress_root Absolute WordPress installation path.
  * @return string Empty on success, otherwise a human-readable reason.
  */
-function ntc_block_tests_load_wordpress_block_parser( string $wordpress_root ): string {
+function peppermint_tests_load_wordpress_block_parser( string $wordpress_root ): string {
 	$includes_dir = rtrim( $wordpress_root, '/\\' ) . DIRECTORY_SEPARATOR . 'wp-includes';
 	$parser_file  = $includes_dir . DIRECTORY_SEPARATOR . 'class-wp-block-parser.php';
 	$blocks_file  = $includes_dir . DIRECTORY_SEPARATOR . 'blocks.php';

@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
 
-	var storageKey = 'ntc-color-scheme';
+	var storageKey = 'peppermint-color-scheme';
 	var root = document.documentElement;
 	var media = window.matchMedia ? window.matchMedia( '(prefers-color-scheme: dark)' ) : null;
 	var preference = readPreference();
@@ -36,23 +36,23 @@
 
 	function applyPreference() {
 		if ( preference ) {
-			root.setAttribute( 'data-ntc-color-scheme', preference );
+			root.setAttribute( 'data-peppermint-color-scheme', preference );
 		} else {
-			root.removeAttribute( 'data-ntc-color-scheme' );
+			root.removeAttribute( 'data-peppermint-color-scheme' );
 		}
 	}
 
 	// The appearance without a visitor override: a forced Light or Dark site
 	// style from Global Styles, otherwise the device setting.
 	function getAutomaticScheme() {
-		var override = root.getAttribute( 'data-ntc-color-scheme' );
+		var override = root.getAttribute( 'data-peppermint-color-scheme' );
 
 		// Read the CSS default after styles load, then restore the visitor override.
-		root.removeAttribute( 'data-ntc-color-scheme' );
+		root.removeAttribute( 'data-peppermint-color-scheme' );
 		var declaredScheme = window.getComputedStyle( root ).colorScheme || '';
 
 		if ( null !== override ) {
-			root.setAttribute( 'data-ntc-color-scheme', override );
+			root.setAttribute( 'data-peppermint-color-scheme', override );
 		}
 
 		if ( declaredScheme.includes( 'dark' ) !== declaredScheme.includes( 'light' ) ) {
@@ -65,7 +65,7 @@
 	function update() {
 		var resolvedScheme = preference || getAutomaticScheme();
 
-		root.setAttribute( 'data-ntc-resolved-scheme', resolvedScheme );
+		root.setAttribute( 'data-peppermint-resolved-scheme', resolvedScheme );
 		buttons.forEach( function ( button ) {
 			button.setAttribute( 'aria-pressed', 'dark' === resolvedScheme ? 'true' : 'false' );
 			button.hidden = false;
@@ -84,7 +84,7 @@
 	}
 
 	function bindButtons() {
-		document.querySelectorAll( '[data-ntc-theme-switcher]' ).forEach( function ( button ) {
+		document.querySelectorAll( '[data-peppermint-theme-switcher]' ).forEach( function ( button ) {
 			if ( -1 === buttons.indexOf( button ) ) {
 				buttons.push( button );
 				button.addEventListener( 'click', toggle );
@@ -97,7 +97,7 @@
 	// Restore a saved Light or Dark choice before paint.
 	applyPreference();
 	if ( preference ) {
-		root.setAttribute( 'data-ntc-resolved-scheme', preference );
+		root.setAttribute( 'data-peppermint-resolved-scheme', preference );
 	}
 
 	if ( 'loading' === document.readyState ) {

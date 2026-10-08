@@ -1,12 +1,12 @@
 <?php
 /**
  * Title: Front page projects
- * Slug: ntc-block/front-page-projects
+ * Slug: peppermint/front-page-projects
  * Categories: posts
  * Inserter: no
  * Template Types: front-page
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 ?>
@@ -15,7 +15,7 @@
 	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:heading {"level":2,"fontSize":"display"} -->
-		<h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Projects & field notes', 'ntc-block' ); ?></h2>
+		<h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Latest posts', 'peppermint' ); ?></h2>
 		<!-- /wp:heading -->
 	</div>
 	<!-- /wp:group -->
@@ -30,11 +30,11 @@
 			<!-- /wp:group -->
 			<!-- wp:post-terms {"term":"category","className":"project-kicker"} /-->
 			<!-- wp:post-title {"isLink":true,"fontSize":"card-title"} /-->
-			<!-- wp:post-excerpt {"moreText":"<?php echo esc_attr_x( 'Read more', 'project excerpt link', 'ntc-block' ); ?>","excerptLength":28} /-->
+			<!-- wp:post-excerpt {"moreText":"<?php echo esc_attr_x( 'Read more', 'project excerpt link', 'peppermint' ); ?>","excerptLength":28} /-->
 			<!-- wp:post-date {"className":"post-meta"} /-->
 		<!-- /wp:post-template -->
 		<!-- wp:query-no-results -->
-			<!-- wp:pattern {"slug":"ntc-block/no-results"} /-->
+			<!-- wp:pattern {"slug":"peppermint/no-results"} /-->
 		<!-- /wp:query-no-results -->
 		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
 			<!-- wp:query-pagination-previous /-->

@@ -14,7 +14,7 @@
 			'svg',
 			{
 				'aria-hidden': 'true',
-				className: 'ntc-theme-switcher__icon',
+				className: 'peppermint-theme-switcher__icon',
 				fill: 'none',
 				height: 20,
 				stroke: 'currentColor',
@@ -31,7 +31,7 @@
 		var darkState = element.useState( false );
 		var dark = darkState[ 0 ];
 		var setDark = darkState[ 1 ];
-		var label = i18n.__( 'Dark mode', 'ntc-block' );
+		var label = i18n.__( 'Dark mode', 'peppermint' );
 
 		return el(
 			'div',
@@ -41,7 +41,7 @@
 				{
 					'aria-label': label,
 					'aria-pressed': dark,
-					className: 'ntc-theme-switcher',
+					className: 'peppermint-theme-switcher',
 					onClick: function () { setDark( ! dark ); },
 					title: label,
 					type: 'button'
@@ -51,9 +51,9 @@
 		);
 	}
 
-	blocks.registerBlockType( 'ntc-block/theme-switcher', {
-		title: i18n.__( 'Appearance Switcher', 'ntc-block' ),
-		description: i18n.__( 'A light/dark toggle that follows the visitor\'s system setting until they choose.', 'ntc-block' ),
+	blocks.registerBlockType( 'peppermint/theme-switcher', {
+		title: i18n.__( 'Appearance Switcher', 'peppermint' ),
+		description: i18n.__( 'A light/dark toggle that follows the visitor\'s system setting until they choose.', 'peppermint' ),
 		category: 'theme',
 		icon: 'admin-appearance',
 		supports: {

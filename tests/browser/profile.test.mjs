@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { buildProfile, componentNames, narrowingVariables, parseProfileArguments } from './profile-options.mjs';
 
-const environment = { NTC_TEST_BASE_URL: 'http://example.test/', PATH: 'unchanged', CI: 'true' };
+const environment = { PEPPERMINT_TEST_BASE_URL: 'http://example.test/', PATH: 'unchanged', CI: 'true' };
 const standardProjects = [ 'small-phone-chromium', 'tablet-chromium', 'wide-desktop-chromium' ];
 
 test( 'smoke checks five representative routes with axe and geometry at three viewports', () => {
@@ -11,7 +11,7 @@ test( 'smoke checks five representative routes with axe and geometry at three vi
 	assert.deepEqual( plan.files, [ 'responsive.spec.mjs', 'accessibility.spec.mjs' ] );
 	assert.equal( plan.routes.length, 5 );
 	assert.ok( plan.routes.includes( '/' ) );
-	assert.equal( plan.environment.NTC_TEST_PATHS, plan.environment.NTC_RESPONSIVE_TEST_PATHS );
+	assert.equal( plan.environment.PEPPERMINT_TEST_PATHS, plan.environment.PEPPERMINT_RESPONSIVE_TEST_PATHS );
 	assert.ok( plan.args.includes( '--workers=2' ) );
 } );
 
@@ -50,9 +50,9 @@ for ( const [ component, expected ] of Object.entries( expectedComponents ) ) {
 		assert.equal( new Set( plan.routes ).size, plan.routes.length );
 		assert.ok( plan.routes.every( ( route ) => route.startsWith( '/' ) && ! route.startsWith( '//' ) ) );
 		assert.deepEqual( plan.projects, [ ...standardProjects, ...( expected.extra ? [ expected.extra ] : [] ) ] );
-		assert.equal( plan.environment.NTC_TEST_PATHS, plan.routes.join( ',' ) );
-		assert.equal( plan.environment.NTC_RESPONSIVE_TEST_PATHS, plan.routes.join( ',' ) );
-		assert.equal( plan.environment.NTC_RESPONSIVE_SCHEMES, 'light,dark' );
+		assert.equal( plan.environment.PEPPERMINT_TEST_PATHS, plan.routes.join( ',' ) );
+		assert.equal( plan.environment.PEPPERMINT_RESPONSIVE_TEST_PATHS, plan.routes.join( ',' ) );
+		assert.equal( plan.environment.PEPPERMINT_RESPONSIVE_SCHEMES, 'light,dark' );
 	} );
 }
 
@@ -66,13 +66,13 @@ for ( const profile of [ 'smoke', 'shared', 'full', ...componentNames.map( ( nam
 		const before = { ...inherited };
 		const plan = buildProfile( profile.split( ' ' ), inherited );
 		assert.deepEqual( inherited, before, 'Do not change the calling process environment.' );
-		assert.equal( plan.environment.NTC_TEST_BASE_URL, environment.NTC_TEST_BASE_URL );
+		assert.equal( plan.environment.PEPPERMINT_TEST_BASE_URL, environment.PEPPERMINT_TEST_BASE_URL );
 		assert.equal( plan.environment.PATH, environment.PATH );
 		assert.equal( plan.environment.CI, environment.CI );
 		for ( const key of narrowingVariables ) {
 			assert.equal( plan.environment[ key.toLowerCase() ], undefined );
-			const expected = key === 'NTC_RESPONSIVE_SCHEMES' ? 'light,dark'
-				: [ 'NTC_TEST_PATHS', 'NTC_RESPONSIVE_TEST_PATHS' ].includes( key ) && plan.routes ? plan.routes.join( ',' ) : undefined;
+			const expected = key === 'PEPPERMINT_RESPONSIVE_SCHEMES' ? 'light,dark'
+				: [ 'PEPPERMINT_TEST_PATHS', 'PEPPERMINT_RESPONSIVE_TEST_PATHS' ].includes( key ) && plan.routes ? plan.routes.join( ',' ) : undefined;
 			assert.equal( plan.environment[ key ], expected );
 		}
 	} );

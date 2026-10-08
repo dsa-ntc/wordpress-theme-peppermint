@@ -6,7 +6,7 @@
  * or wp-load.php. This CLI-only adapter does not connect to a database or read
  * credentials. Installed WordPress JavaScript validates the blocks.
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 declare(strict_types=1);
@@ -34,6 +34,11 @@ function esc_html_e( string $text, string $domain ): void {
 /** Print an escaped English attribute value. */
 function esc_attr_e( string $text, string $domain ): void {
 	esc_html_e( $text, $domain );
+}
+
+/** Return an escaped English attribute value. */
+function esc_attr__( string $text, string $domain ): string {
+	return esc_attr( $text );
 }
 
 /** Return escaped English text; ignore the translation context. */
@@ -71,7 +76,7 @@ function esc_url( string $url ): string {
  * @param array<string, string> $scripts       Ordered script paths.
  * @return void
  */
-function ntc_validation_add_script( string $handle, string $wordpress_root, array $packages, array &$visiting, array &$scripts ): void {
+function peppermint_validation_add_script( string $handle, string $wordpress_root, array $packages, array &$visiting, array &$scripts ): void {
 	if ( isset( $scripts[ $handle ] ) ) {
 		return;
 	}
@@ -89,7 +94,7 @@ function ntc_validation_add_script( string $handle, string $wordpress_root, arra
 		$dependencies = array( 'react' );
 	}
 	foreach ( $dependencies as $dependency ) {
-		ntc_validation_add_script( $dependency, $wordpress_root, $packages, $visiting, $scripts );
+		peppermint_validation_add_script( $dependency, $wordpress_root, $packages, $visiting, $scripts );
 	}
 	$basename = is_array( $package ) ? substr( $package_file, 0, -3 ) : 'vendor/' . $handle;
 	$path     = $wordpress_root . '/wp-includes/js/dist/' . $basename . '.js';
@@ -105,15 +110,15 @@ function ntc_validation_add_script( string $handle, string $wordpress_root, arra
 
 try {
 	$theme_root     = dirname( __DIR__, 2 );
-	$wordpress_root = realpath( getenv( 'NTC_WORDPRESS_ROOT' ) ?: dirname( $theme_root, 3 ) );
+	$wordpress_root = realpath( getenv( 'PEPPERMINT_WORDPRESS_ROOT' ) ?: dirname( $theme_root, 3 ) );
 	if ( false === $wordpress_root || ! is_readable( $wordpress_root . '/wp-includes/assets/script-loader-packages.php' ) ) {
-		throw new RuntimeException( 'Set NTC_WORDPRESS_ROOT to an installed WordPress root with editor JavaScript assets.' );
+		throw new RuntimeException( 'Set PEPPERMINT_WORDPRESS_ROOT to an installed WordPress root with editor JavaScript assets.' );
 	}
 	$packages = require $wordpress_root . '/wp-includes/assets/script-loader-packages.php';
 	require $wordpress_root . '/wp-includes/version.php';
 	$scripts  = array();
 	$visiting = array();
-	ntc_validation_add_script( 'wp-block-library', $wordpress_root, $packages, $visiting, $scripts );
+	peppermint_validation_add_script( 'wp-block-library', $wordpress_root, $packages, $visiting, $scripts );
 
 	$custom_blocks  = array();
 	$custom_scripts = array();
@@ -134,7 +139,7 @@ try {
 			}
 			$asset = require $asset_path;
 			foreach ( $asset['dependencies'] ?? array() as $dependency ) {
-				ntc_validation_add_script( $dependency, $wordpress_root, $packages, $visiting, $scripts );
+				peppermint_validation_add_script( $dependency, $wordpress_root, $packages, $visiting, $scripts );
 			}
 			$custom_scripts[] = $script_path;
 		}
@@ -156,9 +161,9 @@ try {
 		}
 	}
 	$documents['fixtures/pullquotes.html'] = '<!-- wp:pullquote --><figure class="wp-block-pullquote"><blockquote><p>Simple pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->'
-		. '<!-- wp:pullquote {"className":"is-style-ntc-win95"} --><figure class="wp-block-pullquote is-style-ntc-win95"><blockquote><p>Windows 95 pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->'
-		. '<!-- wp:pullquote {"className":"is-style-ntc-retro"} --><figure class="wp-block-pullquote is-style-ntc-retro"><blockquote><p>Retro DSA pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->'
-		. '<!-- wp:pullquote {"className":"is-style-ntc-macos"} --><figure class="wp-block-pullquote is-style-ntc-macos"><blockquote><p>macOS pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->';
+		. '<!-- wp:pullquote {"className":"is-style-peppermint-win95"} --><figure class="wp-block-pullquote is-style-peppermint-win95"><blockquote><p>Windows 95 pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->'
+		. '<!-- wp:pullquote {"className":"is-style-peppermint-retro"} --><figure class="wp-block-pullquote is-style-peppermint-retro"><blockquote><p>Retro DSA pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->'
+		. '<!-- wp:pullquote {"className":"is-style-peppermint-macos"} --><figure class="wp-block-pullquote is-style-peppermint-macos"><blockquote><p>macOS pullquote.</p><cite>Preview citation</cite></blockquote></figure><!-- /wp:pullquote -->';
 	ksort( $documents );
 
 	echo json_encode(

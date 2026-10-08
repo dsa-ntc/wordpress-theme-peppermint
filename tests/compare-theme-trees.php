@@ -36,7 +36,7 @@ if ( $left_root === $right_root ) {
  * @param string $relative Forward-slash relative path.
  * @return bool
  */
-function ntc_skill_is_excluded( string $relative ): bool {
+function peppermint_skill_is_excluded( string $relative ): bool {
 	$segments = explode( '/', $relative );
 	$ignored_directories = array(
 		'.git', '.local',
@@ -67,7 +67,7 @@ function ntc_skill_is_excluded( string $relative ): bool {
  * @param string $root Absolute source root.
  * @return array<string, string>
  */
-function ntc_skill_collect_hashes( string $root ): array {
+function peppermint_skill_collect_hashes( string $root ): array {
 	$hashes   = array();
 	$iterator = new RecursiveIteratorIterator(
 		new RecursiveCallbackFilterIterator(
@@ -76,7 +76,7 @@ function ntc_skill_collect_hashes( string $root ): array {
 				// Reject before descent: ignored reports may disappear during a run.
 				// Never follow linked files/directories outside the intended tree.
 				$relative = str_replace( '\\', '/', substr( $file->getPathname(), strlen( $root ) + 1 ) );
-				return ! $file->isLink() && ! ntc_skill_is_excluded( $relative );
+				return ! $file->isLink() && ! peppermint_skill_is_excluded( $relative );
 			}
 		)
 	);
@@ -88,7 +88,7 @@ function ntc_skill_collect_hashes( string $root ): array {
 
 		$absolute = $file->getPathname();
 		$relative = str_replace( '\\', '/', substr( $absolute, strlen( $root ) + 1 ) );
-		if ( ntc_skill_is_excluded( $relative ) ) {
+		if ( peppermint_skill_is_excluded( $relative ) ) {
 			continue;
 		}
 
@@ -105,8 +105,8 @@ function ntc_skill_collect_hashes( string $root ): array {
 	return $hashes;
 }
 
-$left_hashes  = ntc_skill_collect_hashes( $left_root );
-$right_hashes = ntc_skill_collect_hashes( $right_root );
+$left_hashes  = peppermint_skill_collect_hashes( $left_root );
+$right_hashes = peppermint_skill_collect_hashes( $right_root );
 $paths        = array_unique( array_merge( array_keys( $left_hashes ), array_keys( $right_hashes ) ) );
 sort( $paths );
 

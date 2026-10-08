@@ -1,14 +1,14 @@
 <?php
 /**
- * Title: Subcommittee image tiles
- * Slug: ntc-block/subcommittee-tiles
+ * Title: Group image tiles
+ * Slug: peppermint/subcommittee-tiles
  * Categories: featured, banner
- * Description: Three editable red image tiles for the NTC subcommittees.
+ * Description: Three editable image tiles for committees, working groups, or other sections. Window frame styles are available on each tile.
  * Keywords: committees, teams, cards, cover, image
  * Viewport Width: 1280
  * Post Types: page
  *
- * @package NTC_Block
+ * @package Peppermint
  */
 
 ?>
@@ -17,7 +17,7 @@
 	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:heading {"fontSize":"display"} -->
-		<h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Subcommittees', 'ntc-block' ); ?></h2>
+		<h2 class="wp-block-heading has-display-font-size"><?php esc_html_e( 'Groups', 'peppermint' ); ?></h2>
 		<!-- /wp:heading -->
 	</div>
 	<!-- /wp:group -->
@@ -26,13 +26,13 @@
 	<div class="wp-block-columns alignwide subcommittee-grid">
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-ntc-red-tile"} -->
-			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-ntc-red-tile" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
+			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-peppermint-red-tile"} -->
+			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-peppermint-red-tile" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
 				<!-- wp:image {"width":"52px","height":"52px","scale":"contain","sizeSlug":"full","linkDestination":"none","className":"subcommittee-tile__icon"} -->
 				<figure class="wp-block-image size-full is-resized subcommittee-tile__icon"><img alt="" style="object-fit:contain;width:52px;height:52px"/></figure>
 				<!-- /wp:image -->
 				<!-- wp:heading {"level":3,"className":"subcommittee-tile__title","style":{"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"0"}},"typography":{"lineHeight":"0.98"}},"textColor":"white","fontSize":"x-large"} -->
-				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><a href="<?php echo esc_url( home_url( '/engagement/' ) ); ?>"><?php esc_html_e( 'Engagement', 'ntc-block' ); ?></a></h3>
+				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><?php esc_html_e( 'Group one', 'peppermint' ); ?></h3>
 				<!-- /wp:heading -->
 			</div></div>
 			<!-- /wp:cover -->
@@ -41,13 +41,13 @@
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-ntc-retro"} -->
-			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-ntc-retro" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
+			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-peppermint-red-tile"} -->
+			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-peppermint-red-tile" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
 				<!-- wp:image {"width":"52px","height":"52px","scale":"contain","sizeSlug":"full","linkDestination":"none","className":"subcommittee-tile__icon"} -->
 				<figure class="wp-block-image size-full is-resized subcommittee-tile__icon"><img alt="" style="object-fit:contain;width:52px;height:52px"/></figure>
 				<!-- /wp:image -->
 				<!-- wp:heading {"level":3,"className":"subcommittee-tile__title","style":{"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"0"}},"typography":{"lineHeight":"0.98"}},"textColor":"white","fontSize":"x-large"} -->
-				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><a href="<?php echo esc_url( home_url( '/formations/' ) ); ?>"><?php esc_html_e( 'Formations', 'ntc-block' ); ?></a></h3>
+				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><?php esc_html_e( 'Group two', 'peppermint' ); ?></h3>
 				<!-- /wp:heading -->
 			</div></div>
 			<!-- /wp:cover -->
@@ -56,13 +56,13 @@
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-ntc-win95"} -->
-			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-ntc-win95" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
+			<!-- wp:cover {"dimRatio":100,"overlayColor":"dsa-red","minHeight":400,"minHeightUnit":"px","contentPosition":"bottom left","isDark":true,"className":"subcommittee-tile is-style-peppermint-red-tile"} -->
+			<div class="wp-block-cover has-custom-content-position is-position-bottom-left subcommittee-tile is-style-peppermint-red-tile" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-dsa-red-background-color has-background-dim-100 has-background-dim"></span><div class="wp-block-cover__inner-container">
 				<!-- wp:image {"width":"52px","height":"52px","scale":"contain","sizeSlug":"full","linkDestination":"none","className":"subcommittee-tile__icon"} -->
 				<figure class="wp-block-image size-full is-resized subcommittee-tile__icon"><img alt="" style="object-fit:contain;width:52px;height:52px"/></figure>
 				<!-- /wp:image -->
 				<!-- wp:heading {"level":3,"className":"subcommittee-tile__title","style":{"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"0"}},"typography":{"lineHeight":"0.98"}},"textColor":"white","fontSize":"x-large"} -->
-				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><a href="<?php echo esc_url( home_url( '/member-services/' ) ); ?>"><?php esc_html_e( 'Member Services', 'ntc-block' ); ?></a></h3>
+				<h3 class="wp-block-heading subcommittee-tile__title has-white-color has-text-color has-x-large-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:0;line-height:0.98"><?php esc_html_e( 'Group three', 'peppermint' ); ?></h3>
 				<!-- /wp:heading -->
 			</div></div>
 			<!-- /wp:cover -->

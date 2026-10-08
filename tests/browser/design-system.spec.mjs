@@ -87,7 +87,7 @@ test( 'Query typography still accepts a different native preset and a custom siz
 
 test( 'section labels, headings, and prose share the constrained alignment', async ( { page } ) => {
 	await open( page, '/theme-preview/section-styles/' );
-	const report = await page.locator( '.ntc-signal-hero' ).evaluate( ( group ) => {
+	const report = await page.locator( '.peppermint-signal-hero' ).evaluate( ( group ) => {
 		return [ ...group.children ].filter( ( child ) => child.matches( 'p,h2' ) )
 			.map( ( child ) => ( { text: child.textContent, left: child.getBoundingClientRect().left } ) );
 	} );
@@ -99,7 +99,7 @@ test( 'section labels, headings, and prose share the constrained alignment', asy
 
 test( 'image action body starts at its own padding, not a prose heading margin', async ( { page } ) => {
 	await open( page, '/theme-preview/cards-and-frames/' );
-	const report = await page.locator( '.ntc-media-action-card__body' ).first().evaluate( ( body ) => {
+	const report = await page.locator( '.peppermint-media-action-card__body' ).first().evaluate( ( body ) => {
 		const heading = body.querySelector( 'h2,h3' );
 		const image = body.previousElementSibling;
 		return {
@@ -114,7 +114,7 @@ test( 'image action body starts at its own padding, not a prose heading margin',
 
 test( 'native custom padding and heading margins remain editable inside a card', async ( { page } ) => {
 	await open( page, '/theme-preview/cards-and-frames/' );
-	const report = await page.locator( '.ntc-media-action-card__body' ).first().evaluate( ( body ) => {
+	const report = await page.locator( '.peppermint-media-action-card__body' ).first().evaluate( ( body ) => {
 		body.style.paddingTop = '48px';
 		const heading = body.querySelector( 'h2,h3' );
 		heading.style.marginTop = '36px';
@@ -125,7 +125,7 @@ test( 'native custom padding and heading margins remain editable inside a card',
 
 test( 'real contained-media examples retain tiny images at their intrinsic size', async ( { page } ) => {
 	await open( page, '/theme-preview/cards-and-frames/' );
-	const media = page.locator( '.ntc-contained-media-preview img' );
+	const media = page.locator( '.peppermint-contained-media-preview img' );
 	await expect( media ).toHaveCount( 3 );
 	for ( const img of await media.all() ) {
 		await img.scrollIntoViewIfNeeded();
@@ -146,12 +146,12 @@ test( 'real contained-media examples retain tiny images at their intrinsic size'
 
 test( 'partner cells stretch together even when one name takes several lines', async ( { page } ) => {
 	await open( page, '/theme-preview/text-intro/' );
-	await page.locator( '.ntc-pattern-partner-grid__item' ).first().evaluate( ( item ) => {
+	await page.locator( '.peppermint-pattern-partner-grid__item' ).first().evaluate( ( item ) => {
 		item.querySelector( 'p' ).textContent = 'A much longer translated name for the community technology and infrastructure working group';
 	} );
-	const report = await page.locator( '.ntc-pattern-partner-grid' ).evaluate( ( section ) => {
+	const report = await page.locator( '.peppermint-pattern-partner-grid' ).evaluate( ( section ) => {
 		return [ ...section.querySelectorAll( '.wp-block-columns' ) ].flatMap( ( row ) => {
-			const cells = [ ...row.querySelectorAll( '.ntc-pattern-partner-grid__item' ) ];
+			const cells = [ ...row.querySelectorAll( '.peppermint-pattern-partner-grid__item' ) ];
 			const first = cells[ 0 ]?.getBoundingClientRect();
 			return cells.map( ( cell ) => {
 				const rect = cell.getBoundingClientRect();
@@ -167,7 +167,7 @@ test( 'partner cells stretch together even when one name takes several lines', a
 
 test( 'adding a block after a partner card keeps the Column vertical and full width', async ( { page } ) => {
 	await open( page, '/theme-preview/text-intro/' );
-	const report = await page.locator( '.ntc-pattern-partner-grid__item' ).first().evaluate( ( item ) => {
+	const report = await page.locator( '.peppermint-pattern-partner-grid__item' ).first().evaluate( ( item ) => {
 		const paragraph = document.createElement( 'p' );
 		paragraph.textContent = 'An editor-added note belongs below this card, not beside it.';
 		item.after( paragraph );
@@ -218,7 +218,7 @@ test( 'OpenSlides cards reflow and images never cover their preceding content', 
 } );
 
 test( 'search empty state keeps the heading and form reading measure', async ( { page } ) => {
-	await page.goto( '/?s=ntc-no-results-7cf64b', { waitUntil: 'domcontentloaded' } );
+	await page.goto( '/?s=peppermint-no-results-7cf64b', { waitUntil: 'domcontentloaded' } );
 	const report = await page.evaluate( () => {
 		const heading = document.querySelector( 'main .wp-block-query-title' ).getBoundingClientRect();
 		const message = document.querySelector( 'main .wp-block-query-no-results' ).getBoundingClientRect();
@@ -238,23 +238,23 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 			}
 			return route.continue();
 		} );
-		await page.addInitScript( ( requestedScheme ) => localStorage.setItem( 'ntc-color-scheme', requestedScheme ), scheme );
+		await page.addInitScript( ( requestedScheme ) => localStorage.setItem( 'peppermint-color-scheme', requestedScheme ), scheme );
 		const session = await page.context().newCDPSession( page );
 		await session.send( 'DOM.enable' );
 		await session.send( 'CSS.enable' );
 		try {
 			for ( const path of [ '/', '/theme-preview/landing-hero/' ] ) {
 				await open( page, path );
-				await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+				await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 				const selectors = path === '/'
 					? [ '.subcommittee-tile__title', '.project-grid .wp-block-post-title' ]
-					: [ '.ntc-image-hero h1' ];
+					: [ '.peppermint-image-hero h1' ];
 				const report = await page.evaluate( ( selectors ) => ( {
 					overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
 					webFonts: [ ...document.fonts ].map( ( font ) => ( { family: font.family, status: font.status } ) ),
 					headings: [ ...document.querySelectorAll( selectors.join( ',' ) ) ].map( ( heading ) => {
 						const style = getComputedStyle( heading );
-						const container = heading.closest( '.subcommittee-tile, .wp-block-post, .ntc-image-hero' ).getBoundingClientRect();
+						const container = heading.closest( '.subcommittee-tile, .wp-block-post, .peppermint-image-hero' ).getBoundingClientRect();
 						const range = document.createRange();
 						range.selectNodeContents( heading.querySelector( 'a' ) || heading );
 						const rects = [ ...range.getClientRects() ].filter( ( rect ) => rect.width && rect.height );

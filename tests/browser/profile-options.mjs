@@ -41,7 +41,7 @@ const components = {
 		routes: [
 			'/', '/theme-preview-posts/', '/theme-preview/query-components/', '/category/theme-preview/',
 			'/theme-preview-missing-image-state/', '/?s=Theme%20Preview',
-			'/?s=ntc-preview-guaranteed-no-match&post_type=post'
+			'/?s=peppermint-preview-guaranteed-no-match&post_type=post'
 		]
 	},
 	layout: {
@@ -50,16 +50,16 @@ const components = {
 			'/', '/theme-preview/landing-hero/', '/theme-preview/text-intro/',
 			'/theme-preview/media-left/', '/theme-preview/media-right/', '/theme-preview/project-starter/',
 			'/theme-preview/section-styles/', '/about/', '/theme-preview-interoperability/',
-			'/openslides/', '/con-dashboard/', '/?s=ntc-preview-guaranteed-no-match&post_type=post'
+			'/openslides/', '/con-dashboard/', '/?s=peppermint-preview-guaranteed-no-match&post_type=post'
 		]
 	}
 };
 
 export const componentNames = Object.freeze( Object.keys( components ) );
 export const narrowingVariables = Object.freeze( [
-	'NTC_TEST_PATHS', 'NTC_RESPONSIVE_TEST_PATHS', 'NTC_RESPONSIVE_SCHEMES',
-	'NTC_EXPECTED_404_PATHS', 'NTC_CARD_TEST_PATH', 'NTC_LANDING_HERO_TEST_PATH',
-	'NTC_SIGNAL_RAIL_TEST_PATH', 'NTC_APPEARANCE_TEST_PATH', 'NTC_PULLQUOTE_TEST_PATH'
+	'PEPPERMINT_TEST_PATHS', 'PEPPERMINT_RESPONSIVE_TEST_PATHS', 'PEPPERMINT_RESPONSIVE_SCHEMES',
+	'PEPPERMINT_EXPECTED_404_PATHS', 'PEPPERMINT_CARD_TEST_PATH', 'PEPPERMINT_LANDING_HERO_TEST_PATH',
+	'PEPPERMINT_SIGNAL_RAIL_TEST_PATH', 'PEPPERMINT_APPEARANCE_TEST_PATH', 'PEPPERMINT_PULLQUOTE_TEST_PATH'
 ] );
 
 export function parseProfileArguments( argv ) {
@@ -124,11 +124,11 @@ export function buildProfile( argv, inheritedEnvironment = process.env ) {
 			|| routes.some( ( route ) => ! route.startsWith( '/' ) || route.startsWith( '//' ) || /[\s\\]/u.test( route ) ) ) {
 			throw new Error( 'A named profile must have nonempty, unique site-relative routes.' );
 		}
-		environment.NTC_TEST_PATHS = routes.join( ',' );
-		environment.NTC_RESPONSIVE_TEST_PATHS = routes.join( ',' );
+		environment.PEPPERMINT_TEST_PATHS = routes.join( ',' );
+		environment.PEPPERMINT_RESPONSIVE_TEST_PATHS = routes.join( ',' );
 	}
 	// Explicitly retain both appearances even when an earlier shell run selected one.
-	environment.NTC_RESPONSIVE_SCHEMES = 'light,dark';
+	environment.PEPPERMINT_RESPONSIVE_SCHEMES = 'light,dark';
 	const args = [ 'test', '--config=playwright.config.mjs', ...files, `--workers=${ options.workers }` ];
 	if ( projects ) {
 		args.push( ...projects.map( ( project ) => `--project=${ project }` ) );

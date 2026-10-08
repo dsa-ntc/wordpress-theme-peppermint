@@ -1,6 +1,6 @@
 {
-	"name": "dsa-national-tech-committee/ntc-block",
-	"description": "A minimal full-site-editing theme for the DSA National Tech Committee.",
+	"name": "dsa-ntc/wordpress-theme-peppermint",
+	"description": "A minimal full-site-editing theme for organizing sites.",
 	"type": "wordpress-theme",
 	"require": {
 		"php": ">=8.5"

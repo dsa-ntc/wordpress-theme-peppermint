@@ -1,27 +1,27 @@
 /* Project recruitment boards use editable Groups, headings, and paragraphs. */
-.ntc-skills-board {
-	--ntc-board-surface: var(--wp--preset--color--base-2);
-	--ntc-board-ink: var(--wp--preset--color--contrast);
-	--ntc-board-edge: var(--wp--preset--color--line);
-	--ntc-note-surface: var(--wp--preset--color--base);
-	--ntc-note-ink: var(--wp--preset--color--contrast);
-	--ntc-note-focus: var(--wp--preset--color--accent);
+.peppermint-skills-board {
+	--peppermint-board-surface: var(--wp--preset--color--base-2);
+	--peppermint-board-ink: var(--wp--preset--color--contrast);
+	--peppermint-board-edge: var(--wp--preset--color--line);
+	--peppermint-note-surface: var(--wp--preset--color--base);
+	--peppermint-note-ink: var(--wp--preset--color--contrast);
+	--peppermint-note-focus: var(--wp--preset--color--accent);
 
 	box-sizing: border-box;
 	padding: clamp(1.25rem, 4vw, 3rem);
-	border: 1px solid var(--ntc-board-edge);
+	border: 1px solid var(--peppermint-board-edge);
 	overflow-wrap: anywhere;
 }
 
-.ntc-skills-board:not(.has-background) {
-	background-color: var(--ntc-board-surface);
+.peppermint-skills-board:not(.has-background) {
+	background-color: var(--peppermint-board-surface);
 }
 
-.ntc-skills-board:not(.has-text-color) {
-	color: var(--ntc-board-ink);
+.peppermint-skills-board:not(.has-text-color) {
+	color: var(--peppermint-board-ink);
 }
 
-.ntc-skills-board .ntc-skills-board__notes {
+.peppermint-skills-board .peppermint-skills-board__notes {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 	gap: 1.5rem;
@@ -29,26 +29,26 @@
 	margin-block-start: 2rem;
 }
 
-.ntc-skills-board .ntc-skills-board__note {
+.peppermint-skills-board .peppermint-skills-board__note {
 	position: relative;
 	box-sizing: border-box;
 	min-inline-size: 0;
 	max-inline-size: none;
 	margin: 0;
 	padding: 1.5rem;
-	border: 1px solid var(--ntc-board-edge);
+	border: 1px solid var(--peppermint-board-edge);
 	overflow-wrap: anywhere;
 }
 
-.ntc-skills-board .ntc-skills-board__note:not(.has-background) {
-	background-color: var(--ntc-note-surface);
+.peppermint-skills-board .peppermint-skills-board__note:not(.has-background) {
+	background-color: var(--peppermint-note-surface);
 }
 
-.ntc-skills-board .ntc-skills-board__note:not(.has-text-color) {
-	color: var(--ntc-note-ink);
+.peppermint-skills-board .peppermint-skills-board__note:not(.has-text-color) {
+	color: var(--peppermint-note-ink);
 }
 
-.ntc-skills-board .ntc-skills-board__title {
+.peppermint-skills-board .peppermint-skills-board__title {
 	margin-block-start: 0;
 	line-height: 1.15;
 	text-wrap: balance;
@@ -56,52 +56,52 @@
 	overflow-wrap: anywhere;
 }
 
-.ntc-skills-board__title a {
+.peppermint-skills-board__title a {
 	color: inherit;
 	text-decoration: none;
 }
 
 /* One native link covers the note; no extra controls or keyboard stops. */
-.ntc-skills-board__title a::after {
+.peppermint-skills-board__title a::after {
 	position: absolute;
 	z-index: 2;
 	inset: 0;
 	content: "";
 }
 
-.ntc-skills-board__title a:hover {
+.peppermint-skills-board__title a:hover {
 	color: inherit;
 	text-decoration: none;
 }
 
-.ntc-skills-board__title a:focus-visible::after {
-	outline: 3px solid var(--ntc-note-focus);
+.peppermint-skills-board__title a:focus-visible::after {
+	outline: 3px solid var(--peppermint-note-focus);
 	outline-offset: -5px;
 }
 
 /* The whole-note outline replaces fragmented outlines around wrapped text. */
-.ntc-skills-board__title a:focus-visible {
+.peppermint-skills-board__title a:focus-visible {
 	outline: none;
 }
 
 /* Let authors select and edit the nested blocks directly. */
-.editor-styles-wrapper .ntc-skills-board__title a::after {
+.editor-styles-wrapper .peppermint-skills-board__title a::after {
 	content: none;
 }
 
-.editor-styles-wrapper .ntc-skills-board__title a:focus-visible {
+.editor-styles-wrapper .peppermint-skills-board__title a:focus-visible {
 	outline: 2px solid currentColor;
 	outline-offset: 2px;
 }
 
 /* Cork flecks, a beveled wooden rim, and pinned pastel paper. */
-.ntc-skills-board.is-style-ntc-board-cork {
-	--ntc-board-surface: light-dark(#cda475, #614830);
-	--ntc-board-ink: light-dark(#30261d, #fff8ed);
-	--ntc-board-edge: light-dark(#a87142, #815631);
-	--ntc-note-surface: light-dark(#fff0a0, #e8d58f);
-	--ntc-note-ink: #2e281e;
-	--ntc-note-focus: #30261d;
+.peppermint-skills-board.is-style-peppermint-board-cork {
+	--peppermint-board-surface: light-dark(#cda475, #614830);
+	--peppermint-board-ink: light-dark(#30261d, #fff8ed);
+	--peppermint-board-edge: light-dark(#a87142, #815631);
+	--peppermint-note-surface: light-dark(#fff0a0, #e8d58f);
+	--peppermint-note-ink: #2e281e;
+	--peppermint-note-focus: #30261d;
 
 	border-width: 0.75rem;
 	border-block-start-color: light-dark(#cb9865, #a5784e);
@@ -113,7 +113,7 @@
 		0 0.5rem 1rem #21150b26;
 }
 
-.ntc-skills-board.is-style-ntc-board-cork:not(.has-background) {
+.peppermint-skills-board.is-style-peppermint-board-cork:not(.has-background) {
 	background-image:
 		radial-gradient(ellipse at 20% 30%, #3d240f24 0 1px, transparent 1.7px),
 		radial-gradient(ellipse at 70% 60%, #ffe0a82e 0 1.2px, transparent 2px),
@@ -122,7 +122,7 @@
 	background-size: 11px 17px, 19px 13px, 23px 29px, 7px 11px;
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note {
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note {
 	/* Reserve real space for the pin and curl, including enlarged text. */
 	padding-block: 2.25rem 2rem;
 	border-color: #6e593833;
@@ -133,19 +133,19 @@
 		2px 8px 10px #241d1833;
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:not(.has-background) {
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:not(.has-background) {
 	background-image: linear-gradient(160deg, #ffffff30, transparent 55%, #6e59380a);
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 2) {
-	--ntc-note-surface: light-dark(#f9d7d2, #ddb7b2);
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:nth-child(3n + 2) {
+	--peppermint-note-surface: light-dark(#f9d7d2, #ddb7b2);
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 3) {
-	--ntc-note-surface: light-dark(#d8e8ed, #b8d0d8);
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:nth-child(3n + 3) {
+	--peppermint-note-surface: light-dark(#d8e8ed, #b8d0d8);
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note::before {
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note::before {
 	position: absolute;
 	inset-block-start: 0.6rem;
 	inset-inline-start: calc(50% - 0.5rem);
@@ -161,7 +161,7 @@
 }
 
 /* A small lifted corner adds depth without rotating text or changing hit areas. */
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note::after {
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note::after {
 	position: absolute;
 	inset-block-end: 0;
 	inset-inline-end: 0;
@@ -173,25 +173,25 @@
 	pointer-events: none;
 }
 
-.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:dir(rtl)::after {
+.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:dir(rtl)::after {
 	background-image: linear-gradient(225deg, transparent 45%, #fff8dbcc 49%, #a88f6370 100%);
 }
 
 /* DSA noticeboard: a red rule, quiet paper, and a folded corner. */
-.ntc-skills-board.is-style-ntc-board-dsa {
-	--ntc-board-surface: light-dark(#f7eded, #30282a);
-	--ntc-board-edge: light-dark(#cdafb2, #826268);
-	--ntc-note-surface: light-dark(#fffafb, #3a3033);
+.peppermint-skills-board.is-style-peppermint-board-dsa {
+	--peppermint-board-surface: light-dark(#f7eded, #30282a);
+	--peppermint-board-edge: light-dark(#cdafb2, #826268);
+	--peppermint-note-surface: light-dark(#fffafb, #3a3033);
 
 	border-block-start: 0.35rem solid var(--wp--preset--color--dsa-red);
 }
 
-.ntc-skills-board.is-style-ntc-board-dsa .ntc-skills-board__note {
+.peppermint-skills-board.is-style-peppermint-board-dsa .peppermint-skills-board__note {
 	padding-block-start: 2rem;
 	border-block-end: 0.25rem solid var(--wp--preset--color--dsa-red);
 }
 
-.ntc-skills-board.is-style-ntc-board-dsa .ntc-skills-board__note::before {
+.peppermint-skills-board.is-style-peppermint-board-dsa .peppermint-skills-board__note::before {
 	position: absolute;
 	inset-block-start: 0;
 	inset-inline-end: 0;
@@ -204,101 +204,101 @@
 }
 
 /* The retained technical slug now presents a blue retro desktop. */
-.ntc-skills-board.is-style-ntc-board-technical {
-	--ntc-board-surface: light-dark(#2456a6, #12376c);
-	--ntc-board-ink: #ffffff;
-	--ntc-board-edge: light-dark(#163566, #6387b7);
-	--ntc-note-surface: #c0c0c0;
-	--ntc-note-ink: #171717;
-	--ntc-note-focus: #000080;
-	--ntc-desktop-inset: clamp(1.25rem, 4vw, 3rem);
-	--ntc-desktop-titlebar-height: 1.65rem;
-	--ntc-desktop-titlebar: light-dark(#000080, #134db3);
-	--ntc-desktop-chrome: #c0c0c0;
-	--ntc-desktop-highlight: #ffffff;
-	--ntc-desktop-mid: #808080;
-	--ntc-desktop-shadow: #262626;
+.peppermint-skills-board.is-style-peppermint-board-technical {
+	--peppermint-board-surface: light-dark(#2456a6, #12376c);
+	--peppermint-board-ink: #ffffff;
+	--peppermint-board-edge: light-dark(#163566, #6387b7);
+	--peppermint-note-surface: #c0c0c0;
+	--peppermint-note-ink: #171717;
+	--peppermint-note-focus: #000080;
+	--peppermint-desktop-inset: clamp(1.25rem, 4vw, 3rem);
+	--peppermint-desktop-titlebar-height: 1.65rem;
+	--peppermint-desktop-titlebar: light-dark(#000080, #134db3);
+	--peppermint-desktop-chrome: #c0c0c0;
+	--peppermint-desktop-highlight: #ffffff;
+	--peppermint-desktop-mid: #808080;
+	--peppermint-desktop-shadow: #262626;
 
-	padding: var(--ntc-desktop-inset);
+	padding: var(--peppermint-desktop-inset);
 	border-width: 2px;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical:has(> .ntc-skills-board__taskbar) {
+.peppermint-skills-board.is-style-peppermint-board-technical:has(> .peppermint-skills-board__taskbar) {
 	padding-block-end: 0;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note {
-	padding: calc(var(--ntc-desktop-titlebar-height) + 1.15rem) 1.25rem 1.25rem;
-	border: 2px solid var(--ntc-desktop-shadow);
-	border-block-start-color: var(--ntc-desktop-highlight);
-	border-inline-start-color: var(--ntc-desktop-highlight);
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note {
+	padding: calc(var(--peppermint-desktop-titlebar-height) + 1.15rem) 1.25rem 1.25rem;
+	border: 2px solid var(--peppermint-desktop-shadow);
+	border-block-start-color: var(--peppermint-desktop-highlight);
+	border-inline-start-color: var(--peppermint-desktop-highlight);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-desktop-mid),
+		inset -1px -1px var(--peppermint-desktop-mid),
 		0.3rem 0.3rem 0 #071c3c80;
 }
 
 /* Empty title bars and close glyphs are decoration, not extra controls. */
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note::before {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note::before {
 	position: absolute;
 	inset-block-start: 0.35rem;
 	inset-inline: 0.35rem 2.35rem;
-	block-size: var(--ntc-desktop-titlebar-height);
-	background: var(--ntc-desktop-titlebar);
+	block-size: var(--peppermint-desktop-titlebar-height);
+	background: var(--peppermint-desktop-titlebar);
 	content: "";
 	pointer-events: none;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note::after {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note::after {
 	position: absolute;
 	inset-block-start: 0.35rem;
 	inset-inline-end: 0.35rem;
 	box-sizing: border-box;
 	inline-size: 1.55rem;
-	block-size: var(--ntc-desktop-titlebar-height);
-	border: 2px solid var(--ntc-desktop-shadow);
-	border-block-start-color: var(--ntc-desktop-highlight);
-	border-inline-start-color: var(--ntc-desktop-highlight);
+	block-size: var(--peppermint-desktop-titlebar-height);
+	border: 2px solid var(--peppermint-desktop-shadow);
+	border-block-start-color: var(--peppermint-desktop-highlight);
+	border-inline-start-color: var(--peppermint-desktop-highlight);
 	background:
 		linear-gradient(45deg, transparent 42%, #171717 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
 		linear-gradient(-45deg, transparent 42%, #171717 42% 58%, transparent 58%) center / 0.65rem 0.65rem no-repeat,
-		var(--ntc-desktop-chrome);
+		var(--peppermint-desktop-chrome);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-desktop-mid);
+		inset -1px -1px var(--peppermint-desktop-mid);
 	content: "";
 	pointer-events: none;
 }
 
-.ntc-skills-board .ntc-skills-board__taskbar {
+.peppermint-skills-board .peppermint-skills-board__taskbar {
 	display: none;
 }
 
 /* The taskbar remains in document flow and wraps instead of clipping. */
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar {
 	display: flex;
 	box-sizing: border-box;
 	flex-wrap: wrap;
 	align-items: stretch;
 	gap: 0.5rem;
 	margin-block: 2rem 0;
-	margin-inline: calc(-1 * var(--ntc-desktop-inset));
+	margin-inline: calc(-1 * var(--peppermint-desktop-inset));
 	padding: 0.4rem 0.5rem;
-	border: 2px solid var(--ntc-desktop-mid);
-	border-block-start-color: var(--ntc-desktop-highlight);
-	border-inline-start-color: var(--ntc-desktop-highlight);
+	border: 2px solid var(--peppermint-desktop-mid);
+	border-block-start-color: var(--peppermint-desktop-highlight);
+	border-inline-start-color: var(--peppermint-desktop-highlight);
 	box-shadow: inset 1px 1px #dfdfdf;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar:not(.has-background) {
-	background: var(--ntc-desktop-chrome);
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar:not(.has-background) {
+	background: var(--peppermint-desktop-chrome);
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar:not(.has-text-color) {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar:not(.has-text-color) {
 	color: #171717;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start {
 	display: flex;
 	box-sizing: border-box;
 	flex: 0 1 auto;
@@ -312,31 +312,31 @@
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.4rem 0.65rem;
-	border: 2px solid var(--ntc-desktop-shadow);
-	border-block-start-color: var(--ntc-desktop-highlight);
-	border-inline-start-color: var(--ntc-desktop-highlight);
+	border: 2px solid var(--peppermint-desktop-shadow);
+	border-block-start-color: var(--peppermint-desktop-highlight);
+	border-inline-start-color: var(--peppermint-desktop-highlight);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-desktop-mid);
+		inset -1px -1px var(--peppermint-desktop-mid);
 	cursor: default;
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start:not(.has-background) {
-	background: var(--ntc-desktop-chrome);
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start:not(.has-background) {
+	background: var(--peppermint-desktop-chrome);
 }
 
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start:not(.has-text-color) {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start:not(.has-text-color) {
 	color: #171717;
 }
 
 /* The rose is decorative; Organize is editable text, not a control. */
-.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start > span[aria-hidden="true"] {
+.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start > span[aria-hidden="true"] {
 	flex: none;
 }
 
 /* Material feedback follows the real link, including keyboard focus. No motion. */
 @media (forced-colors: none) {
-	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:has(.ntc-skills-board__title a:is(:hover, :focus-visible)) {
+	.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:has(.peppermint-skills-board__title a:is(:hover, :focus-visible)) {
 		box-shadow:
 			inset 0 1px #ffffff70,
 			0 0 0 1px #6e593866,
@@ -344,104 +344,104 @@
 			3px 10px 14px #241d1855;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note:has(.ntc-skills-board__title a:is(:hover, :focus-visible)) {
-		--ntc-desktop-titlebar: light-dark(#184fba, #2870d5);
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note:has(.peppermint-skills-board__title a:is(:hover, :focus-visible)) {
+		--peppermint-desktop-titlebar: light-dark(#184fba, #2870d5);
 
 		box-shadow:
 			inset 1px 1px #ffffff,
-			inset -1px -1px var(--ntc-desktop-mid),
+			inset -1px -1px var(--peppermint-desktop-mid),
 			0.3rem 0.3rem 0 #071c3cb3;
 	}
 }
 
 /* Give browsers without light-dark() (Safari before 17.5) the light boards. */
 @supports not (color: light-dark(#fff, #000)) {
-	.ntc-skills-board.is-style-ntc-board-cork {
-		--ntc-board-surface: #cda475;
-		--ntc-board-ink: #30261d;
-		--ntc-board-edge: #a87142;
-		--ntc-note-surface: #fff0a0;
+	.peppermint-skills-board.is-style-peppermint-board-cork {
+		--peppermint-board-surface: #cda475;
+		--peppermint-board-ink: #30261d;
+		--peppermint-board-edge: #a87142;
+		--peppermint-note-surface: #fff0a0;
 
 		border-block-start-color: #cb9865;
 		border-inline-start-color: #bb8653;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 2) {
-		--ntc-note-surface: #f9d7d2;
+	.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:nth-child(3n + 2) {
+		--peppermint-note-surface: #f9d7d2;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:nth-child(3n + 3) {
-		--ntc-note-surface: #d8e8ed;
+	.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:nth-child(3n + 3) {
+		--peppermint-note-surface: #d8e8ed;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-dsa {
-		--ntc-board-surface: #f7eded;
-		--ntc-board-edge: #cdafb2;
-		--ntc-note-surface: #fffafb;
+	.peppermint-skills-board.is-style-peppermint-board-dsa {
+		--peppermint-board-surface: #f7eded;
+		--peppermint-board-edge: #cdafb2;
+		--peppermint-note-surface: #fffafb;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-dsa .ntc-skills-board__note::before {
+	.peppermint-skills-board.is-style-peppermint-board-dsa .peppermint-skills-board__note::before {
 		border-block-start: 1.15rem solid #e5bfc3;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical {
-		--ntc-board-surface: #2456a6;
-		--ntc-board-edge: #163566;
-		--ntc-desktop-titlebar: #000080;
+	.peppermint-skills-board.is-style-peppermint-board-technical {
+		--peppermint-board-surface: #2456a6;
+		--peppermint-board-edge: #163566;
+		--peppermint-desktop-titlebar: #000080;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note:has(.ntc-skills-board__title a:is(:hover, :focus-visible)) {
-		--ntc-desktop-titlebar: #184fba;
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note:has(.peppermint-skills-board__title a:is(:hover, :focus-visible)) {
+		--peppermint-desktop-titlebar: #184fba;
 	}
 }
 
 @media (forced-colors: active) {
-	.ntc-skills-board:is(.is-style-ntc-board-cork, .is-style-ntc-board-dsa, .is-style-ntc-board-technical) {
-		--ntc-note-focus: Highlight;
+	.peppermint-skills-board:is(.is-style-peppermint-board-cork, .is-style-peppermint-board-dsa, .is-style-peppermint-board-technical) {
+		--peppermint-note-focus: Highlight;
 
 		border-color: CanvasText;
 		box-shadow: none;
 	}
 
-	.ntc-skills-board:is(.is-style-ntc-board-cork, .is-style-ntc-board-dsa, .is-style-ntc-board-technical):not(.has-background),
-	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note:not(.has-background),
-	.ntc-skills-board .ntc-skills-board__note:not(.has-background) {
+	.peppermint-skills-board:is(.is-style-peppermint-board-cork, .is-style-peppermint-board-dsa, .is-style-peppermint-board-technical):not(.has-background),
+	.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note:not(.has-background),
+	.peppermint-skills-board .peppermint-skills-board__note:not(.has-background) {
 		background: Canvas;
 	}
 
-	.ntc-skills-board:not(.has-text-color),
-	.ntc-skills-board .ntc-skills-board__note:not(.has-text-color) {
+	.peppermint-skills-board:not(.has-text-color),
+	.peppermint-skills-board .peppermint-skills-board__note:not(.has-text-color) {
 		color: CanvasText;
 	}
 
-	.ntc-skills-board:is(.is-style-ntc-board-cork, .is-style-ntc-board-dsa, .is-style-ntc-board-technical) .ntc-skills-board__note {
+	.peppermint-skills-board:is(.is-style-peppermint-board-cork, .is-style-peppermint-board-dsa, .is-style-peppermint-board-technical) .peppermint-skills-board__note {
 		border-color: CanvasText;
 		box-shadow: none;
 	}
 
-	.ntc-skills-board .ntc-skills-board__note::before,
-	.ntc-skills-board.is-style-ntc-board-cork .ntc-skills-board__note::after,
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__note::after {
+	.peppermint-skills-board .peppermint-skills-board__note::before,
+	.peppermint-skills-board.is-style-peppermint-board-cork .peppermint-skills-board__note::after,
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__note::after {
 		display: none;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar,
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start {
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar,
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start {
 		border-color: CanvasText;
 		box-shadow: none;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar:not(.has-background),
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start:not(.has-background) {
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar:not(.has-background),
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start:not(.has-background) {
 		background: Canvas;
 	}
 
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__taskbar:not(.has-text-color),
-	.ntc-skills-board.is-style-ntc-board-technical .ntc-skills-board__start:not(.has-text-color) {
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__taskbar:not(.has-text-color),
+	.peppermint-skills-board.is-style-peppermint-board-technical .peppermint-skills-board__start:not(.has-text-color) {
 		color: CanvasText;
 	}
 
-	.ntc-skills-board__title a {
+	.peppermint-skills-board__title a {
 		color: LinkText;
 	}
 }

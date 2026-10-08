@@ -1,7 +1,7 @@
 {
-	"name": "ntc-block-browser-tests",
+	"name": "peppermint-browser-tests",
 	"private": true,
-	"description": "Optional Playwright and axe checks for a running NTC Block site.",
+	"description": "Optional Playwright and axe checks for a running Peppermint site.",
 	"scripts": {
 		"setup": "node setup.mjs",
 		"screenshot": "node capture-theme-screenshot.mjs",

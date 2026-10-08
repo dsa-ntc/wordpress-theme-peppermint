@@ -4,9 +4,9 @@ const boardRoute = '/theme-preview/project-skills-boards/';
 const interestRoute = '/theme-preview/project-skills-interest/';
 const boardStyles = [ 'cork', 'dsa', 'technical' ];
 const roleNames = [ 'PHP developers', 'Linux administrators', 'Project managers' ];
-const boardSelector = '.ntc-skills-board';
-const noteSelector = '.ntc-skills-board__note';
-const taskbarSelector = '.ntc-skills-board__taskbar';
+const boardSelector = '.peppermint-skills-board';
+const noteSelector = '.peppermint-skills-board__note';
+const taskbarSelector = '.peppermint-skills-board__taskbar';
 const browserErrors = new WeakMap();
 const browserRequests = new WeakMap();
 
@@ -34,12 +34,12 @@ async function settle( page ) {
 }
 
 async function open( page, scheme = 'light' ) {
-	await page.addInitScript( ( appearance ) => localStorage.setItem( 'ntc-color-scheme', appearance ), scheme );
+	await page.addInitScript( ( appearance ) => localStorage.setItem( 'peppermint-color-scheme', appearance ), scheme );
 	const response = await page.goto( boardRoute, { waitUntil: 'domcontentloaded' } );
 	expect( response, `No document response for ${ boardRoute }` ).not.toBeNull();
 	expect( response.status(), `Missing skills-board comparison at ${ boardRoute }` ).toBe( 200 );
 	await settle( page );
-	await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+	await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 	await expect( page.locator( boardSelector ) ).toHaveCount( 3 );
 }
 
@@ -104,13 +104,13 @@ async function report( page ) {
 				className: board.className,
 				...rect( board ),
 				overflow: board.scrollWidth > board.clientWidth + 1,
-				taskbars: [ ...board.querySelectorAll( '.ntc-skills-board__taskbar' ) ].filter( ( taskbar ) => taskbar.getClientRects().length ).map( ( taskbar ) => ( {
+				taskbars: [ ...board.querySelectorAll( '.peppermint-skills-board__taskbar' ) ].filter( ( taskbar ) => taskbar.getClientRects().length ).map( ( taskbar ) => ( {
 					...rect( taskbar ),
 					overflow: taskbar.scrollWidth > taskbar.clientWidth + 1 || taskbar.scrollHeight > taskbar.clientHeight + 1,
 					clippedText: clippedText( taskbar, rect( taskbar ) ),
 					texts: [ ...taskbar.querySelectorAll( 'a, p' ) ].map( ( text ) => ( { text: text.textContent.trim(), contrast: contrast( text ) } ) )
 				} ) ),
-				notes: [ ...board.querySelectorAll( '.ntc-skills-board__note' ) ].map( ( note ) => ( {
+				notes: [ ...board.querySelectorAll( '.peppermint-skills-board__note' ) ].map( ( note ) => ( {
 					...rect( note ),
 					overflow: note.scrollWidth > note.clientWidth + 1 || note.scrollHeight > note.clientHeight + 1,
 					clippedText: clippedText( note, rect( note ) ),
@@ -157,14 +157,14 @@ function expectContained( result ) {
 }
 
 async function corkDetails( page ) {
-	return page.locator( `${ boardSelector }.is-style-ntc-board-cork` ).evaluate( ( board ) => {
+	return page.locator( `${ boardSelector }.is-style-peppermint-board-cork` ).evaluate( ( board ) => {
 		const surface = ( element ) => {
 			const style = getComputedStyle( element );
 			return { background: style.backgroundColor, texture: style.backgroundImage, shadow: style.boxShadow };
 		};
 		return {
 			...surface( board ),
-			notes: [ ...board.querySelectorAll( '.ntc-skills-board__note' ) ].map( ( note ) => {
+			notes: [ ...board.querySelectorAll( '.peppermint-skills-board__note' ) ].map( ( note ) => {
 				const bounds = note.getBoundingClientRect();
 				const style = getComputedStyle( note );
 				const fragments = [];
@@ -235,8 +235,8 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 		expect( material.texture ).not.toContain( 'url(' );
 		expect( material.shadow, 'The frame should visibly separate cork from its surrounding page.' ).not.toBe( 'none' );
 		expectCorkDecorations( material );
-		await page.locator( `${ boardSelector }.is-style-ntc-board-cork` ).evaluate( ( board ) => {
-			for ( const element of [ board, ...board.querySelectorAll( '.ntc-skills-board__note' ) ] ) {
+		await page.locator( `${ boardSelector }.is-style-peppermint-board-cork` ).evaluate( ( board ) => {
+			for ( const element of [ board, ...board.querySelectorAll( '.peppermint-skills-board__note' ) ] ) {
 				element.classList.add( 'has-background' );
 				element.style.backgroundColor = '#dfe9e4';
 			}
@@ -252,11 +252,11 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 	test( `${ scheme } skills boards retain readable, contained notes and real destinations`, async ( { page, request } ) => {
 		await open( page, scheme );
 		for ( const style of boardStyles ) {
-			const board = page.locator( `${ boardSelector }.is-style-ntc-board-${ style }` );
+			const board = page.locator( `${ boardSelector }.is-style-peppermint-board-${ style }` );
 			await expect( board ).toHaveCount( 1 );
 			await expect( board.locator( 'h2' ) ).toHaveCount( 1 );
-			await expect( board.locator( '.ntc-skills-board__notes' ) ).toHaveCount( 1 );
-			await expect( board.locator( `${ noteSelector } h3.ntc-skills-board__title` ) ).toHaveCount( 3 );
+			await expect( board.locator( '.peppermint-skills-board__notes' ) ).toHaveCount( 1 );
+			await expect( board.locator( `${ noteSelector } h3.peppermint-skills-board__title` ) ).toHaveCount( 3 );
 			await expect( board.locator( taskbarSelector ) ).toHaveCount( 1 );
 			if ( style === 'technical' ) {
 				await expect( board.locator( taskbarSelector ) ).toBeVisible();
@@ -295,14 +295,14 @@ for ( const scheme of [ 'light', 'dark' ] ) {
 
 test( 'Windows 95 taskbar is a decorative Organize label outside keyboard navigation', async ( { page } ) => {
 	await open( page );
-	const desktop = page.locator( `${ boardSelector }.is-style-ntc-board-technical` );
+	const desktop = page.locator( `${ boardSelector }.is-style-peppermint-board-technical` );
 	const taskbar = desktop.locator( taskbarSelector );
 	await expect( taskbar ).toBeVisible();
-	const label = taskbar.locator( 'p.ntc-skills-board__start' );
+	const label = taskbar.locator( 'p.peppermint-skills-board__start' );
 	await expect( label ).toHaveCount( 1 );
 	await expect( label ).toHaveText( '🌹 Organize' );
 	await expect( taskbar.locator( 'p' ) ).toHaveCount( 1 );
-	await expect( taskbar.locator( '.ntc-skills-board__task' ) ).toHaveCount( 0 );
+	await expect( taskbar.locator( '.peppermint-skills-board__task' ) ).toHaveCount( 0 );
 	await expect( taskbar.locator( 'a, button, [role], input, select, textarea, [tabindex]' ) ).toHaveCount( 0 );
 	await expect( label.locator( 'span[aria-hidden="true"]' ) ).toHaveText( '🌹' );
 	await expect( label.locator( 'span[aria-hidden="true"]' ) ).toHaveClass( /\bwp-exclude-emoji\b/ );
@@ -363,7 +363,7 @@ test( 'Windows 95 taskbar is a decorative Organize label outside keyboard naviga
 	expectContained( await report( page ) );
 	const legacy = await desktop.evaluate( ( board ) => {
 		const style = getComputedStyle( board );
-		const noteEnd = Math.max( ...[ ...board.querySelectorAll( '.ntc-skills-board__note' ) ].map( ( note ) => note.getBoundingClientRect().bottom ) );
+		const noteEnd = Math.max( ...[ ...board.querySelectorAll( '.peppermint-skills-board__note' ) ].map( ( note ) => note.getBoundingClientRect().bottom ) );
 		return {
 			padding: Number.parseFloat( style.paddingBlockEnd ),
 			gutter: board.getBoundingClientRect().bottom - Number.parseFloat( style.borderBottomWidth ) - noteEnd
@@ -400,7 +400,7 @@ test( 'notes are full-card native links with visible keyboard focus and usable t
 		await page.keyboard.press( 'Shift+Tab' );
 		await expect( link ).toBeFocused();
 		const focus = await link.evaluate( ( element ) => {
-			const note = element.closest( '.ntc-skills-board__note' );
+			const note = element.closest( '.peppermint-skills-board__note' );
 			const indicators = [ getComputedStyle( element ), getComputedStyle( element, '::after' ), getComputedStyle( note ) ];
 			return {
 				visible: element.matches( ':focus-visible' ),
@@ -422,11 +422,11 @@ test( 'notes grow for RTL translations, unbroken words, 200 percent text, and WC
 		const titles = [ 'مطورو تطبيقات مجتمعية وأدوات مفتوحة المصدر', '地域社会の技術基盤を一緒に構築する開発者', 'Infrastrukturzusammenarbeitskoordination' ];
 		for ( const board of boards ) {
 			board.querySelector( 'h2' ).textContent = 'لجنة تطوير المواقع الإلكترونية — WordPress-Kommission';
-			const label = board.querySelector( '.ntc-skills-board__start' );
+			const label = board.querySelector( '.peppermint-skills-board__start' );
 			// Preserve the decorative rose while expanding only translated text.
 			const labelText = [ ...label.childNodes ].find( ( node ) => node.nodeType === Node.TEXT_NODE && node.textContent.trim() );
 			labelText.textContent = ' التنظيم والعمل المشترك — Projectopportunitiesinfrastructurecollaboration';
-			[ ...board.querySelectorAll( '.ntc-skills-board__note' ) ].forEach( ( note, index ) => {
+			[ ...board.querySelectorAll( '.peppermint-skills-board__note' ) ].forEach( ( note, index ) => {
 				note.querySelector( 'h3 a' ).textContent = titles[ index ];
 				note.querySelector( 'p' ).textContent = 'نرحب بالجميع للمشاركة في تطوير أدوات المجتمع. 長い説明でも内容を省略しない。 '.repeat( index + 1 ) + 'extraordinarilylongunbrokentechnicalspecialization';
 			} );
@@ -456,7 +456,7 @@ test( 'hover and keyboard feedback keep every note stationary and underline-free
 		const bounds = element.getBoundingClientRect();
 		const indicator = getComputedStyle( link, '::after' );
 		return {
-			style: [ 'cork', 'dsa', 'technical' ].find( ( name ) => element.closest( `.is-style-ntc-board-${ name }` ) ),
+			style: [ 'cork', 'dsa', 'technical' ].find( ( name ) => element.closest( `.is-style-peppermint-board-${ name }` ) ),
 			shadow: style.boxShadow,
 			titlebar: getComputedStyle( element, '::before' ).backgroundColor,
 			foreground: getComputedStyle( link ).color,
@@ -535,7 +535,7 @@ test( 'forced colors retain board and note boundaries', async ( { page }, testIn
 	await open( page, 'dark' );
 	expect( await page.evaluate( () => matchMedia( '(forced-colors: active)' ).matches ) ).toBe( true );
 	expectContained( await report( page ) );
-	for ( const surface of await page.locator( `${ boardSelector }, ${ noteSelector }, ${ taskbarSelector }:visible, .ntc-skills-board__start:visible` ).all() ) {
+	for ( const surface of await page.locator( `${ boardSelector }, ${ noteSelector }, ${ taskbarSelector }:visible, .peppermint-skills-board__start:visible` ).all() ) {
 		const edges = await surface.evaluate( ( element ) => {
 			const style = getComputedStyle( element );
 			return [ 'Top', 'Right', 'Bottom', 'Left' ].map( ( side ) => ( {

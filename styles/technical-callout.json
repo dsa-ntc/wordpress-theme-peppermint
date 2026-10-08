@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/wp/7.1/theme.json",
 	"version": 3,
 	"title": "Technical Callout",
-	"slug": "ntc-technical-callout",
+	"slug": "peppermint-technical-callout",
 	"blockTypes": ["core/group", "core/columns", "core/media-text"],
 	"styles": {
 		"color": {

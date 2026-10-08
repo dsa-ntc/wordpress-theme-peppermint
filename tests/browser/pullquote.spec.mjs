@@ -1,26 +1,26 @@
 import { expect, test } from '@playwright/test';
 
-const pullquoteRoute = process.env.NTC_PULLQUOTE_TEST_PATH || '/theme-preview-editorial-block-sampler/';
+const pullquoteRoute = process.env.PEPPERMINT_PULLQUOTE_TEST_PATH || '/theme-preview-editorial-block-sampler/';
 
 async function open( page, scheme ) {
 	await page.addInitScript( ( requestedScheme ) => {
-		window.localStorage.setItem( 'ntc-color-scheme', requestedScheme );
+		window.localStorage.setItem( 'peppermint-color-scheme', requestedScheme );
 	}, scheme );
 	const response = await page.goto( pullquoteRoute, { waitUntil: 'domcontentloaded' } );
 	expect( response, `No document response for ${ pullquoteRoute }` ).not.toBeNull();
 	expect( response.status(), `Missing editorial sampler at ${ pullquoteRoute }` ).toBe( 200 );
 	await page.evaluate( () => document.fonts.ready );
 	await page.evaluate( () => new Promise( ( resolve ) => requestAnimationFrame( () => requestAnimationFrame( resolve ) ) ) );
-	await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+	await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 }
 
 async function report( page ) {
 	return page.evaluate( () => {
 		const quote = document.querySelector( '.wp-block-quote' );
-		const simple = document.querySelector( '.wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos)' );
-		const win95 = document.querySelector( '.wp-block-pullquote.is-style-ntc-win95' );
-		const retro = document.querySelector( '.wp-block-pullquote.is-style-ntc-retro' );
-		const macos = document.querySelector( '.wp-block-pullquote.is-style-ntc-macos' );
+		const simple = document.querySelector( '.wp-block-pullquote:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos)' );
+		const win95 = document.querySelector( '.wp-block-pullquote.is-style-peppermint-win95' );
+		const retro = document.querySelector( '.wp-block-pullquote.is-style-peppermint-retro' );
+		const macos = document.querySelector( '.wp-block-pullquote.is-style-peppermint-macos' );
 		const details = document.querySelector( '.wp-block-details' );
 		if ( ! quote || ! simple || ! win95 || ! retro || ! macos || ! details ) {
 			return null;
@@ -204,7 +204,7 @@ test( 'editorial blocks survive RTL, long translations, long citations, and 200 
 
 test( 'editorial surfaces preserve author-selected background colors', async ( { page } ) => {
 	await open( page, 'light' );
-	const surfaces = page.locator( '.wp-block-quote, .wp-block-pullquote:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos), .wp-block-details' );
+	const surfaces = page.locator( '.wp-block-quote, .wp-block-pullquote:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos), .wp-block-details' );
 	await surfaces.evaluateAll( ( elements ) => {
 		for ( const element of elements ) {
 			element.classList.add( 'has-background', 'has-dsa-red-background-color' );
@@ -214,7 +214,7 @@ test( 'editorial surfaces preserve author-selected background colors', async ( {
 		await expect( surface ).toHaveCSS( 'background-color', 'rgb(236, 31, 39)' );
 	}
 
-	const framed = page.locator( '.wp-block-pullquote:is(.is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos)' );
+	const framed = page.locator( '.wp-block-pullquote:is(.is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos)' );
 	await framed.evaluateAll( ( elements ) => {
 		for ( const element of elements ) {
 			element.classList.add( 'has-text-color', 'has-dsa-red-color' );
@@ -237,7 +237,7 @@ test( 'forced colors retain every window frame and decorative control', async ( 
 	await page.evaluate( () => document.fonts.ready );
 	expect( await page.evaluate( () => matchMedia( '(forced-colors: active)' ).matches ) ).toBe( true );
 
-	const windows = page.locator( '.wp-block-pullquote:is(.is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos)' );
+	const windows = page.locator( '.wp-block-pullquote:is(.is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos)' );
 	await expect( windows ).toHaveCount( 3 );
 	const forcedWindows = await windows.evaluateAll( ( quotes ) => quotes.map( ( quote ) => {
 		const style = getComputedStyle( quote );

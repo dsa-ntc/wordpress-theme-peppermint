@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
 
-const cardRoute = process.env.NTC_CARD_TEST_PATH || '/';
+const cardRoute = process.env.PEPPERMINT_CARD_TEST_PATH || '/';
 const cardSelector = '.subcommittee-tile';
 const titleSelector = '.subcommittee-tile__title';
-const frameStyles = [ 'ntc-red-tile', 'ntc-win95', 'ntc-retro', 'ntc-macos' ];
+const frameStyles = [ 'peppermint-red-tile', 'peppermint-win95', 'peppermint-retro', 'peppermint-macos' ];
 const longTitle = [
 	'Accessible technology and collaborative organizing for every chapter:',
 	'international solidarity, member services, democratic participation, shared infrastructure,',
@@ -21,7 +21,7 @@ async function settleLayout( page ) {
 async function setFrameStyle( page, style ) {
 	await page.locator( cardSelector ).evaluateAll( ( cards, requestedStyle ) => {
 		for ( const card of cards ) {
-			card.classList.remove( 'is-style-ntc-red-tile', 'is-style-ntc-win95', 'is-style-ntc-retro', 'is-style-ntc-macos' );
+			card.classList.remove( 'is-style-peppermint-red-tile', 'is-style-peppermint-win95', 'is-style-peppermint-retro', 'is-style-peppermint-macos' );
 			card.classList.add( `is-style-${ requestedStyle }` );
 		}
 	}, style );
@@ -108,7 +108,7 @@ function expectFrameContentsFit( metrics, style ) {
 	for ( const metric of metrics ) {
 		expect( metric.withinMedia, `${ style }: text or icon overlapped the window chrome: ${ JSON.stringify( metric ) }` ).toBe( true );
 		expect( metric.imageOverlayDelta, `${ style }: image and overlay edges diverged` ).toBeLessThanOrEqual( 0.5 );
-		if ( style !== 'ntc-red-tile' ) {
+		if ( style !== 'peppermint-red-tile' ) {
 			for ( const [ edge, inset ] of Object.entries( metric.mediaInsets ) ) {
 				expect( inset, `${ style }: missing ${ edge } frame edge` ).toBeGreaterThanOrEqual( 3 );
 			}
@@ -326,9 +326,9 @@ test( 'window title bars repeat each framed tile heading and truncate long names
 		return {
 			bar: { overflow: bar.overflow, textOverflow: bar.textOverflow, whiteSpace: bar.whiteSpace },
 			content: bar.content,
-			framed: /\bis-style-ntc-(win95|retro|macos)\b/.test( card.className ),
+			framed: /\bis-style-peppermint-(win95|retro|macos)\b/.test( card.className ),
 			heading: card.querySelector( '.subcommittee-tile__title' ).textContent.replace( /\s+/g, ' ' ).trim(),
-			title: card.getAttribute( 'data-ntc-window-title' )
+			title: card.getAttribute( 'data-peppermint-window-title' )
 		};
 	} ) );
 

@@ -9,9 +9,9 @@
  * The background reaches the viewport edges; inner Groups constrain the text.
  * The photo is decorative. A dark blue-to-red overlay keeps white text legible.
  */
-.wp-block-cover.ntc-image-hero {
-	--ntc-image-hero-heading-measure: 64rem;
-	--ntc-image-hero-copy-measure: var(--wp--style--global--content-size, 52rem);
+.wp-block-cover.peppermint-image-hero {
+	--peppermint-image-hero-heading-measure: 64rem;
+	--peppermint-image-hero-copy-measure: var(--wp--style--global--content-size, 52rem);
 
 	min-height: clamp(30rem, 68vh, 42rem);
 	margin-inline: 0 !important;
@@ -21,11 +21,11 @@
 	isolation: isolate;
 }
 
-.ntc-image-hero .wp-block-cover__image-background {
+.peppermint-image-hero .wp-block-cover__image-background {
 	filter: grayscale(1) contrast(1.08);
 }
 
-.ntc-image-hero .wp-block-cover__background {
+.peppermint-image-hero .wp-block-cover__background {
 	background: linear-gradient(
 		112deg,
 		rgba(8, 37, 86, 0.92) 0%,
@@ -35,48 +35,48 @@
 	opacity: 1;
 }
 
-.ntc-image-hero .wp-block-cover__inner-container {
+.peppermint-image-hero .wp-block-cover__inner-container {
 	width: 100%;
 }
 
-.ntc-image-hero__layout {
+.peppermint-image-hero__layout {
 	width: min(100%, var(--wp--style--global--wide-size, 80rem));
 	margin-inline: auto;
 }
 
-.ntc-image-hero__content {
-	width: min(100%, var(--ntc-image-hero-heading-measure));
+.peppermint-image-hero__content {
+	width: min(100%, var(--peppermint-image-hero-heading-measure));
 	margin-inline: auto;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
 }
 
-.ntc-image-hero__content > :where(h1, p) {
+.peppermint-image-hero__content > :where(h1, p) {
 	margin-inline: 0;
 	text-wrap: balance;
 }
 
-.ntc-image-hero__content > h1 {
-	max-width: var(--ntc-image-hero-heading-measure);
+.peppermint-image-hero__content > h1 {
+	max-width: var(--peppermint-image-hero-heading-measure);
 }
 
-.wp-block-cover.ntc-image-hero .ntc-image-hero__content > p {
-	max-width: var(--ntc-image-hero-copy-measure);
+.wp-block-cover.peppermint-image-hero .peppermint-image-hero__content > p {
+	max-width: var(--peppermint-image-hero-copy-measure);
 }
 
-.ntc-image-hero .wp-block-button__link {
+.peppermint-image-hero .wp-block-button__link {
 	text-shadow: none;
 }
 
 @media (max-width: 48.875rem) {
-	.wp-block-cover.ntc-image-hero {
+	.wp-block-cover.peppermint-image-hero {
 		min-height: 34rem;
 	}
 
-	.ntc-image-hero .wp-block-cover__image-background {
+	.peppermint-image-hero .wp-block-cover__image-background {
 		object-position: 35% 52% !important;
 	}
 
-	.ntc-image-hero__content {
+	.peppermint-image-hero__content {
 		margin-inline: 0;
 	}
 }
@@ -94,9 +94,9 @@
 .subcommittee-tile {
 	--wp--preset--font-size--x-large: clamp(1.75rem, 3vw, 2.625rem);
 	--wp--preset--font-size--x-large: clamp(1.75rem, 12.5cqi, 2.625rem);
-	--ntc-tile-content-inset: clamp(1.1rem, 2vw, 1.5rem);
-	--ntc-tile-content-inset: clamp(1rem, 6cqi, 1.5rem);
-	--ntc-tile-frame-top: 0px;
+	--peppermint-tile-content-inset: clamp(1.1rem, 2vw, 1.5rem);
+	--peppermint-tile-content-inset: clamp(1rem, 6cqi, 1.5rem);
+	--peppermint-tile-frame-top: 0px;
 
 	position: relative;
 	width: 100%;
@@ -135,19 +135,19 @@
 	content: none;
 }
 
-.wp-block-cover.is-style-ntc-red-tile,
-.subcommittee-tile:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos) {
-	border: var(--ntc-rule);
+.wp-block-cover.is-style-peppermint-red-tile,
+.subcommittee-tile:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos) {
+	border: var(--peppermint-rule);
 }
 
-.wp-block-cover:where(.is-style-ntc-red-tile, .is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos) .wp-block-cover__image-background,
+.wp-block-cover:where(.is-style-peppermint-red-tile, .is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos) .wp-block-cover__image-background,
 .subcommittee-tile .wp-block-cover__image-background {
 	filter: grayscale(1) contrast(1.05);
 	transition: filter 180ms ease;
 }
 
-.wp-block-cover.is-style-ntc-red-tile .wp-block-cover__background,
-.subcommittee-tile:not(.is-style-ntc-win95):not(.is-style-ntc-retro):not(.is-style-ntc-macos) .wp-block-cover__background {
+.wp-block-cover.is-style-peppermint-red-tile .wp-block-cover__background,
+.subcommittee-tile:not(.is-style-peppermint-win95):not(.is-style-peppermint-retro):not(.is-style-peppermint-macos) .wp-block-cover__background {
 	opacity: 0.8;
 }
 
@@ -156,55 +156,55 @@
  * Their generated text has empty alternative text so screen readers skip it.
  * The Cover and its content retain their native WordPress editing controls.
  */
-.wp-block-cover.is-style-ntc-win95 {
-	--ntc-win95-chrome: #c0c0c0;
-	--ntc-win95-dark: #000000;
-	--ntc-win95-edge-dark: light-dark(#000000, #8a8a8a);
-	--ntc-win95-mid: #808080;
-	--ntc-win95-light: #ffffff;
-	--ntc-win95-title: light-dark(#7a828e, #3d434c);
-	--ntc-win95-title-active: light-dark(#000080, #134db3);
-	--ntc-win95-title-text: light-dark(#dcdcdc, #a0a6b0);
-	--ntc-win95-title-text-active: #ffffff;
-	--ntc-win95-titlebar-height: 1.65rem;
-	--ntc-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
-	--ntc-tile-content-inset: clamp(1rem, 6cqi, 2rem);
-	--ntc-tile-frame-top: calc(var(--ntc-win95-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-win95 {
+	--peppermint-win95-chrome: #c0c0c0;
+	--peppermint-win95-dark: #000000;
+	--peppermint-win95-edge-dark: light-dark(#000000, #8a8a8a);
+	--peppermint-win95-mid: #808080;
+	--peppermint-win95-light: #ffffff;
+	--peppermint-win95-title: light-dark(#7a828e, #3d434c);
+	--peppermint-win95-title-active: light-dark(#000080, #134db3);
+	--peppermint-win95-title-text: light-dark(#dcdcdc, #a0a6b0);
+	--peppermint-win95-title-text-active: #ffffff;
+	--peppermint-win95-titlebar-height: 1.65rem;
+	--peppermint-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
+	--peppermint-tile-content-inset: clamp(1rem, 6cqi, 2rem);
+	--peppermint-tile-frame-top: calc(var(--peppermint-win95-titlebar-height) + 0.8rem);
 
 	position: relative;
 	box-sizing: border-box;
-	padding: calc(var(--ntc-win95-titlebar-height) + 0.8rem) 0.45rem 0.45rem;
+	padding: calc(var(--peppermint-win95-titlebar-height) + 0.8rem) 0.45rem 0.45rem;
 	overflow: hidden;
 	border: 2px solid;
-	border-color: var(--ntc-win95-light) var(--ntc-win95-edge-dark) var(--ntc-win95-edge-dark) var(--ntc-win95-light);
-	background-color: var(--ntc-win95-chrome);
+	border-color: var(--peppermint-win95-light) var(--peppermint-win95-edge-dark) var(--peppermint-win95-edge-dark) var(--peppermint-win95-light);
+	background-color: var(--peppermint-win95-chrome);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M11 2v9H2M11 6v5H6M11 10v1h-1' fill='none' stroke='%23808080' stroke-width='1'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right 2px bottom 2px;
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-win95-mid);
+		inset -1px -1px var(--peppermint-win95-mid);
 	transition: box-shadow 140ms ease;
 }
 
-.wp-block-cover.is-style-ntc-win95::before {
+.wp-block-cover.is-style-peppermint-win95::before {
 	position: absolute;
 	z-index: 3;
 	top: 0.35rem;
 	right: 2.2rem;
 	left: 0.35rem;
 	display: block;
-	height: var(--ntc-win95-titlebar-height);
+	height: var(--peppermint-win95-titlebar-height);
 	overflow: hidden;
 	padding-inline: 0.45rem;
-	background: var(--ntc-win95-title);
-	color: var(--ntc-win95-title-text);
-	content: "NTC TILE" / "";
+	background: var(--peppermint-win95-title);
+	color: var(--peppermint-win95-title-text);
+	content: "" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: var(--wp--preset--font-size--x-small, 0.75rem);
 	font-weight: 700;
 	letter-spacing: 0.06em;
-	line-height: var(--ntc-win95-titlebar-height);
+	line-height: var(--peppermint-win95-titlebar-height);
 	pointer-events: none;
 	text-overflow: ellipsis;
 	text-transform: uppercase;
@@ -212,29 +212,29 @@
 	white-space: nowrap;
 }
 
-.wp-block-cover.is-style-ntc-win95:hover::before,
-.wp-block-cover.is-style-ntc-win95:focus-within::before {
-	background: var(--ntc-win95-title-active);
-	color: var(--ntc-win95-title-text-active);
+.wp-block-cover.is-style-peppermint-win95:hover::before,
+.wp-block-cover.is-style-peppermint-win95:focus-within::before {
+	background: var(--peppermint-win95-title-active);
+	color: var(--peppermint-win95-title-text-active);
 }
 
-.wp-block-cover.is-style-ntc-win95::after {
+.wp-block-cover.is-style-peppermint-win95::after {
 	position: absolute;
 	z-index: 4;
 	top: 0.35rem;
 	right: 0.35rem;
 	display: grid;
 	width: 1.45rem;
-	height: var(--ntc-win95-titlebar-height);
+	height: var(--peppermint-win95-titlebar-height);
 	box-sizing: border-box;
 	place-items: center;
 	border: 2px solid;
-	border-color: var(--ntc-win95-light) var(--ntc-win95-edge-dark) var(--ntc-win95-edge-dark) var(--ntc-win95-light);
-	background: var(--ntc-win95-chrome);
+	border-color: var(--peppermint-win95-light) var(--peppermint-win95-edge-dark) var(--peppermint-win95-edge-dark) var(--peppermint-win95-light);
+	background: var(--peppermint-win95-chrome);
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-win95-mid);
-	color: var(--ntc-win95-dark);
+		inset -1px -1px var(--peppermint-win95-mid);
+	color: var(--peppermint-win95-dark);
 	content: "\00d7" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: var(--wp--preset--font-size--medium);
@@ -243,36 +243,36 @@
 	pointer-events: none;
 }
 
-.wp-block-cover.is-style-ntc-win95 .wp-block-cover__image-background {
-	top: calc(var(--ntc-win95-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-win95 .wp-block-cover__image-background {
+	top: calc(var(--peppermint-win95-titlebar-height) + 0.8rem);
 	right: auto;
 	bottom: auto;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-win95-titlebar-height) - 1.25rem);
+	height: calc(100% - var(--peppermint-win95-titlebar-height) - 1.25rem);
 	border: 2px solid;
-	border-color: var(--ntc-win95-mid) var(--ntc-win95-light) var(--ntc-win95-light) var(--ntc-win95-mid);
+	border-color: var(--peppermint-win95-mid) var(--peppermint-win95-light) var(--peppermint-win95-light) var(--peppermint-win95-mid);
 	box-sizing: border-box;
 	object-fit: cover;
 }
 
-.wp-block-cover.is-style-ntc-win95 .wp-block-cover__background {
-	top: calc(var(--ntc-win95-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-win95 .wp-block-cover__background {
+	top: calc(var(--peppermint-win95-titlebar-height) + 0.8rem);
 	right: 0.45rem;
 	bottom: 0.45rem;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-win95-titlebar-height) - 1.25rem);
+	height: calc(100% - var(--peppermint-win95-titlebar-height) - 1.25rem);
 	border: 2px solid;
-	border-color: var(--ntc-win95-mid) var(--ntc-win95-light) var(--ntc-win95-light) var(--ntc-win95-mid);
+	border-color: var(--peppermint-win95-mid) var(--peppermint-win95-light) var(--peppermint-win95-light) var(--peppermint-win95-mid);
 	box-sizing: border-box;
 }
 
-.wp-block-cover.is-style-ntc-win95 .wp-block-cover__background {
+.wp-block-cover.is-style-peppermint-win95 .wp-block-cover__background {
 	opacity: 0.76;
 }
 
-.wp-block-cover.is-style-ntc-win95:not(.subcommittee-tile) .wp-block-cover__inner-container {
+.wp-block-cover.is-style-peppermint-win95:not(.subcommittee-tile) .wp-block-cover__inner-container {
 	z-index: 2;
 	width: 100%;
 	box-sizing: border-box;
@@ -284,56 +284,56 @@
  * The Retro DSA frame shares the Windows 95 geometry, with muted reds,
  * rose-gray chrome, and cream highlights.
  */
-.wp-block-cover.is-style-ntc-retro {
-	--ntc-retro-red: #c53a40;
-	--ntc-retro-chrome: light-dark(#f0d3d5, #513235);
-	--ntc-retro-dark: light-dark(#762329, #2d1115);
-	--ntc-retro-mid: light-dark(#c47e82, #7b4145);
-	--ntc-retro-light: light-dark(#fff0f1, #aa6267);
-	--ntc-retro-title: light-dark(#8d4c51, #482327);
-	--ntc-retro-title-active: var(--ntc-retro-red);
-	--ntc-retro-title-text: light-dark(#f7e8ea, #bfa6a8);
-	--ntc-retro-title-text-active: #fff7f7;
-	--ntc-retro-glyph: light-dark(#762329, #fff7f7);
-	--ntc-retro-titlebar-height: 1.65rem;
-	--ntc-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
-	--ntc-tile-content-inset: clamp(1rem, 6cqi, 2rem);
-	--ntc-tile-frame-top: calc(var(--ntc-retro-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-retro {
+	--peppermint-retro-red: #c53a40;
+	--peppermint-retro-chrome: light-dark(#f0d3d5, #513235);
+	--peppermint-retro-dark: light-dark(#762329, #2d1115);
+	--peppermint-retro-mid: light-dark(#c47e82, #7b4145);
+	--peppermint-retro-light: light-dark(#fff0f1, #aa6267);
+	--peppermint-retro-title: light-dark(#8d4c51, #482327);
+	--peppermint-retro-title-active: var(--peppermint-retro-red);
+	--peppermint-retro-title-text: light-dark(#f7e8ea, #bfa6a8);
+	--peppermint-retro-title-text-active: #fff7f7;
+	--peppermint-retro-glyph: light-dark(#762329, #fff7f7);
+	--peppermint-retro-titlebar-height: 1.65rem;
+	--peppermint-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
+	--peppermint-tile-content-inset: clamp(1rem, 6cqi, 2rem);
+	--peppermint-tile-frame-top: calc(var(--peppermint-retro-titlebar-height) + 0.8rem);
 
 	position: relative;
 	box-sizing: border-box;
-	padding: calc(var(--ntc-retro-titlebar-height) + 0.8rem) 0.45rem 0.45rem;
+	padding: calc(var(--peppermint-retro-titlebar-height) + 0.8rem) 0.45rem 0.45rem;
 	overflow: hidden;
 	border: 2px solid;
-	border-color: var(--ntc-retro-light) var(--ntc-retro-dark) var(--ntc-retro-dark) var(--ntc-retro-light);
-	background-color: var(--ntc-retro-chrome);
+	border-color: var(--peppermint-retro-light) var(--peppermint-retro-dark) var(--peppermint-retro-dark) var(--peppermint-retro-light);
+	background-color: var(--peppermint-retro-chrome);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M11 2v9H2M11 6v5H6M11 10v1h-1' fill='none' stroke='%23a86367' stroke-width='1'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right 2px bottom 2px;
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-light),
-		inset -1px -1px var(--ntc-retro-mid);
+		inset 1px 1px var(--peppermint-retro-light),
+		inset -1px -1px var(--peppermint-retro-mid);
 	transition: box-shadow 140ms ease;
 }
 
-.wp-block-cover.is-style-ntc-retro::before {
+.wp-block-cover.is-style-peppermint-retro::before {
 	position: absolute;
 	z-index: 3;
 	top: 0.35rem;
 	right: 2.2rem;
 	left: 0.35rem;
 	display: block;
-	height: var(--ntc-retro-titlebar-height);
+	height: var(--peppermint-retro-titlebar-height);
 	overflow: hidden;
 	padding-inline: 0.45rem;
-	background: var(--ntc-retro-title);
-	color: var(--ntc-retro-title-text);
-	content: "NTC TILE" / "";
+	background: var(--peppermint-retro-title);
+	color: var(--peppermint-retro-title-text);
+	content: "" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: var(--wp--preset--font-size--x-small, 0.75rem);
 	font-weight: 700;
 	letter-spacing: 0.06em;
-	line-height: var(--ntc-retro-titlebar-height);
+	line-height: var(--peppermint-retro-titlebar-height);
 	pointer-events: none;
 	text-overflow: ellipsis;
 	text-transform: uppercase;
@@ -341,29 +341,29 @@
 	white-space: nowrap;
 }
 
-.wp-block-cover.is-style-ntc-retro:hover::before,
-.wp-block-cover.is-style-ntc-retro:focus-within::before {
-	background: var(--ntc-retro-title-active);
-	color: var(--ntc-retro-title-text-active);
+.wp-block-cover.is-style-peppermint-retro:hover::before,
+.wp-block-cover.is-style-peppermint-retro:focus-within::before {
+	background: var(--peppermint-retro-title-active);
+	color: var(--peppermint-retro-title-text-active);
 }
 
-.wp-block-cover.is-style-ntc-retro::after {
+.wp-block-cover.is-style-peppermint-retro::after {
 	position: absolute;
 	z-index: 4;
 	top: 0.35rem;
 	right: 0.35rem;
 	display: grid;
 	width: 1.45rem;
-	height: var(--ntc-retro-titlebar-height);
+	height: var(--peppermint-retro-titlebar-height);
 	box-sizing: border-box;
 	place-items: center;
 	border: 2px solid;
-	border-color: var(--ntc-retro-light) var(--ntc-retro-dark) var(--ntc-retro-dark) var(--ntc-retro-light);
-	background: var(--ntc-retro-chrome);
+	border-color: var(--peppermint-retro-light) var(--peppermint-retro-dark) var(--peppermint-retro-dark) var(--peppermint-retro-light);
+	background: var(--peppermint-retro-chrome);
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-light),
-		inset -1px -1px var(--ntc-retro-mid);
-	color: var(--ntc-retro-glyph);
+		inset 1px 1px var(--peppermint-retro-light),
+		inset -1px -1px var(--peppermint-retro-mid);
+	color: var(--peppermint-retro-glyph);
 	content: "\00d7" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: var(--wp--preset--font-size--medium);
@@ -372,37 +372,37 @@
 	pointer-events: none;
 }
 
-.wp-block-cover.is-style-ntc-retro .wp-block-cover__image-background {
-	top: calc(var(--ntc-retro-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-retro .wp-block-cover__image-background {
+	top: calc(var(--peppermint-retro-titlebar-height) + 0.8rem);
 	right: auto;
 	bottom: auto;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-retro-titlebar-height) - 1.25rem);
+	height: calc(100% - var(--peppermint-retro-titlebar-height) - 1.25rem);
 	border: 2px solid;
-	border-color: var(--ntc-retro-mid) var(--ntc-retro-light) var(--ntc-retro-light) var(--ntc-retro-mid);
+	border-color: var(--peppermint-retro-mid) var(--peppermint-retro-light) var(--peppermint-retro-light) var(--peppermint-retro-mid);
 	box-sizing: border-box;
 	object-fit: cover;
 }
 
-.wp-block-cover.is-style-ntc-retro .wp-block-cover__background {
-	top: calc(var(--ntc-retro-titlebar-height) + 0.8rem);
+.wp-block-cover.is-style-peppermint-retro .wp-block-cover__background {
+	top: calc(var(--peppermint-retro-titlebar-height) + 0.8rem);
 	right: 0.45rem;
 	bottom: 0.45rem;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-retro-titlebar-height) - 1.25rem);
+	height: calc(100% - var(--peppermint-retro-titlebar-height) - 1.25rem);
 	border: 2px solid;
-	border-color: var(--ntc-retro-mid) var(--ntc-retro-light) var(--ntc-retro-light) var(--ntc-retro-mid);
+	border-color: var(--peppermint-retro-mid) var(--peppermint-retro-light) var(--peppermint-retro-light) var(--peppermint-retro-mid);
 	box-sizing: border-box;
 }
 
-.wp-block-cover.is-style-ntc-retro .wp-block-cover__background {
-	background-color: var(--ntc-retro-red) !important;
+.wp-block-cover.is-style-peppermint-retro .wp-block-cover__background {
+	background-color: var(--peppermint-retro-red) !important;
 	opacity: 0.76;
 }
 
-.wp-block-cover.is-style-ntc-retro:not(.subcommittee-tile) .wp-block-cover__inner-container {
+.wp-block-cover.is-style-peppermint-retro:not(.subcommittee-tile) .wp-block-cover__inner-container {
 	z-index: 2;
 	width: 100%;
 	box-sizing: border-box;
@@ -413,47 +413,47 @@
 /*
  * macOS frame with rounded corners and decorative red, yellow, and green dots.
  */
-.wp-block-cover.is-style-ntc-macos {
-	--ntc-macos-chrome: light-dark(#e6e5e8, #343032);
-	--ntc-macos-border: light-dark(#c7c5c8, #4d474a);
-	--ntc-macos-title: light-dark(#514b4d, #c9c1c3);
-	--ntc-macos-titlebar-height: 1.85rem;
-	--ntc-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
-	--ntc-tile-content-inset: clamp(1rem, 6cqi, 2rem);
-	--ntc-tile-frame-top: calc(var(--ntc-macos-titlebar-height) + 0.45rem);
+.wp-block-cover.is-style-peppermint-macos {
+	--peppermint-macos-chrome: light-dark(#e6e5e8, #343032);
+	--peppermint-macos-border: light-dark(#c7c5c8, #4d474a);
+	--peppermint-macos-title: light-dark(#514b4d, #c9c1c3);
+	--peppermint-macos-titlebar-height: 1.85rem;
+	--peppermint-tile-content-inset: clamp(1.25rem, 3vw, 2rem);
+	--peppermint-tile-content-inset: clamp(1rem, 6cqi, 2rem);
+	--peppermint-tile-frame-top: calc(var(--peppermint-macos-titlebar-height) + 0.45rem);
 
 	position: relative;
 	box-sizing: border-box;
-	padding: calc(var(--ntc-macos-titlebar-height) + 0.45rem) 0.45rem 0.45rem;
+	padding: calc(var(--peppermint-macos-titlebar-height) + 0.45rem) 0.45rem 0.45rem;
 	overflow: hidden;
-	border: 1px solid var(--ntc-macos-border);
+	border: 1px solid var(--peppermint-macos-border);
 	border-radius: 10px;
-	background: var(--ntc-macos-chrome);
+	background: var(--peppermint-macos-chrome);
 	box-shadow: 0 4px 14px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.35));
 	transition: box-shadow 180ms ease;
 }
 
-.wp-block-cover.is-style-ntc-macos::before {
+.wp-block-cover.is-style-peppermint-macos::before {
 	position: absolute;
 	z-index: 3;
 	top: 0;
 	right: 0;
 	left: 0;
 	display: block;
-	height: var(--ntc-macos-titlebar-height);
+	height: var(--peppermint-macos-titlebar-height);
 	overflow: hidden;
 	/* Equal insets keep the centered title clear of the 40px window dots. */
 	padding-inline: calc(1.25rem + 40px);
-	border-bottom: 1px solid var(--ntc-macos-border);
+	border-bottom: 1px solid var(--peppermint-macos-border);
 	background: linear-gradient(180deg, light-dark(#f2f1f3, #3c383a) 0%, light-dark(#dbd9dc, #2e2a2c) 100%);
 	box-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.12));
-	color: var(--ntc-macos-title);
-	content: "NTC TILE" / "";
+	color: var(--peppermint-macos-title);
+	content: "" / "";
 	font-family: var(--wp--preset--font-family--manifold);
 	font-size: var(--wp--preset--font-size--x-small, 0.75rem);
 	font-weight: 700;
 	letter-spacing: 0.06em;
-	line-height: var(--ntc-macos-titlebar-height);
+	line-height: var(--peppermint-macos-titlebar-height);
 	pointer-events: none;
 	text-align: center;
 	text-overflow: ellipsis;
@@ -461,10 +461,10 @@
 	white-space: nowrap;
 }
 
-.wp-block-cover.is-style-ntc-macos::after {
+.wp-block-cover.is-style-peppermint-macos::after {
 	position: absolute;
 	z-index: 4;
-	top: calc((var(--ntc-macos-titlebar-height) - 10px) / 2);
+	top: calc((var(--peppermint-macos-titlebar-height) - 10px) / 2);
 	left: 0.75rem;
 	width: 40px;
 	height: 10px;
@@ -476,8 +476,8 @@
 	transition: background-image 140ms ease;
 }
 
-.wp-block-cover.is-style-ntc-macos:hover::after,
-.wp-block-cover.is-style-ntc-macos:focus-within::after {
+.wp-block-cover.is-style-peppermint-macos:hover::after,
+.wp-block-cover.is-style-peppermint-macos:focus-within::after {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10' viewBox='0 0 40 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='%23ff5f56'/%3E%3Cpath d='M3 3l4 4M7 3l-4 4' stroke='%234c0000' stroke-width='1.1' stroke-linecap='round'/%3E%3Ccircle cx='20' cy='5' r='5' fill='%23ffbd2e'/%3E%3Cpath d='M17.5 5h5' stroke='%23664500' stroke-width='1.1' stroke-linecap='round'/%3E%3Ccircle cx='35' cy='5' r='5' fill='%2327c93f'/%3E%3Cpath d='M35 2.5v5M32.5 5h5' stroke='%23004d10' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
@@ -488,43 +488,43 @@
  * unicode-bidi: plaintext takes the direction from the title's first letter,
  * so a long English title on a right-to-left site keeps its first words.
  */
-.wp-block-cover:is(.is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos)[data-ntc-window-title]::before {
-	content: attr(data-ntc-window-title) / "";
+.wp-block-cover:is(.is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos)[data-peppermint-window-title]::before {
+	content: attr(data-peppermint-window-title) / "";
 	unicode-bidi: plaintext;
 }
 
 /* Letter spacing breaks the joined letters of scripts such as Arabic. */
-[dir="rtl"] .wp-block-cover:is(.is-style-ntc-win95, .is-style-ntc-retro, .is-style-ntc-macos)::before {
+[dir="rtl"] .wp-block-cover:is(.is-style-peppermint-win95, .is-style-peppermint-retro, .is-style-peppermint-macos)::before {
 	letter-spacing: 0;
 }
 
-.wp-block-cover.is-style-ntc-macos .wp-block-cover__image-background {
-	top: calc(var(--ntc-macos-titlebar-height) + 0.45rem);
+.wp-block-cover.is-style-peppermint-macos .wp-block-cover__image-background {
+	top: calc(var(--peppermint-macos-titlebar-height) + 0.45rem);
 	right: auto;
 	bottom: auto;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-macos-titlebar-height) - 0.9rem);
+	height: calc(100% - var(--peppermint-macos-titlebar-height) - 0.9rem);
 	border: 1px solid light-dark(rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.08));
 	border-radius: 0 0 6px 6px;
 	box-sizing: border-box;
 	object-fit: cover;
 }
 
-.wp-block-cover.is-style-ntc-macos .wp-block-cover__background {
-	top: calc(var(--ntc-macos-titlebar-height) + 0.45rem);
+.wp-block-cover.is-style-peppermint-macos .wp-block-cover__background {
+	top: calc(var(--peppermint-macos-titlebar-height) + 0.45rem);
 	right: 0.45rem;
 	bottom: 0.45rem;
 	left: 0.45rem;
 	width: calc(100% - 0.9rem);
-	height: calc(100% - var(--ntc-macos-titlebar-height) - 0.9rem);
+	height: calc(100% - var(--peppermint-macos-titlebar-height) - 0.9rem);
 	border: 1px solid light-dark(rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.08));
 	border-radius: 0 0 6px 6px;
 	box-sizing: border-box;
 	opacity: 0.76;
 }
 
-.wp-block-cover.is-style-ntc-macos:not(.subcommittee-tile) .wp-block-cover__inner-container {
+.wp-block-cover.is-style-peppermint-macos:not(.subcommittee-tile) .wp-block-cover__inner-container {
 	z-index: 2;
 	width: 100%;
 	box-sizing: border-box;
@@ -538,7 +538,7 @@
  * Inline padding and minimum-height settings from the editor take priority.
  */
 .wp-block-cover.subcommittee-tile {
-	padding: calc(var(--ntc-tile-frame-top) + var(--ntc-tile-content-inset)) var(--ntc-tile-content-inset) var(--ntc-tile-content-inset);
+	padding: calc(var(--peppermint-tile-frame-top) + var(--peppermint-tile-content-inset)) var(--peppermint-tile-content-inset) var(--peppermint-tile-content-inset);
 }
 
 .subcommittee-tile__icon {
@@ -572,46 +572,46 @@
 /*
  * Hover and focus deepen the window shadows without moving the image.
  */
-.wp-block-cover.is-style-ntc-win95:hover,
-.wp-block-cover.is-style-ntc-win95:focus-within {
+.wp-block-cover.is-style-peppermint-win95:hover,
+.wp-block-cover.is-style-peppermint-win95:focus-within {
 	box-shadow:
 		inset 1px 1px #dfdfdf,
-		inset -1px -1px var(--ntc-win95-mid),
+		inset -1px -1px var(--peppermint-win95-mid),
 		6px 6px 0 light-dark(#231f20, #000000);
 }
 
-.wp-block-cover.is-style-ntc-win95:active {
-	border-color: var(--ntc-win95-edge-dark) var(--ntc-win95-light) var(--ntc-win95-light) var(--ntc-win95-edge-dark);
+.wp-block-cover.is-style-peppermint-win95:active {
+	border-color: var(--peppermint-win95-edge-dark) var(--peppermint-win95-light) var(--peppermint-win95-light) var(--peppermint-win95-edge-dark);
 	box-shadow:
-		inset 1px 1px var(--ntc-win95-mid),
+		inset 1px 1px var(--peppermint-win95-mid),
 		inset -1px -1px #dfdfdf,
 		2px 2px 0 light-dark(#231f20, #000000);
 }
 
-.wp-block-cover.is-style-ntc-retro:hover,
-.wp-block-cover.is-style-ntc-retro:focus-within {
+.wp-block-cover.is-style-peppermint-retro:hover,
+.wp-block-cover.is-style-peppermint-retro:focus-within {
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-light),
-		inset -1px -1px var(--ntc-retro-mid),
+		inset 1px 1px var(--peppermint-retro-light),
+		inset -1px -1px var(--peppermint-retro-mid),
 		6px 6px 0 light-dark(#762329, #000000);
 }
 
-.wp-block-cover.is-style-ntc-retro:active {
-	border-color: var(--ntc-retro-dark) var(--ntc-retro-light) var(--ntc-retro-light) var(--ntc-retro-dark);
+.wp-block-cover.is-style-peppermint-retro:active {
+	border-color: var(--peppermint-retro-dark) var(--peppermint-retro-light) var(--peppermint-retro-light) var(--peppermint-retro-dark);
 	box-shadow:
-		inset 1px 1px var(--ntc-retro-mid),
-		inset -1px -1px var(--ntc-retro-light),
+		inset 1px 1px var(--peppermint-retro-mid),
+		inset -1px -1px var(--peppermint-retro-light),
 		2px 2px 0 light-dark(#762329, #000000);
 }
 
-.wp-block-cover.is-style-ntc-macos:hover,
-.wp-block-cover.is-style-ntc-macos:focus-within {
+.wp-block-cover.is-style-peppermint-macos:hover,
+.wp-block-cover.is-style-peppermint-macos:focus-within {
 	box-shadow:
 		0 18px 36px light-dark(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.6)),
 		0 4px 12px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.3));
 }
 
-.wp-block-cover.is-style-ntc-macos:active {
+.wp-block-cover.is-style-peppermint-macos:active {
 	box-shadow:
 		0 8px 18px light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5)),
 		0 2px 6px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.25));
@@ -623,7 +623,7 @@
 }
 
 .subcommittee-tile:focus-within,
-.wp-block-cover.is-style-ntc-macos:focus-within {
+.wp-block-cover.is-style-peppermint-macos:focus-within {
 	outline: 3px solid var(--wp--preset--color--accent);
 	outline-offset: 4px;
 }
@@ -633,42 +633,42 @@
  * They drop the soft shadows, hairlines, and gradients that use it directly.
  */
 @supports not (color: light-dark(#fff, #000)) {
-	.wp-block-cover.is-style-ntc-win95 {
-		--ntc-win95-edge-dark: #000000;
-		--ntc-win95-title: #7a828e;
-		--ntc-win95-title-active: #000080;
-		--ntc-win95-title-text: #dcdcdc;
+	.wp-block-cover.is-style-peppermint-win95 {
+		--peppermint-win95-edge-dark: #000000;
+		--peppermint-win95-title: #7a828e;
+		--peppermint-win95-title-active: #000080;
+		--peppermint-win95-title-text: #dcdcdc;
 	}
 
-	.wp-block-cover.is-style-ntc-retro {
-		--ntc-retro-chrome: #f0d3d5;
-		--ntc-retro-dark: #762329;
-		--ntc-retro-mid: #c47e82;
-		--ntc-retro-light: #fff0f1;
-		--ntc-retro-title: #8d4c51;
-		--ntc-retro-title-text: #f7e8ea;
-		--ntc-retro-glyph: #762329;
+	.wp-block-cover.is-style-peppermint-retro {
+		--peppermint-retro-chrome: #f0d3d5;
+		--peppermint-retro-dark: #762329;
+		--peppermint-retro-mid: #c47e82;
+		--peppermint-retro-light: #fff0f1;
+		--peppermint-retro-title: #8d4c51;
+		--peppermint-retro-title-text: #f7e8ea;
+		--peppermint-retro-glyph: #762329;
 	}
 
-	.wp-block-cover.is-style-ntc-macos {
-		--ntc-macos-chrome: #e6e5e8;
-		--ntc-macos-border: #c7c5c8;
-		--ntc-macos-title: #514b4d;
+	.wp-block-cover.is-style-peppermint-macos {
+		--peppermint-macos-chrome: #e6e5e8;
+		--peppermint-macos-border: #c7c5c8;
+		--peppermint-macos-title: #514b4d;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.wp-block-cover.is-style-ntc-win95,
-	.wp-block-cover.is-style-ntc-retro,
-	.wp-block-cover.is-style-ntc-macos {
+	.wp-block-cover.is-style-peppermint-win95,
+	.wp-block-cover.is-style-peppermint-retro,
+	.wp-block-cover.is-style-peppermint-macos {
 		transition: none;
 		transform: none !important;
 	}
 
-	.wp-block-cover.is-style-ntc-red-tile .wp-block-cover__image-background,
-	.wp-block-cover.is-style-ntc-win95 .wp-block-cover__image-background,
-	.wp-block-cover.is-style-ntc-retro .wp-block-cover__image-background,
-	.wp-block-cover.is-style-ntc-macos .wp-block-cover__image-background,
+	.wp-block-cover.is-style-peppermint-red-tile .wp-block-cover__image-background,
+	.wp-block-cover.is-style-peppermint-win95 .wp-block-cover__image-background,
+	.wp-block-cover.is-style-peppermint-retro .wp-block-cover__image-background,
+	.wp-block-cover.is-style-peppermint-macos .wp-block-cover__image-background,
 	.subcommittee-tile .wp-block-cover__image-background {
 		transition: none;
 	}

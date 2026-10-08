@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const routes = ( process.env.NTC_RESPONSIVE_TEST_PATHS || [
+const routes = ( process.env.PEPPERMINT_RESPONSIVE_TEST_PATHS || [
 	'/',
 	'/theme-preview/',
 	'/theme-preview/cards-and-frames/',
@@ -38,17 +38,17 @@ const routes = ( process.env.NTC_RESPONSIVE_TEST_PATHS || [
 	'/engagement/',
 	'/member-services/',
 	'/?s=Theme%20Preview',
-	'/?s=ntc-preview-guaranteed-no-match&post_type=post',
+	'/?s=peppermint-preview-guaranteed-no-match&post_type=post',
 	'/theme-preview-guaranteed-missing-route/'
 ].join( ',' ) )
 	.split( ',' )
 	.map( ( route ) => route.trim() )
 	.filter( Boolean );
 
-const notFoundRoutes = ( process.env.NTC_EXPECTED_404_PATHS || '/theme-preview-guaranteed-missing-route/' )
+const notFoundRoutes = ( process.env.PEPPERMINT_EXPECTED_404_PATHS || '/theme-preview-guaranteed-missing-route/' )
 	.split( ',' ).map( ( route ) => route.trim() ).filter( Boolean );
 
-const schemes = ( process.env.NTC_RESPONSIVE_SCHEMES || 'light,dark' )
+const schemes = ( process.env.PEPPERMINT_RESPONSIVE_SCHEMES || 'light,dark' )
 	.split( ',' )
 	.map( ( scheme ) => scheme.trim() )
 	.filter( Boolean );
@@ -61,13 +61,13 @@ for ( const route of routes ) {
 	for ( const scheme of schemes ) {
 		test( `${ scheme } responsive geometry: ${ route }`, async ( { page } ) => {
 			await page.addInitScript( ( requestedScheme ) => {
-				window.localStorage.setItem( 'ntc-color-scheme', requestedScheme );
+				window.localStorage.setItem( 'peppermint-color-scheme', requestedScheme );
 			}, scheme );
 
 			const response = await page.goto( route, { waitUntil: 'domcontentloaded' } );
 			expect( response, `No document response for ${ route }` ).not.toBeNull();
 			expect( response.status(), `Missing or unexpected fixture at ${ route }` ).toBe( notFoundRoutes.includes( route ) ? 404 : 200 );
-			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-ntc-resolved-scheme', scheme );
+			await expect( page.locator( 'html' ) ).toHaveAttribute( 'data-peppermint-resolved-scheme', scheme );
 			await page.evaluate( () => document.fonts.ready );
 			await page.evaluate( () => new Promise( ( resolve ) => requestAnimationFrame( () => requestAnimationFrame( resolve ) ) ) );
 
@@ -153,7 +153,7 @@ for ( const route of routes ) {
 						}
 					} ) );
 
-				const invalidFrameGaps = [ ...document.querySelectorAll( '.subcommittee-tile.is-style-ntc-win95, .subcommittee-tile.is-style-ntc-retro, .subcommittee-tile.is-style-ntc-macos' ) ]
+				const invalidFrameGaps = [ ...document.querySelectorAll( '.subcommittee-tile.is-style-peppermint-win95, .subcommittee-tile.is-style-peppermint-retro, .subcommittee-tile.is-style-peppermint-macos' ) ]
 					.map( ( card ) => {
 						const media = card.querySelector( '.wp-block-cover__background' );
 						const cardRect = card.getBoundingClientRect();
@@ -176,7 +176,7 @@ for ( const route of routes ) {
 						|| gaps.right < 3
 						|| gaps.top < 3 );
 
-				const undersizedTargets = [ ...document.querySelectorAll( '.ntc-theme-switcher, .wp-block-query-pagination a, .wp-block-navigation__responsive-container-open, .wp-block-navigation__responsive-container-close' ) ]
+				const undersizedTargets = [ ...document.querySelectorAll( '.peppermint-theme-switcher, .wp-block-query-pagination a, .wp-block-navigation__responsive-container-open, .wp-block-navigation__responsive-container-close' ) ]
 					.filter( isVisible )
 					.map( ( element ) => ( {
 						rect: element.getBoundingClientRect(),
