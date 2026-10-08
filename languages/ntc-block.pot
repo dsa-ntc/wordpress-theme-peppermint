@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NTC Block 1.2.1\n"
+"Project-Id-Version: NTC Block 1.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/ntc-block\n"
 "POT-Creation-Date: 2026-08-27 18:00+0000\n"
 "MIME-Version: 1.0\n"
@@ -164,18 +164,13 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-#: patterns/project-grid.php:26
+#: patterns/project-grid.php:26 patterns/front-page-projects.php:30
 msgctxt "project excerpt link"
 msgid "Read more"
 msgstr ""
 
 #: patterns/front-page-projects.php:15
 msgid "Projects & field notes"
-msgstr ""
-
-#: patterns/front-page-projects.php:30
-msgctxt "project excerpt link"
-msgid "Read project note"
 msgstr ""
 
 #: patterns/footer.php:16

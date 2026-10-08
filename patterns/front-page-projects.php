@@ -30,7 +30,7 @@
 			<!-- /wp:group -->
 			<!-- wp:post-terms {"term":"category","className":"project-kicker"} /-->
 			<!-- wp:post-title {"isLink":true,"fontSize":"card-title"} /-->
-			<!-- wp:post-excerpt {"moreText":"<?php echo esc_attr_x( 'Read project note', 'project excerpt link', 'ntc-block' ); ?>","excerptLength":28} /-->
+			<!-- wp:post-excerpt {"moreText":"<?php echo esc_attr_x( 'Read more', 'project excerpt link', 'ntc-block' ); ?>","excerptLength":28} /-->
 			<!-- wp:post-date {"className":"post-meta"} /-->
 		<!-- /wp:post-template -->
 		<!-- wp:query-no-results -->
