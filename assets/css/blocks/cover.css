@@ -628,6 +628,35 @@
 	outline-offset: 4px;
 }
 
+/*
+ * Give browsers without light-dark() (Safari before 17.5) the light frames.
+ * They drop the soft shadows, hairlines, and gradients that use it directly.
+ */
+@supports not (color: light-dark(#fff, #000)) {
+	.wp-block-cover.is-style-ntc-win95 {
+		--ntc-win95-edge-dark: #000000;
+		--ntc-win95-title: #7a828e;
+		--ntc-win95-title-active: #000080;
+		--ntc-win95-title-text: #dcdcdc;
+	}
+
+	.wp-block-cover.is-style-ntc-retro {
+		--ntc-retro-chrome: #f0d3d5;
+		--ntc-retro-dark: #762329;
+		--ntc-retro-mid: #c47e82;
+		--ntc-retro-light: #fff0f1;
+		--ntc-retro-title: #8d4c51;
+		--ntc-retro-title-text: #f7e8ea;
+		--ntc-retro-glyph: #762329;
+	}
+
+	.wp-block-cover.is-style-ntc-macos {
+		--ntc-macos-chrome: #e6e5e8;
+		--ntc-macos-border: #c7c5c8;
+		--ntc-macos-title: #514b4d;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.wp-block-cover.is-style-ntc-win95,
 	.wp-block-cover.is-style-ntc-retro,
