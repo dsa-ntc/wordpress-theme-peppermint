@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Peppermint 2.0.0\n"
+"Project-Id-Version: Peppermint 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/peppermint\n"
 "POT-Creation-Date: 2026-08-27 18:00+0000\n"
 "MIME-Version: 1.0\n"
@@ -871,4 +871,124 @@ msgstr ""
 #: blocks/theme-switcher/render.php
 #: blocks/theme-switcher/index.js
 msgid "Dark mode"
+msgstr ""
+
+#: patterns/embed-form.php Description
+msgid "A framed section for an embedded signup form, petition, or donation form, such as Action Network."
+msgstr ""
+
+#: patterns/footer-columns.php Description
+msgid "A two-column footer with the site title and tagline, spots for contact details and social icons, and a full-width spot for a legal notice."
+msgstr ""
+
+#: patterns/join-steps.php:25
+msgid "Become a member"
+msgstr ""
+
+#: patterns/join-steps.php:75
+msgid "Browse groups"
+msgstr ""
+
+#: patterns/events-calendar.php:109
+msgid "Calendar"
+msgstr ""
+
+#: patterns/join-steps.php:69
+msgid "Choose a committee or working group that fits your interests and time."
+msgstr ""
+
+#: patterns/join-steps.php:45
+msgid "Come to a meeting"
+msgstr ""
+
+#: patterns/events-calendar.php:27 patterns/events-calendar.php:55 patterns/events-calendar.php:83
+msgid "Date and time"
+msgstr ""
+
+#: patterns/join-steps.php:93
+msgid "Donate"
+msgstr ""
+
+#: patterns/join-steps.php:87
+msgid "Donations fund local organizing."
+msgstr ""
+
+#: patterns/embed-form.php Title
+msgid "Embedded form"
+msgstr ""
+
+#: patterns/events-calendar.php Title
+msgid "Events and calendar"
+msgstr ""
+
+#: patterns/join-steps.php:65
+msgid "Find your group"
+msgstr ""
+
+#: patterns/footer-columns.php Title
+msgid "Footer with columns"
+msgstr ""
+
+#: patterns/header-with-button.php Title
+msgid "Header with button"
+msgstr ""
+
+#: patterns/join-steps.php Title
+msgid "Join steps"
+msgstr ""
+
+#: patterns/header-with-button.php:32 patterns/join-steps.php:35
+msgid "Join"
+msgstr ""
+
+#: patterns/events-calendar.php:35 patterns/events-calendar.php:63 patterns/events-calendar.php:91
+msgid "Location or video link, and who should come."
+msgstr ""
+
+#: patterns/join-steps.php:49
+msgid "Meet other members, hear what is happening, and ask questions."
+msgstr ""
+
+#: patterns/events-calendar.php:31 patterns/events-calendar.php:59 patterns/events-calendar.php:87
+msgid "Meeting name"
+msgstr ""
+
+#: patterns/join-steps.php:29
+msgid "Members vote, attend members-only meetings, and help set priorities."
+msgstr ""
+
+#: patterns/events-calendar.php:120
+msgid "Open the full calendar"
+msgstr ""
+
+#: patterns/events-calendar.php:41 patterns/events-calendar.php:69 patterns/events-calendar.php:97
+msgid "RSVP"
+msgstr ""
+
+#: patterns/join-steps.php:55
+msgid "See events"
+msgstr ""
+
+#: patterns/embed-form.php:21
+msgid "Sign up to hear about meetings, actions, and news."
+msgstr ""
+
+#: patterns/embed-form.php:17
+msgid "Stay in touch"
+msgstr ""
+
+#: patterns/header-with-button.php Description
+msgid "The site header with a button, such as Join or Donate, beside the navigation."
+msgstr ""
+
+#: patterns/join-steps.php Description
+msgid "Three numbered steps for getting involved, each with a button, followed by a donation band. Steps renumber when they are reordered."
+msgstr ""
+
+#: patterns/events-calendar.php Description
+msgid "Upcoming meeting cards with RSVP buttons, followed by an embedded calendar, such as Google Calendar or Action Network."
+msgstr ""
+
+#: patterns/events-calendar.php:17
+msgid "Upcoming meetings"
 msgstr ""

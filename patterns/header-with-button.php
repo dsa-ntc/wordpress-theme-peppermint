@@ -1,0 +1,42 @@
+<?php
+/**
+ * Title: Header with button
+ * Slug: peppermint/header-with-button
+ * Categories: header
+ * Block Types: core/template-part/header
+ * Description: The site header with a button, such as Join or Donate, beside the navigation.
+ * Keywords: header, navigation, button, join, donate, call to action
+ * Viewport Width: 1280
+ *
+ * @package Peppermint
+ */
+
+?>
+<!-- wp:group {"align":"full","className":"site-topbar","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|40","bottom":"var:preset|spacing|30","left":"var:preset|spacing|40"}},"@tablet":{"spacing":{"padding":{"right":"var:preset|spacing|30","left":"var:preset|spacing|30"}}}},"backgroundColor":"base","textColor":"contrast","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull site-topbar has-contrast-color has-base-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--40)">
+	<!-- wp:group {"align":"wide","className":"topbar-inner","style":{"dimensions":{"minHeight":"3.625rem"},"@tablet":{"dimensions":{"minHeight":"3.25rem"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+	<div class="wp-block-group alignwide topbar-inner" style="min-height:3.625rem">
+		<!-- wp:group {"className":"topbar-brand","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+		<div class="wp-block-group topbar-brand">
+			<!-- wp:site-logo {"width":58,"shouldSyncIcon":false,"className":"topbar-logo","style":{"@tablet":{"dimensions":{"width":"3rem"}}}} /-->
+			<!-- wp:site-title {"level":0,"className":"topbar-title","style":{"typography":{"fontSize":"var:preset|font-size|large","fontWeight":"700","lineHeight":"1.05"},"spacing":{"margin":{"top":"0","bottom":"0"}},"@tablet":{"typography":{"fontSize":"var:preset|font-size|medium"}}}} /-->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"className":"topbar-tools","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right","verticalAlignment":"center"}} -->
+		<div class="wp-block-group topbar-tools">
+			<!-- wp:navigation {"textColor":"contrast","overlayMenu":"mobile","overlayBackgroundColor":"contrast","overlayTextColor":"base","className":"topbar-navigation","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} /-->
+			<!-- wp:buttons {"className":"topbar-actions","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+			<div class="wp-block-buttons topbar-actions">
+				<!-- wp:button -->
+				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Join', 'peppermint' ); ?></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+			<!-- wp:peppermint/theme-switcher /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</div>
+<!-- /wp:group -->

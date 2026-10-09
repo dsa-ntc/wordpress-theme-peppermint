@@ -32,6 +32,10 @@ const components = {
 		files: [ 'signal-rail.spec.mjs' ],
 		routes: [ '/theme-preview/section-styles/' ]
 	},
+	chapters: {
+		files: [ 'chapter-patterns.spec.mjs' ],
+		routes: [ '/theme-preview/chapter-patterns/' ]
+	},
 	appearance: {
 		files: [ 'appearance-switcher.spec.mjs' ], projects: touchProjects,
 		routes: [ '/' ]

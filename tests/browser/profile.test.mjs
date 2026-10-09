@@ -33,6 +33,7 @@ const expectedComponents = {
 	quotes: { files: [ 'pullquote.spec.mjs' ], routes: 1 },
 	boards: { files: [ 'skills-board.spec.mjs' ], routes: 2 },
 	signal: { files: [ 'signal-rail.spec.mjs' ], routes: 1 },
+	chapters: { files: [ 'chapter-patterns.spec.mjs' ], routes: 1 },
 	appearance: { files: [ 'appearance-switcher.spec.mjs' ], routes: 1, extra: 'mobile-chromium' },
 	query: { files: [ 'content-resilience.spec.mjs', 'design-system.spec.mjs' ], routes: 7, extra: 'narrow-three-column-chromium' },
 	layout: { files: [ 'content-resilience.spec.mjs', 'design-system.spec.mjs' ], routes: 12 }
