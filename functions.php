@@ -43,6 +43,111 @@ function peppermint_enqueue_styles(): void {
 add_action( 'wp_enqueue_scripts', 'peppermint_enqueue_styles' );
 
 /**
+ * Style Action Network form embeds to match the site.
+ *
+ * Loads only on pages where a Custom HTML block holds an Action Network widget.
+ *
+ * @param string $block_content Rendered Custom HTML block.
+ * @return string Unchanged block content.
+ */
+function peppermint_enqueue_action_network_styles( string $block_content ): string {
+	if ( ! str_contains( $block_content, 'actionnetwork.org/widgets/' ) || wp_style_is( 'peppermint-action-network' ) ) {
+		return $block_content;
+	}
+
+	wp_enqueue_style(
+		'peppermint-action-network',
+		get_theme_file_uri( 'assets/css/action-network.css' ),
+		array( 'peppermint' ),
+		(string) filemtime( get_theme_file_path( 'assets/css/action-network.css' ) )
+	);
+	wp_add_inline_style( 'peppermint-action-network', wp_strip_all_tags( peppermint_action_network_global_styles() ) );
+
+	return $block_content;
+}
+add_filter( 'render_block_core/html', 'peppermint_enqueue_action_network_styles' );
+
+/**
+ * Apply the site's Global Styles for headings, links, and buttons to Action Network forms.
+ *
+ * @return string CSS rules.
+ */
+function peppermint_action_network_global_styles(): string {
+	$styles = peppermint_without_style_refs( wp_get_global_styles() );
+	$scope  = '.can_embed #can_embed_form';
+	$css    = '';
+
+	$heading = $styles['elements']['heading'] ?? array();
+	foreach ( array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) as $level ) {
+		$css .= peppermint_style_rules( "{$scope} {$level}", array_replace_recursive( $heading, $styles['elements'][ $level ] ?? array() ) );
+	}
+
+	$css .= peppermint_style_rules( "{$scope} a", $styles['elements']['link'] ?? array() );
+
+	// The Button block adds its own states on top of the button element styles.
+	$button = array_replace_recursive( $styles['elements']['button'] ?? array(), $styles['blocks']['core/button'] ?? array() );
+	$css   .= peppermint_style_rules( "{$scope} input[type=\"submit\"], {$scope} button[type=\"submit\"]", $button );
+
+	return $css;
+}
+
+/**
+ * Compile Global Styles and their interactive states into CSS for a selector list.
+ *
+ * @param string $selector Comma-separated selector list.
+ * @param array  $style    Global Styles for one element or block.
+ * @return string CSS rules.
+ */
+function peppermint_style_rules( string $selector, array $style ): string {
+	$css = '';
+
+	foreach ( array( '', ':hover', ':focus', ':focus-visible', ':active' ) as $state ) {
+		$rules = '' === $state ? $style : ( $style[ $state ] ?? array() );
+		if ( ! is_array( $rules ) ) {
+			continue;
+		}
+
+		$rules = array_filter(
+			$rules,
+			static fn( $key ): bool => ! str_starts_with( (string) $key, ':' ),
+			ARRAY_FILTER_USE_KEY
+		);
+		if ( ! $rules ) {
+			continue;
+		}
+
+		$selectors = implode( ', ', array_map( static fn( string $part ): string => trim( $part ) . $state, explode( ',', $selector ) ) );
+		$compiled  = wp_style_engine_get_styles( $rules, array( 'selector' => $selectors ) );
+		$css      .= $compiled['css'] ?? '';
+	}
+
+	return $css;
+}
+
+/**
+ * Remove Global Styles values that point at other values, which the style engine cannot compile.
+ *
+ * The Site Editor does not create these references; theme authors can.
+ *
+ * @param array $styles Global Styles.
+ * @return array Global Styles without references.
+ */
+function peppermint_without_style_refs( array $styles ): array {
+	foreach ( $styles as $key => $value ) {
+		if ( ! is_array( $value ) ) {
+			continue;
+		}
+		if ( isset( $value['ref'] ) ) {
+			unset( $styles[ $key ] );
+			continue;
+		}
+		$styles[ $key ] = peppermint_without_style_refs( $value );
+	}
+
+	return $styles;
+}
+
+/**
  * Apply the visitor's saved appearance before the browser paints the page.
  *
  * Load the script in the document head to avoid an appearance flash.
