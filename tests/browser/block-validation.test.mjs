@@ -443,7 +443,8 @@ echo json_encode( $registrations, JSON_THROW_ON_ERROR );
 		}
 		const taskLabel = board.locator( '.peppermint-skills-board__start[contenteditable="true"]' );
 		await taskLabel.focus();
-		await taskLabel.press( 'Control+End' );
+		// macOS has no Control+End document shortcut.
+		await taskLabel.press( process.platform === 'darwin' ? 'Meta+ArrowDown' : 'Control+End' );
 		await taskLabel.pressSequentially( ' together' );
 		await expect( taskLabel ).toHaveText( '🌹 Organize together' );
 		await expect( taskLabel.locator( 'span[aria-hidden="true"]' ) ).toHaveText( '🌹' );

@@ -1,7 +1,7 @@
 /vendor/
 /node_modules/
 /artifacts/
-/tests/browser/node_modules/
+/tests/browser/node_modules
 /tests/browser/playwright-report/
 /tests/browser/test-results/
 /tests/browser/debug.log
