@@ -31,7 +31,8 @@ translation and block namespaces. Requirements and installation steps are in `re
   The site must serve its own URLs on that host. Configure that alias in the site, not in this theme.
 - For visual changes, check the live Site Editor and frontend at phone, tablet, and desktop sizes.
   Check keyboard use, light/dark appearance, RTL, text expansion, and affected accessibility behavior.
-- The local preview site loads this checkout through a directory junction, so edit here only.
+- The local preview site loads this checkout through a link in its themes directory
+  (a directory junction on Windows, a symlink on macOS), so edit here only.
   If a separate copy is ever used, compare it with `php tests/compare-theme-trees.php <active> <mirror>`.
   Record unavailable checks as not run.
 - CI runs source checks and isolated block validation on Linux; it has no site database.
