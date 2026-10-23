@@ -21,7 +21,10 @@ translation and block namespaces. Requirements and installation steps are in `re
   Run `npm --prefix tests/browser run test:profiles`. From `tests/browser`, run
   `npx playwright test --config=block-validation.config.mjs`.
   Set `PEPPERMINT_PHP_BINARY` if PHP is not on PATH.
-- Browser profiles require a running preview site. Set `PEPPERMINT_TEST_BASE_URL`, inspect
+- Browser profiles require a running preview site with the test fixtures. On a disposable WordPress site
+  with this theme active, run `npm --prefix tests/browser run seed` (WP-CLI `wp` on PATH; add `-- --path=<site root>`
+  if needed). It creates or updates the pages, posts, images, and menu in `tests/fixtures/`, and sets pretty
+  permalinks and the front page. Re-run it after changing fixtures. Set `PEPPERMINT_TEST_BASE_URL`, inspect
   `npm --prefix tests/browser run test:full -- --list`, then run `test:full` before pushing.
   Use `test:component -- <name>` for scoped development. Do not accept new screenshot baselines automatically.
   Set `PEPPERMINT_TEST_CHANNEL=chrome` to test installed Google Chrome. CI uses bundled Chromium.
@@ -36,7 +39,7 @@ translation and block namespaces. Requirements and installation steps are in `re
   If a separate copy is ever used, compare it with `php tests/compare-theme-trees.php <active> <mirror>`.
   Record unavailable checks as not run.
 - CI runs source checks and isolated block validation on Linux; it has no site database.
-  Full frontend tests need preview fixtures. After the checks pass, CI publishes each pull request
+  Full frontend tests need the seeded fixtures. After the checks pass, CI publishes each pull request
   from this repository as a prerelease zip tagged `pr-<number>`. When `main` gets a new `Version`
   in `style.css`, CI publishes it as the latest release, tagged `v<version>`. Deployment is a separate operation.
 - The compatibility tools are pinned prereleases because the older stable scanner crashes on PHP 8.5.

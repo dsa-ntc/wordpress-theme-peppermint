@@ -4,6 +4,7 @@
 	"description": "Optional Playwright and axe checks for a running Peppermint site.",
 	"scripts": {
 		"setup": "node setup.mjs",
+		"seed": "wp eval-file ../fixtures/seed.php",
 		"screenshot": "node capture-theme-screenshot.mjs",
 		"test": "node run-profile.mjs smoke",
 		"test:smoke": "node run-profile.mjs smoke",

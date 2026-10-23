@@ -26,4 +26,4 @@ as the homepage requires changing that template.
 
 ## Development
 
-This theme is primarily made with AI code generation and tested locally with LocalWP. Pull requests are welcome. See AGENTS.md for the checks to run before opening a pull request.
+This theme is primarily made with AI code generation and tested locally with LocalWP. Pull requests are welcome. See AGENTS.md for the checks to run before opening a pull request. To set up a test site, activate the theme on a disposable WordPress install and run `npm --prefix tests/browser run seed`, which loads the test pages from `tests/fixtures/` with WP-CLI.

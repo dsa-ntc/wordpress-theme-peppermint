@@ -1,0 +1,57 @@
+{
+	"categories": {
+		"theme-preview": "Theme Preview",
+		"blog": "Blog"
+	},
+	"navigation": {
+		"title": "Fixture navigation",
+		"links": [ "/about/", "/our-work/", "/theme-preview/", "/join-us/" ]
+	},
+	"images": {
+		"photo-red.png": { "width": 1200, "height": 675, "from": [ 236, 31, 39 ], "to": [ 40, 20, 60 ] },
+		"photo-blue.png": { "width": 1200, "height": 675, "from": [ 30, 70, 160 ], "to": [ 230, 230, 240 ] },
+		"photo-green.png": { "width": 1200, "height": 675, "from": [ 20, 110, 80 ], "to": [ 250, 220, 120 ] },
+		"icon-square.png": { "width": 48, "height": 48, "from": [ 236, 31, 39 ], "to": [ 236, 31, 39 ] },
+		"icon-circle.png": { "width": 48, "height": 48, "from": [ 30, 70, 160 ], "to": [ 30, 70, 160 ] }
+	},
+	"frontPage": "home",
+	"posts": [
+		{ "key": "home", "type": "page", "slug": "home", "title": "Home" },
+		{ "key": "about", "type": "page", "slug": "about", "title": "About" },
+		{ "key": "our-work", "type": "page", "slug": "our-work", "title": "Our work" },
+		{ "key": "join-us", "type": "page", "slug": "join-us", "title": "Join us" },
+		{ "key": "formations", "type": "page", "slug": "formations", "title": "Formations" },
+		{ "key": "engagement", "type": "page", "slug": "engagement", "title": "Engagement" },
+		{ "key": "member-services", "type": "page", "slug": "member-services", "title": "Member Services" },
+		{ "key": "wordpress", "type": "page", "slug": "wordpress", "title": "WordPress" },
+		{ "key": "openslides", "type": "page", "slug": "openslides", "title": "OpenSlides" },
+		{ "key": "con-dashboard", "type": "page", "slug": "con-dashboard", "title": "Convention dashboard" },
+		{ "key": "theme-preview-posts", "type": "page", "slug": "theme-preview-posts", "title": "Theme preview posts" },
+
+		{ "key": "theme-preview", "type": "page", "slug": "theme-preview", "title": "Theme preview" },
+		{ "key": "landing-hero", "type": "page", "slug": "landing-hero", "parent": "theme-preview", "title": "Landing hero", "template": "landing-page" },
+		{ "key": "cards-and-frames", "type": "page", "slug": "cards-and-frames", "parent": "theme-preview", "title": "Cards and frames" },
+		{ "key": "text-intro", "type": "page", "slug": "text-intro", "parent": "theme-preview", "title": "Text intro" },
+		{ "key": "media-left", "type": "page", "slug": "media-left", "parent": "theme-preview", "title": "Media left" },
+		{ "key": "media-right", "type": "page", "slug": "media-right", "parent": "theme-preview", "title": "Media right" },
+		{ "key": "project-starter", "type": "page", "slug": "project-starter", "parent": "theme-preview", "title": "Project starter" },
+		{ "key": "section-styles", "type": "page", "slug": "section-styles", "parent": "theme-preview", "title": "Section styles" },
+		{ "key": "query-components", "type": "page", "slug": "query-components", "parent": "theme-preview", "title": "Query components" },
+		{ "key": "project-skills-boards", "type": "page", "slug": "project-skills-boards", "parent": "theme-preview", "title": "Project skills boards" },
+		{ "key": "project-skills-interest", "type": "page", "slug": "project-skills-interest", "parent": "theme-preview", "title": "Project skills interest" },
+		{ "key": "chapter-patterns", "type": "page", "slug": "chapter-patterns", "parent": "theme-preview", "title": "Chapter patterns" },
+
+		{ "key": "post-internationalization", "type": "post", "slug": "theme-preview-internationalization", "title": "Internationalization", "categories": [ "theme-preview", "blog" ], "image": "photo-blue.png", "age": 1 },
+		{ "key": "post-interoperability", "type": "post", "slug": "theme-preview-interoperability", "title": "Inter<wbr>oper<wbr>ability", "categories": [ "theme-preview", "blog" ], "image": "photo-green.png", "age": 2 },
+		{ "key": "post-accessibility", "type": "post", "slug": "theme-preview-accessibility", "title": "Accessibility", "categories": [ "theme-preview", "blog" ], "age": 3 },
+		{ "key": "post-federation-tools", "type": "post", "slug": "theme-preview-federation-tools", "title": "Federation tools", "categories": [ "theme-preview" ], "image": "photo-red.png", "age": 4 },
+		{ "key": "post-long-project-title", "type": "post", "slug": "theme-preview-long-project-title", "title": "A deliberately long project title that keeps wrapping across cards, headings, and narrow phone layouts", "categories": [ "theme-preview" ], "age": 5 },
+		{ "key": "post-member-services-infrastructure", "type": "post", "slug": "theme-preview-member-services-infrastructure", "title": "Member services infrastructure", "categories": [ "theme-preview" ], "image": "photo-blue.png", "age": 6 },
+		{ "key": "post-missing-image-state", "type": "post", "slug": "theme-preview-missing-image-state", "title": "Missing image state", "categories": [ "theme-preview" ], "age": 7 },
+		{ "key": "post-grid-alignment", "type": "post", "slug": "theme-preview-grid-alignment", "title": "Grid alignment", "categories": [ "theme-preview" ], "image": "photo-green.png", "age": 8 },
+		{ "key": "post-dark-mode", "type": "post", "slug": "theme-preview-dark-mode", "title": "Dark mode", "categories": [ "theme-preview" ], "image": "photo-red.png", "age": 9 },
+		{ "key": "post-editorial-block-sampler", "type": "post", "slug": "theme-preview-editorial-block-sampler", "title": "Editorial block sampler", "categories": [ "theme-preview" ], "age": 10 },
+		{ "key": "post-deployment-pipeline", "type": "post", "slug": "theme-preview-deployment-pipeline", "title": "Deployment pipeline", "categories": [ "theme-preview" ], "image": "photo-blue.png", "age": 11 },
+		{ "key": "post-long-token", "type": "post", "slug": "theme-preview-long-token", "title": "Long token", "categories": [ "theme-preview" ], "age": 12 }
+	]
+}
