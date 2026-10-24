@@ -24,6 +24,13 @@ Empty media patterns remain editable. The default font stack is Arial, Helvetica
 The Front Page template displays the assigned page content. Using latest posts
 as the homepage requires changing that template.
 
+## Action Network forms
+
+1. In Action Network's embed options, choose the layout-only styles. The embed code then loads `style-embed-whitelabel-v3.css`.
+1. Paste the embed code into a Custom HTML block. The Embedded form pattern has one.
+
+Peppermint styles the form with the site's fonts, colors, and heading, link, and button styles from Global Styles, and restores visible keyboard focus. Action Network keeps the field layout and stacks the fields on narrow screens. With Action Network's full stylesheet, its own fonts and colors take precedence.
+
 ## Development
 
 This theme is primarily made with AI code generation and tested locally with LocalWP. Pull requests are welcome. See AGENTS.md for the checks to run before opening a pull request.

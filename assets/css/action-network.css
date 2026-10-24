@@ -1,0 +1,88 @@
+/*
+ * Action Network form embeds.
+ *
+ * Made for Action Network's layout-only embed stylesheet (style-embed-whitelabel-v3.css):
+ * Action Network keeps the field layout and stacks it in narrow containers, and the site
+ * supplies type, color, and focus states. The site's heading, link, and button styles are
+ * added after this file from Global Styles. The .can_embed class outranks Action Network's
+ * #can_embed_form rules, which load later in the page.
+ */
+
+.can_embed #can_embed_form {
+	max-inline-size: 100%;
+	color: inherit;
+	font-family: inherit;
+	letter-spacing: inherit;
+	accent-color: var(--wp--preset--color--accent, currentColor);
+}
+
+/* Remove Action Network's own type treatment so the site's styles apply. */
+.can_embed #can_embed_form :is(h1, h2, h3, h4, h5, h6) {
+	font-family: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
+	text-transform: none;
+}
+
+.can_embed #can_embed_form :is(label, li, p, small, span) {
+	font-family: inherit;
+	letter-spacing: inherit;
+	text-transform: none;
+}
+
+.can_embed #can_embed_form label {
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+}
+
+/* Fields use the site palette and stay at least 16px so phones do not zoom in. */
+.can_embed #can_embed_form :is(input:not([type="submit"], [type="checkbox"], [type="radio"], [type="hidden"]), select, textarea, .can_select, .select2-choice) {
+	border-color: var(--wp--preset--color--line, currentColor);
+	border-radius: 0;
+	background-color: var(--wp--preset--color--base, Canvas);
+	color: var(--wp--preset--color--contrast, CanvasText);
+	font-family: inherit;
+	font-size: max(1rem, 16px);
+	letter-spacing: inherit;
+}
+
+.can_embed #can_embed_form :is(input, textarea)::placeholder {
+	color: var(--wp--preset--color--contrast-2, GrayText);
+	opacity: 1;
+}
+
+/* The submit button takes the site's button styles; this sets a full-width, touch-sized base. */
+.can_embed #can_embed_form :is(input[type="submit"], button[type="submit"]) {
+	inline-size: 100%;
+	block-size: auto;
+	min-block-size: 2.75rem;
+	padding-block: 0.75em;
+	padding-inline: 1.25em;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: 1.2;
+	letter-spacing: inherit;
+	text-transform: none;
+	cursor: pointer;
+}
+
+/* Action Network removes focus outlines, so keyboard focus is restored here. */
+.can_embed #can_embed_form :is(input, select, textarea, button, a, .select2-choice):focus-visible,
+.can_embed #can_embed_form .select2-container-active .select2-choice {
+	outline: 2px solid var(--wp--preset--color--accent, currentColor);
+	outline-offset: 2px;
+}
+
+/* Divider lines follow the site's line color. */
+.can_embed #can_embed_form :is(h2.line, h3, .last_line) {
+	border-color: var(--wp--preset--color--line, currentColor);
+}
+
+.can_embed #can_embed_form #can_embed_form_inner > :is(h2, .last_line) + h4::after {
+	background-color: var(--wp--preset--color--line, currentColor);
+}
+
+@media (forced-colors: active) {
+	.can_embed #can_embed_form :is(input, select, textarea, button):focus-visible {
+		outline-color: Highlight;
+	}
+}
