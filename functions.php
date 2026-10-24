@@ -45,13 +45,14 @@ add_action( 'wp_enqueue_scripts', 'peppermint_enqueue_styles' );
 /**
  * Style Action Network form embeds to match the site.
  *
- * Loads only on pages where a Custom HTML block holds an Action Network widget.
+ * Loads only on pages that render an Action Network widget. Any block can hold one,
+ * including classic content, so every rendered block is checked until one is found.
  *
- * @param string $block_content Rendered Custom HTML block.
+ * @param string $block_content Rendered block.
  * @return string Unchanged block content.
  */
 function peppermint_enqueue_action_network_styles( string $block_content ): string {
-	if ( ! str_contains( $block_content, 'actionnetwork.org/widgets/' ) || wp_style_is( 'peppermint-action-network' ) ) {
+	if ( wp_style_is( 'peppermint-action-network' ) || ! str_contains( $block_content, 'actionnetwork.org/widgets/' ) ) {
 		return $block_content;
 	}
 
@@ -65,7 +66,7 @@ function peppermint_enqueue_action_network_styles( string $block_content ): stri
 
 	return $block_content;
 }
-add_filter( 'render_block_core/html', 'peppermint_enqueue_action_network_styles' );
+add_filter( 'render_block', 'peppermint_enqueue_action_network_styles' );
 
 /**
  * Apply the site's Global Styles for headings, links, and buttons to Action Network forms.
