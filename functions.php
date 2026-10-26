@@ -391,6 +391,40 @@ function peppermint_register_block_styles(): void {
 			)
 		);
 	}
+
+	// Printed-paper surfaces work over any background color a site picks.
+	$paper_styles = array(
+		'peppermint-paper'       => __( 'Paper', 'peppermint' ),
+		'peppermint-paper-heavy' => __( 'Crumpled paper', 'peppermint' ),
+		'peppermint-paper-torn'  => __( 'Paper, torn edge', 'peppermint' ),
+	);
+	foreach ( array( 'core/group', 'core/cover', 'core/columns' ) as $block_name ) {
+		foreach ( $paper_styles as $name => $label ) {
+			register_block_style(
+				$block_name,
+				array(
+					'name'  => $name,
+					'label' => $label,
+				)
+			);
+		}
+	}
+
+	register_block_style(
+		'core/heading',
+		array(
+			'name'  => 'peppermint-paper-strip',
+			'label' => __( 'Torn paper strip', 'peppermint' ),
+		)
+	);
+
+	register_block_style(
+		'core/button',
+		array(
+			'name'  => 'peppermint-paper-torn',
+			'label' => __( 'Torn paper', 'peppermint' ),
+		)
+	);
 }
 add_action( 'init', 'peppermint_register_block_styles' );
 

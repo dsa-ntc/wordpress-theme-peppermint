@@ -822,6 +822,26 @@ msgstr ""
 msgid "Windows 95 Desktop"
 msgstr ""
 
+#: functions.php
+msgid "Paper"
+msgstr ""
+
+#: functions.php
+msgid "Crumpled paper"
+msgstr ""
+
+#: functions.php
+msgid "Paper, torn edge"
+msgstr ""
+
+#: functions.php
+msgid "Torn paper strip"
+msgstr ""
+
+#: functions.php
+msgid "Torn paper"
+msgstr ""
+
 #: patterns/project-skills-board.php
 msgid "Organize"
 msgstr ""

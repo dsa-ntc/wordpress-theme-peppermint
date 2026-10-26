@@ -722,3 +722,104 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 		color: CanvasText;
 	}
 }
+
+/*
+ * Paper block styles. Real paper scans are multiplied over the block's own colors and content,
+ * like ink printed on paper, so they follow whatever palette a site picks.
+ */
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn) {
+	position: relative;
+	isolation: isolate;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn)::after {
+	content: "";
+	position: absolute;
+	z-index: 2;
+	inset: 0;
+	background: url("assets/textures/paper-crumple.jpg") 0 0 / 32rem;
+	mix-blend-mode: multiply;
+	opacity: 0.55;
+	pointer-events: none;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-heavy::after {
+	background:
+		url("assets/textures/paper-sheet.jpg") center / cover,
+		url("assets/textures/paper-crumple-heavy.jpg") 0 0 / 24rem;
+	background-blend-mode: multiply;
+	opacity: 0.35;
+}
+
+/* The torn edge reveals the paper's white core between the ink layer and the tear. */
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn {
+	-webkit-mask:
+		linear-gradient(#000 0 0) top / 100% calc(100% - 2.5rem) no-repeat,
+		url("assets/textures/edge-torn.png") left bottom / 100rem 2.5rem repeat-x;
+	mask:
+		linear-gradient(#000 0 0) top / 100% calc(100% - 2.5rem) no-repeat,
+		url("assets/textures/edge-torn.png") left bottom / 100rem 2.5rem repeat-x;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 3.25rem;
+	background:
+		linear-gradient(rgb(251 246 236 / 0.65), rgb(251 246 236 / 0.65)),
+		#fbf6ec url("assets/textures/paper-crumple.jpg") 0 0 / 32rem;
+	-webkit-mask:
+		url("assets/textures/edge-torn-under.png") 27rem 0 / 100rem 2.5rem repeat-x,
+		linear-gradient(#000 0 0) bottom / 100% 0.75rem no-repeat;
+	mask:
+		url("assets/textures/edge-torn-under.png") 27rem 0 / 100rem 2.5rem repeat-x,
+		linear-gradient(#000 0 0) bottom / 100% 0.75rem no-repeat;
+	pointer-events: none;
+}
+
+.wp-block-heading.is-style-peppermint-paper-strip {
+	width: fit-content;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 0.12em 0.7em;
+	-webkit-mask:
+		url("assets/textures/edge-torn-left.png") left top / 1rem 40rem repeat-y,
+		linear-gradient(#000 0 0) center / calc(100% - 2rem) 100% no-repeat,
+		url("assets/textures/edge-torn-right.png") right top / 1rem 40rem repeat-y;
+	mask:
+		url("assets/textures/edge-torn-left.png") left top / 1rem 40rem repeat-y,
+		linear-gradient(#000 0 0) center / calc(100% - 2rem) 100% no-repeat,
+		url("assets/textures/edge-torn-right.png") right top / 1rem 40rem repeat-y;
+}
+
+.wp-block-heading.is-style-peppermint-paper-strip:not(.has-background) {
+	background-color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-heading.is-style-peppermint-paper-strip:not(.has-text-color) {
+	color: var(--wp--preset--color--base);
+}
+
+.wp-block-button.is-style-peppermint-paper-torn .wp-block-button__link {
+	border-radius: 0;
+	padding-inline: 1.6em;
+	-webkit-mask:
+		url("assets/textures/edge-torn-left.png") left top / 0.6rem 24rem repeat-y,
+		linear-gradient(#000 0 0) center / calc(100% - 1.2rem) 100% no-repeat,
+		url("assets/textures/edge-torn-right.png") right top / 0.6rem 24rem repeat-y;
+	mask:
+		url("assets/textures/edge-torn-left.png") left top / 0.6rem 24rem repeat-y,
+		linear-gradient(#000 0 0) center / calc(100% - 1.2rem) 100% no-repeat,
+		url("assets/textures/edge-torn-right.png") right top / 0.6rem 24rem repeat-y;
+}
+
+@media (forced-colors: active) {
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn)::after,
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before {
+		display: none;
+	}
+}
