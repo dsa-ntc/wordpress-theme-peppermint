@@ -425,6 +425,14 @@ function peppermint_register_block_styles(): void {
 			'label' => __( 'Torn paper', 'peppermint' ),
 		)
 	);
+
+	register_block_style(
+		'core/button',
+		array(
+			'name'  => 'peppermint-paper-layered',
+			'label' => __( 'Torn paper, layered', 'peppermint' ),
+		)
+	);
 }
 add_action( 'init', 'peppermint_register_block_styles' );
 

@@ -842,6 +842,10 @@ msgstr ""
 msgid "Torn paper"
 msgstr ""
 
+#: functions.php
+msgid "Torn paper, layered"
+msgstr ""
+
 #: patterns/project-skills-board.php
 msgid "Organize"
 msgstr ""

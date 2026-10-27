@@ -804,22 +804,72 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 	color: var(--wp--preset--color--base);
 }
 
-.wp-block-button.is-style-peppermint-paper-torn .wp-block-button__link {
+.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link {
 	border-radius: 0;
 	padding-inline: 1.6em;
 	-webkit-mask:
 		url("assets/textures/edge-torn-left.png") left top / 0.6rem 24rem repeat-y,
-		linear-gradient(#000 0 0) center / calc(100% - 1.2rem) 100% no-repeat,
+		linear-gradient(#000 0 0) center / calc(100% - 1rem) 100% no-repeat,
 		url("assets/textures/edge-torn-right.png") right top / 0.6rem 24rem repeat-y;
 	mask:
 		url("assets/textures/edge-torn-left.png") left top / 0.6rem 24rem repeat-y,
-		linear-gradient(#000 0 0) center / calc(100% - 1.2rem) 100% no-repeat,
+		linear-gradient(#000 0 0) center / calc(100% - 1rem) 100% no-repeat,
 		url("assets/textures/edge-torn-right.png") right top / 0.6rem 24rem repeat-y;
+}
+
+/* The mask would clip the link's own focus ring, so the unmasked wrapper draws it. */
+.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link:focus-visible {
+	outline: none;
+}
+
+.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered):has(.wp-block-button__link:focus-visible) {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 4px;
+}
+
+/* A torn sheet of a second color peeks out below and to the right of the button. */
+.wp-block-button.is-style-peppermint-paper-layered {
+	position: relative;
+	isolation: isolate;
+}
+
+.wp-block-button.is-style-peppermint-paper-layered .wp-block-button__link {
+	border-width: 0;
+}
+
+.wp-block-button.is-style-peppermint-paper-layered::before {
+	content: "";
+	position: absolute;
+	inset: 0.35rem -0.35rem -0.4rem 0.35rem;
+	z-index: -1;
+	background-color: var(--peppermint-paper-layer-color, var(--wp--preset--color--dsa-red));
+	/* Only the right and bottom edges show, so only they are torn. */
+	-webkit-mask:
+		url("assets/textures/edge-torn-right.png") right 7rem / 0.6rem 24rem repeat-y,
+		url("assets/textures/edge-torn.png") 21rem bottom / 60rem 0.5rem repeat-x,
+		linear-gradient(#000 0 0) left top / calc(100% - 0.6rem) calc(100% - 0.5rem) no-repeat;
+	mask:
+		url("assets/textures/edge-torn-right.png") right 7rem / 0.6rem 24rem repeat-y,
+		url("assets/textures/edge-torn.png") 21rem bottom / 60rem 0.5rem repeat-x,
+		linear-gradient(#000 0 0) left top / calc(100% - 0.6rem) calc(100% - 0.5rem) no-repeat;
+	pointer-events: none;
+}
+
+/* A red sheet would vanish behind a red button. */
+.wp-block-button.is-style-peppermint-paper-layered:has(.has-dsa-red-background-color)::before {
+	background-color: var(--peppermint-paper-layer-color, var(--wp--preset--color--contrast));
 }
 
 @media (forced-colors: active) {
 	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn)::after,
-	:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before {
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before,
+	.wp-block-button.is-style-peppermint-paper-layered::before {
 		display: none;
+	}
+
+	.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link {
+		-webkit-mask: none;
+		mask: none;
+		border-width: 2px;
 	}
 }
