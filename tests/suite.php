@@ -333,7 +333,8 @@ final class Peppermint_Test_Suite {
 	 */
 	private function check_components(): string {
 		$issues        = array();
-		// Preview screenshots belong to documentation; site media and fonts do not ship.
+		// Preview screenshots belong to documentation and paper textures belong to block styles;
+		// other site media and fonts do not ship.
 		$readme_screenshots = array(
 			'docs/images/hero-and-stats.png',
 			'docs/images/cards-and-frames.png',
@@ -341,8 +342,9 @@ final class Peppermint_Test_Suite {
 		);
 		foreach ( $this->files_with_extensions( array( 'otf', 'ttf', 'woff', 'woff2', 'png', 'jpg', 'jpeg', 'webp', 'avif', 'gif', 'svg', 'ico' ) ) as $asset ) {
 			$relative = $this->relative_path( $asset );
-			if ( ! in_array( $relative, $readme_screenshots, true ) ) {
-				$issues[] = $relative . ': store site media/fonts outside the theme; only documentation screenshots are bundled';
+			$texture  = 1 === preg_match( '#^assets/textures/[a-z0-9-]+\.(?:jpg|png)$#', $relative ) && filesize( $asset ) <= 100 * 1024;
+			if ( ! $texture && ! in_array( $relative, $readme_screenshots, true ) ) {
+				$issues[] = $relative . ': store site media/fonts outside the theme; only documentation screenshots and small textures in assets/textures are bundled';
 			}
 		}
 		$headers       = $this->theme_headers();

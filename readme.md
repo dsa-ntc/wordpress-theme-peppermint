@@ -31,6 +31,15 @@ as the homepage requires changing that template.
 
 Peppermint styles the form with the site's fonts, colors, and heading, link, and button styles from Global Styles, and restores visible keyboard focus. Action Network keeps the field layout and stacks the fields on narrow screens. With Action Network's full stylesheet, its own fonts and colors take precedence.
 
+## Paper styles
+
+Group, Cover, and Columns blocks have Paper, Crumpled paper, and Paper, torn edge styles. Headings have a Torn paper strip style, and Buttons have Torn paper and Torn paper, layered styles. The layered style puts a torn sheet in the theme's red behind the button; set `--peppermint-paper-layer-color` on the button to change it. The textures are printed over the block's own colors, so they work with any palette. Keep at least 2.5rem of bottom padding on a block with a torn edge.
+
+### Texture credits
+
+- `assets/textures/paper-sheet.jpg` is cropped and converted to grayscale from "Torn Ripped Wrinkled Damaged Paper Free High Resolution Texture" by D Sharon Pruitt (Pink Sherbet Photography), [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Torn_Ripped_Wrinkled_Damaged_Paper_Free_High_Resolution_Texture_Creative_Commons_(8077074905).jpg).
+- `assets/textures/paper-crumple.jpg` and `paper-crumple-heavy.jpg` are made from TextureCan's Paper 0022 and Paper 0005 ([CC0](https://www.texturecan.com/terms/)).
+
 ## Development
 
 This theme is primarily made with AI code generation and tested locally with LocalWP. Pull requests are welcome. See AGENTS.md for the checks to run before opening a pull request. To set up a test site, activate the theme on a disposable WordPress install and run `npm --prefix tests/browser run seed`, which loads the test pages from `tests/fixtures/` with WP-CLI.
