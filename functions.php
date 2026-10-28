@@ -68,6 +68,7 @@ function peppermint_enqueue_action_network_styles( string $block_content ): stri
 }
 add_filter( 'render_block', 'peppermint_enqueue_action_network_styles' );
 
+
 /**
  * Apply the site's Global Styles for headings, links, and buttons to Action Network forms.
  *
@@ -394,9 +395,11 @@ function peppermint_register_block_styles(): void {
 
 	// Printed-paper surfaces work over any background color a site picks.
 	$paper_styles = array(
-		'peppermint-paper'       => __( 'Paper', 'peppermint' ),
-		'peppermint-paper-heavy' => __( 'Crumpled paper', 'peppermint' ),
-		'peppermint-paper-torn'  => __( 'Paper, torn edge', 'peppermint' ),
+		'peppermint-paper'           => __( 'Paper', 'peppermint' ),
+		'peppermint-paper-heavy'     => __( 'Crumpled paper', 'peppermint' ),
+		'peppermint-paper-torn'      => __( 'Paper, torn edge', 'peppermint' ),
+		'peppermint-paper-torn-all'  => __( 'Paper, torn all around', 'peppermint' ),
+		'peppermint-paper-torn-ends' => __( 'Paper, torn top and bottom', 'peppermint' ),
 	);
 	foreach ( array( 'core/group', 'core/cover', 'core/columns' ) as $block_name ) {
 		foreach ( $paper_styles as $name => $label ) {
@@ -410,13 +413,15 @@ function peppermint_register_block_styles(): void {
 		}
 	}
 
-	register_block_style(
-		'core/heading',
-		array(
-			'name'  => 'peppermint-paper-strip',
-			'label' => __( 'Torn paper strip', 'peppermint' ),
-		)
-	);
+	foreach ( array( 'core/heading', 'core/paragraph' ) as $block_name ) {
+		register_block_style(
+			$block_name,
+			array(
+				'name'  => 'peppermint-paper-strip',
+				'label' => __( 'Torn paper strip', 'peppermint' ),
+			)
+		);
+	}
 
 	register_block_style(
 		'core/button',

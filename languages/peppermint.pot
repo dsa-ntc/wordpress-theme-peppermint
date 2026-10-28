@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Peppermint 2.3.0\n"
+"Project-Id-Version: Peppermint 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/peppermint\n"
 "POT-Creation-Date: 2026-08-27 18:00+0000\n"
 "MIME-Version: 1.0\n"
@@ -832,6 +832,14 @@ msgstr ""
 
 #: functions.php
 msgid "Paper, torn edge"
+msgstr ""
+
+#: functions.php
+msgid "Paper, torn all around"
+msgstr ""
+
+#: functions.php
+msgid "Paper, torn top and bottom"
 msgstr ""
 
 #: functions.php
