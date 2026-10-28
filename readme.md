@@ -33,7 +33,7 @@ Peppermint styles the form with the site's fonts, colors, and heading, link, and
 
 ## Paper styles
 
-Group, Cover, and Columns blocks have Paper, Crumpled paper, and Paper, torn edge styles. Headings have a Torn paper strip style, and Buttons have Torn paper and Torn paper, layered styles. The layered style puts a torn sheet in the theme's red behind the button; set `--peppermint-paper-layer-color` on the button to change it. The textures are printed over the block's own colors, so they work with any palette. Keep at least 2.5rem of bottom padding on a block with a torn edge.
+Group, Cover, and Columns blocks have Paper, Crumpled paper, Paper, torn edge, Paper, torn top and bottom, and Paper, torn all around styles. Every paper sheet has a slightly rough cut; the torn styles rip the bottom, the top and bottom, or every edge. Headings and paragraphs have a Torn paper strip style, and Buttons have Torn paper and Torn paper, layered styles. Torn buttons use a smoother sheet texture and lift off the page on hover. The layered style puts a torn sheet in the theme's red behind the button; set `--peppermint-paper-layer-color` on the button to change it. The textures sit between the block's own colors and its content, so they work with any palette and keep text crisp. Keep at least 2.5rem of padding on each torn edge. Firefox doesn't support the edge masks yet, so it shows paper sheets with straight edges.
 
 ### Texture credits
 

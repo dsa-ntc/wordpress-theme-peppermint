@@ -835,6 +835,14 @@ msgid "Paper, torn edge"
 msgstr ""
 
 #: functions.php
+msgid "Paper, torn all around"
+msgstr ""
+
+#: functions.php
+msgid "Paper, torn top and bottom"
+msgstr ""
+
+#: functions.php
 msgid "Torn paper strip"
 msgstr ""
 

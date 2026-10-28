@@ -724,22 +724,41 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 }
 
 /*
- * Paper block styles. Real paper scans are multiplied over the block's own colors and content,
- * like ink printed on paper, so they follow whatever palette a site picks.
+ * Paper block styles. Real paper scans are multiplied over the block's own colors,
+ * so they follow whatever palette a site picks.
  */
-:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn) {
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends) {
 	position: relative;
 	isolation: isolate;
 }
 
-:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn)::after {
+/* Grain sits between the block's color and its content, so text and images stay crisp. */
+:is(.wp-block-group, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends) > *,
+.wp-block-cover:is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends) > .wp-block-cover__inner-container {
+	position: relative;
+	z-index: 2;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends)::after {
 	content: "";
 	position: absolute;
-	z-index: 2;
+	z-index: 1;
 	inset: 0;
 	background: url("assets/textures/paper-crumple.jpg") 0 0 / 32rem;
 	mix-blend-mode: multiply;
 	opacity: 0.55;
+	pointer-events: none;
+}
+
+/* Multiplied grain vanishes on dark colors, so a screened copy lightens the creases there. */
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends)::before {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	background: url("assets/textures/paper-crumple-heavy.jpg") 0 0 / 24rem;
+	mix-blend-mode: screen;
+	opacity: 0.12;
 	pointer-events: none;
 }
 
@@ -752,15 +771,6 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 }
 
 /* The torn edge reveals the paper's white core between the ink layer and the tear. */
-:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn {
-	-webkit-mask:
-		linear-gradient(#000 0 0) top / 100% calc(100% - 2.5rem) no-repeat,
-		url("assets/textures/edge-torn.png") left bottom / 100rem 2.5rem repeat-x;
-	mask:
-		linear-gradient(#000 0 0) top / 100% calc(100% - 2.5rem) no-repeat,
-		url("assets/textures/edge-torn.png") left bottom / 100rem 2.5rem repeat-x;
-}
-
 :is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before {
 	content: "";
 	position: absolute;
@@ -781,7 +791,31 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 	pointer-events: none;
 }
 
-.wp-block-heading.is-style-peppermint-paper-strip {
+/*
+ * Every paper sheet has a slightly rough cut from one nine-slice frame. The torn styles widen
+ * the frame on the edges they rip. Browsers without mask-border support show straight edges.
+ */
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends) {
+	-webkit-mask-box-image: url("assets/textures/edge-torn-frame.png") 40 / 0.3rem round;
+	mask-border: url("assets/textures/edge-torn-frame.png") 40 fill / 0.3rem round;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn {
+	-webkit-mask-box-image-width: 0.3rem 0.3rem 2.5rem;
+	mask-border-width: 0.3rem 0.3rem 2.5rem;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn-all {
+	-webkit-mask-box-image-width: 1.5rem;
+	mask-border-width: 1.5rem;
+}
+
+:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn-ends {
+	-webkit-mask-box-image-width: 2.5rem 0.3rem;
+	mask-border-width: 2.5rem 0.3rem;
+}
+
+.is-style-peppermint-paper-strip:is(.wp-block-heading, p) {
 	width: fit-content;
 	max-width: 100%;
 	box-sizing: border-box;
@@ -796,11 +830,11 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 		url("assets/textures/edge-torn-right.png") right top / 1rem 40rem repeat-y;
 }
 
-.wp-block-heading.is-style-peppermint-paper-strip:not(.has-background) {
+.is-style-peppermint-paper-strip:is(.wp-block-heading, p):not(.has-background) {
 	background-color: var(--wp--preset--color--contrast);
 }
 
-.wp-block-heading.is-style-peppermint-paper-strip:not(.has-text-color) {
+.is-style-peppermint-paper-strip:is(.wp-block-heading, p):not(.has-text-color) {
 	color: var(--wp--preset--color--base);
 }
 
@@ -815,6 +849,41 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 		url("assets/textures/edge-torn-left.png") left top / 0.6rem 24rem repeat-y,
 		linear-gradient(#000 0 0) center / calc(100% - 1rem) 100% no-repeat,
 		url("assets/textures/edge-torn-right.png") right top / 0.6rem 24rem repeat-y;
+	position: relative;
+	isolation: isolate;
+	transition: transform 0.15s ease-out;
+}
+
+/* Smooth sheet paper, finer than the crumpled panels, shades any button color under its label. */
+.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	inset: 0;
+	background: url("assets/textures/paper-sheet.jpg") center / 30rem auto;
+	mix-blend-mode: soft-light;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+/* On hover the sheet lifts off the page. */
+.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link:is(:hover, :focus-visible) {
+	transform: translate(-0.15rem, -0.2rem);
+}
+
+.wp-block-button.is-style-peppermint-paper-torn {
+	transition: filter 0.15s ease-out;
+}
+
+.wp-block-button.is-style-peppermint-paper-torn:has(.wp-block-button__link:is(:hover, :focus-visible)) {
+	filter: drop-shadow(0.2rem 0.3rem 0.15rem rgb(0 0 0 / 0.3));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link,
+	.wp-block-button.is-style-peppermint-paper-torn {
+		transition: none;
+	}
 }
 
 /* The mask would clip the link's own focus ring, so the unmasked wrapper draws it. */
@@ -861,8 +930,9 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 }
 
 @media (forced-colors: active) {
-	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn)::after,
-	:is(.wp-block-group, .wp-block-cover, .wp-block-columns).is-style-peppermint-paper-torn::before,
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends)::after,
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends)::before,
+	.wp-block-button:is(.is-style-peppermint-paper-torn, .is-style-peppermint-paper-layered) .wp-block-button__link::after,
 	.wp-block-button.is-style-peppermint-paper-layered::before {
 		display: none;
 	}
@@ -871,5 +941,10 @@ html[dir="rtl"] :where(.wp-block-group.peppermint-signal-hero, .wp-block-group.i
 		-webkit-mask: none;
 		mask: none;
 		border-width: 2px;
+	}
+
+	:is(.wp-block-group, .wp-block-cover, .wp-block-columns):is(.is-style-peppermint-paper, .is-style-peppermint-paper-heavy, .is-style-peppermint-paper-torn, .is-style-peppermint-paper-torn-all, .is-style-peppermint-paper-torn-ends) {
+		-webkit-mask-box-image: none;
+		mask-border: none;
 	}
 }
